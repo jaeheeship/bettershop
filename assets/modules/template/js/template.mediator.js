@@ -1,0 +1,3 @@
+TMPL.Mediator = function(oConfig){
+
+};

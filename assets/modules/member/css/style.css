@@ -1,0 +1,6 @@
+.right_box { margin-top:50px; margin-right:20px;}
+
+.right_box .inner_box {border-radius:10px; background:#000;padding:20px;opacity:0.8  } 
+.right_box .inner_box h6 {color:#fff;font-size:1.2em; } 
+
+.right_box .form-horizontal .control-group { margin-bottom:5px;}
