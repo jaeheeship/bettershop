@@ -1,0 +1,16 @@
+<!--%import("css/mboard.css")-->
+{@ Context::addJsFile("./common/js/jquery.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/js_app.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/common.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/xml_handler.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/xml_js_filter.js", true, '', -100000) }
+<div class="bd">
+    <div class="hx h3">
+        <h2>{$message}</h2>
+    </div>
+        <div class="bna">
+            <a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}" class="bn dark"><span>{$lang->cmd_login}</span></a>
+            <a href="#" onclick="history.back();return false;" class="bn dark"><span>{$lang->cmd_back}</span></a>
+        </div>
+    </form>
+</div>

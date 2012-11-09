@@ -1,0 +1,269 @@
+@charset "utf-8";
+
+input.exISt {background:url(../images/white/inputBg.gif) no-repeat right bottom}
+
+select.exISt,
+textarea.exISt,
+input.exISt {color:#111; border-color:#ccc #aaa #aaa #ccc}
+
+select.exISt:hover,
+textarea.exISt:hover,
+input.exISt:hover,
+select.exISt:focus,
+textarea.exISt:focus,
+input.exISt:focus {border-color:#444}
+
+/* bodex Title */
+.exHad {border-color:#ccc; background: url(../images/white/bgH3.png) repeat-x left bottom}
+.exHad h3{border-color:111;background:url(../images/white/line_H3_3x15.gif) no-repeat right bottom}
+.exHad h3 a{color:#111}
+.exHad h4{color:#999}
+
+/* bodex Description */
+.exDes {color:#777; border-color:#ccc}
+.exDPCfg li div {color:#555}
+
+/* account Navigation */
+.exANav a {color:#444}
+.exANav a:hover {color:#111}
+.exANav li.exLgin a {background:url(../images/white/line_1x10.gif) no-repeat left bottom}
+.exANav li.exTIco a{background-image:url(../images/white/listTypeIcon.gif)}
+.exANav li.exRss a{background-image:url(../images/common/iconRss.gif)}
+
+/* document count */
+.exANum {background:url(../images/white/iconArticle.gif) no-repeat left bottom}
+
+/* category Navigation */
+.exCatTab li a {color:#111; border-color:#ccc;background:url(../images/white/bgListTh.png) repeat}
+.exCatTab li a:hover {border-color:#444}
+.exCatMnu a {color:#333}
+.exCatMnu a:hover {color:#000}
+.exCatMnu td .exCatNav,
+.exCatMnu td .exCatNav div.total {border-color:#ccc}
+.exCatMnu td .exCatNav div.total {border-top-color:#eee}
+
+/* secret Content */
+.exAVCnt .title,
+.exSrCnt div.title,
+.exSrCnt {border-color:#ccc}
+
+/* search box */
+.exJsSchExBox {border-color:#888;background-color:#eee}
+
+/* message box */
+/* multimedia box */
+.exJsMidBox,
+.exJsMidBox h3,
+.exJsSMBox,
+.exJsSMBox h3 {border-color:#ccc}
+.exJsSMBox .exBoxHad {background:url(../images/white/bgH3.png) repeat-x left bottom}
+
+/* Page */
+.exPagNav a {color:#111}
+.exPagNav a:hover {color:#444}
+.exPagNav.a1 a,
+.exPagNav.a1 strong{border-left-color:#ccc; border-right-color:#555}
+
+.exDocNav a {color:#111}
+.exDocNav a:hover {color:#444}
+
+/* profile & signature */
+.exMbSign {border-color:#ddd}
+.exMbSign .signature p {color:#666}
+.exCPFImg span.adoptCmt {color:#666}
+.exMbSign .profile img,
+.exCPFImg .profile .pImg {border-color: #E0E1DB}
+
+/* popup menu */
+#popup_menu_area {}
+#popup_menu_area ul li a {color:#444}
+.comment_popup_menu,
+.document_popup_menu {background:url(../images/white/document_menu.gif) no-repeat right top !important}
+
+/* list */
+.exList ,
+.exList th,
+.exList td,
+.exList thead th,
+.exList tr.notice td {border-color:#ccc}
+.exList tr.docList td {border-color:#eee}
+.exList thead th {border-top-color:#eee}
+
+.exList th,
+.exList td {color:#111}
+.exList span.blind {color:#444}
+
+.exList th {background: url(../images/white/bgListTh.png) repeat}
+.exList th a {color:#111}
+.exList th a:hover {color:#444}
+
+.exList td a {color:#333}
+.exList td a:hover {color:#000}
+
+.exList td.title a:visited {color:#666}
+
+.exDocNav span.cat,
+.exList td span.category {color:#888; background:url(../images/white/line_1x10.gif) no-repeat right center}
+
+.exList td.user_name {color:#333}
+
+.exList td.no,
+.exList td.regdate,
+.exList td.ipaddress,
+.exList td.last_update,
+.exList td.last_updater,
+.exList td.readed_count,
+.exList td.voted_count,
+.exList td.doc_state,
+.exList td.blamed_count {color:#555}
+
+.exList td.extravalue {color:#333}
+
+.exList td span.rePoint {background-color:#555; border-color:#000; color:#fff}
+.exList td span.reAdopt {background-color:#aaa}
+
+/* bodexList webzine */
+.exList div.summary,
+.exList div.summary a {color:#666}
+.exList div.summary a:hover {color:#333}
+.exList .extTblBox th,
+.exList .extTblBox td {color:#888}
+.exList .extTblBox td a {color:#444}
+.exList .extTblBox td a:hover {color:#111}
+.exList td.thumb img {border-color:#E0E1DB}
+
+ /* bodexList gallery */
+.exList .exThumBox li .exJsThumb,
+.exList .exThumBox li .exJsThumb img{border-color: #ccc}
+.exList .exThumBox li .info{ background:#000; opacity:.6; filter:alpha(opacity=60); color:#ccc}
+.exList .exThumBox li .info p {color:#ddd}
+
+ /* bodexList download */
+.exList .downBox,
+.exList .downBox div.thumb,
+.exList .downBox div.info li.title {border-color: #ccc}
+.exList .downBox div.info li span.category {color:#888; background:url(../images/white/line_1x10.gif) no-repeat right center}
+.exList .downBox div.info li .star span.average {color:#aaa}
+.exList .downBox div.info li .star,
+.exList .downBox div.info li .star a,
+.exList .downBox div.info li .last_updater,
+.exList .downBox div.info li .extravalue {color:#888}
+.exList .downBox div.info li .summary {color:#444}
+
+.exList .downBox div.date,
+.exList .downBox div.date a {color:#999}
+.exList .downBox div.date a:hover {color:#777}
+
+/* Bodex Write */
+.exWrite,
+.exWriteHeader {border-color:#ccc}
+.exWriteHeader {background: url(../images/white/bgListTh.png) repeat}
+
+.exWrite .info {color:#707070}
+.exWrite .option label {color:#444}
+.exWrite .option label:hover {color:#000}
+
+.exWrite .extVLst {border-color:#ccc}
+.exWrite .extVLst th,
+.exWrite .extVLst td {color:#666; border-color:#ccc}
+
+.exWrite .extVLst select,
+.exWrite .extVLst textarea,
+.exWrite .extVLst input[type="password"],
+.exWrite .extVLst input[type="text"] {color:#111;border-color:#ccc #aaa #aaa #ccc}
+
+.exWrite .extVLst select:focus,
+.exWrite .extVLst textarea:focus,
+.exWrite .extVLst input[type="password"]:focus,
+.exWrite .extVLst input[type="text"]:focus,
+.exWrite .extVLst select:hover,
+.exWrite .extVLst textarea:hover,
+.exWrite .extVLst input[type="password"]:hover,
+.exWrite .extVLst input[type="text"]:hover {border-color:#444}
+
+.exWrite .extVLst input[type="password"],
+.exWrite .extVLst input[type="text"] {background:url(../images/white/inputBg.gif) no-repeat right bottom}
+
+.exCWrite {color:#444; border-color:#ccc}
+.exCWrite .exWtIfo .votePoint {border-bottom-color:#ccc}
+.exCWrite .exWtIfo .votePoint label {color:#444}
+.exCWrite .exWtIfo .votePoint label:hover {color:#000}
+
+/* Bodex Read */
+.exRead a {color:#333}
+.exRead a:hover {color:#000}
+
+.exRead .tleAusr {border-bottom-color:#ccc;background: url(../images/white/bgListTh.png) repeat}
+
+.exRead .dayACut div {color:#777}
+.exRead .dayACut .category a {color:#555}
+
+.exRead .extVLst {border-top-color:#ccc}
+.exRead .extVLst th,
+.exRead .extVLst td {color:#888; border-color:#ccc}
+.exRead .extVLst td a {color:#444}
+.exRead .extVLst td a:hover {color:#111}
+
+.exRead .tag,
+.exRead .readBody.review,
+.exRead div.thumb {border-color:#ccc}
+.exRead .staRat  {color:#888}
+
+.filelistFrame {color:#111;border-color: #ccc}
+.filelistFrame a {color:#555}
+
+.exRead .fileAtt {border-color:#ccc; background-color:#eee}
+.exRead .fileAtt li a:visited,
+.exRead .fileAtt span.fileDownloaded {color:#999}
+.exRead .fileAtt span.fileError {color:#ccc}
+
+.exRead .dRIpAUrl .dRIp,
+.exRead .dRIpAUrl .dRUrl a {color:#aaa}
+
+.exRead .cntBtn {border-top-color:#ccc}
+
+/* star */
+.exBg0,
+.exSPFrm span.exBg0 {background-color:#fff}
+.exBg1,
+.exSPFrm span.exBg1 {background-color:#fafafa}
+.exRepBox .repBg0,
+.exSPFrm span.repBg0 {background-color:#f5f5f5}
+.exRepBox .repBg1,
+.exSPFrm span.repBg1 {background-color:#fafafa}
+
+/* tag List */
+.exTagBox {border-color:#ccc}
+.tags div a {color:#444}
+.tags div a:hover {background-color:#888888; color:#fff}
+.tags .tagTypA a {color:#fe3614; background-color:#EFEFEF}
+.tags .tagTypB a {color:#fe3614}
+.tags .tagTypC a,
+.tags .tagTypD a {background-color:#EFEFEF}
+
+.exTagBox .images img {border-color:#ccc}
+
+/* replyBox */
+.exRepBox {border-color:#ccc}
+.exRepBox .repItm {border-color:#ccc}
+.exRepBox .voted {color:#888}
+.exRepBox .voted a {color:#555}
+.exRepBox .date {color:#777}
+.exRepBox .repCnt .xe_content {color:#555}
+.exRepBox .bestRep {background-color:#eee}
+
+/* trackbackBox */
+.exTbcBox {color:#555; border-color:#ccc}
+.exTbcBox .tbcItm {background-color:#eee; border-top-color:#ccc}
+.exTbcBox address a {color:#444}
+.exTbcBox address a:hover {color:#000}
+.exTbcBox address .date {color:#707070}
+.exTbcBox hr {color:#ccc; border-color:#ccc}
+
+/* etc */
+.blogView {border-color:#aaa}
+.nick_name span,
+.nick_name div {color:#333}
+.nick_name .anonym {color:#666}
+.exRepBox .nick_name span {color:#333}
+.exRepBox .nick_name .anonym {color:#666}

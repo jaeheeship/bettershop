@@ -1,0 +1,159 @@
+<?PHP
+	header("Content-Type: text/xml; charset=utf-8");
+
+	define('__ZBXE__', true);
+	require('../config/config.inc.php');
+	$oContext = &Context::getInstance();
+	$oContext->init();
+
+	$oDocumentModel = &getModel('document');
+	$oModuleModel = &getModel('module');
+	$oAroundmapControl = &getController('aroundmap');
+	$logged_info = Context::get('logged_info');
+
+	$is_xml = true;
+	$get_mid = '';
+	$thumbnail_width = '160';
+	$thumbnail_height = '120';
+	$thumbnail_type = 'crop';
+	$title_cut_size = '';
+
+	if($_GET['document_srl'] && ctype_digit($_GET['document_srl']))
+	{
+		$args->document_srl = $_GET['document_srl'];
+	}
+
+	$args->member_srl = $logged_info->member_srl;
+
+	$oDocument = $oDocumentModel->getDocument($args->document_srl, false, true);
+
+	$document = $oDocument->variables;
+
+	$xml_item = '';
+
+
+		include "opage_xml_model.php";
+
+
+		$result['result'] = 'success';
+		$result['message'] = 'ok';
+
+		$result['login_member_srl'] = $logged_info->member_srl;
+		$result['login_user_id'] = $logged_info->user_id;
+		$result['login_nick_name'] = $logged_info->nick_name;
+
+		$result['document_srl'] = $args->document_srl;
+		$result['document_url'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.'mid='.$document_mid.'&'.'document_srl='.$args->document_srl;
+
+		$result['document_module_srl'] = $oDocument->get('module_srl');
+		$result['document_mid'] = $document_mid;
+
+		$result['document_member_srl'] = $oDocument->getMemberSrl();
+		$result['document_nick_name'] = $oDocument->getNickName();
+
+	
+		
+		
+
+
+		foreach($result as $key => $val)
+		{
+			if(!$val)
+			{
+				$val = '';
+			}
+
+//print $key." : ".$val."<br>";
+
+			$xml_data = $xml_data.'<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+		}
+
+		// 파일 목록
+		$xml_files = '';
+		foreach($files as $idx)
+		{
+			$xml_files = $xml_files.'<file>';
+
+			foreach($idx as $key => $val)
+			{
+				if(!$val)
+				{
+					$val = '';
+				}
+
+//print $key." : ".$val."<br>";
+
+				$xml_files = $xml_files.'<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+			}
+
+			$xml_files = $xml_files.'</file>';
+		}
+
+		$xml_files = '
+		<files>
+			'.$xml_files.'
+		</files>';
+
+		// 댓글 목록
+		$xml_comments = '';
+		foreach($comments as $idx)
+		{
+			$xml_comments = $xml_comments.'<comment>';
+
+			foreach($idx as $key => $val)
+			{
+				if(!$val)
+				{
+					$val = '';
+				}
+
+//print $key." : ".$val."<br>";
+
+				$xml_comments = $xml_comments.'<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+			}
+
+			$xml_comments = $xml_comments.'</comment>';
+		}
+
+		$xml_comments = '
+		<comments>
+			'.$xml_comments.'
+		</comments>';
+
+
+
+		$xml_item = $xml_item.'
+	<item>
+		'.$xml_data.$xml_files.$xml_comments.'
+		<document_end><![CDATA[]]></document_end>
+	</item>';
+
+
+
+	$xml_items = '';
+
+	foreach($items as $key => $val)
+	{
+		if(!$val)
+		{
+			$val = '';
+		}
+
+		$xml_items = $xml_items.'		<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+	}
+
+	$xml_items = $xml_items.$xml_item;
+
+	$xmls = '
+	<items>
+'.$xml_items.'
+	</items>';
+
+
+
+	echo '<?xml version="1.0" encoding="utf-8"?>';
+
+	echo $xmls;
+
+	$oContext->close();
+?>

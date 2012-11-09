@@ -1,0 +1,69 @@
+<filter name="insert_bodex" module="bodex" act="procBodexAdminInsertBoard" confirm_msg_code="confirm_submit">
+    <form>
+        <node target="mid" required="true" maxlength="40" filter="alpha_number" />
+        <node target="browser_title" required="true" maxlength="250" />
+        <node target="list_count" required="true" filter="number" />
+        <node target="search_list_count" required="true" filter="number" />
+        <node target="page_count" required="true" filter="number" />
+    </form>
+    <parameter>
+        <param name="bodex_name" target="mid" />
+        <param name="module_srl" target="module_srl" />
+        <param name="module_category_srl" target="module_category_srl" />
+        <param name="layout_srl" target="layout_srl" />
+        <param name="use_load_extra_vars" target="use_load_extra_vars" />
+        <param name="skin" target="skin" />
+        <param name="browser_title" target="browser_title" />
+        <param name="order_target" target="order_target" />
+        <param name="order_type" target="order_type" />
+        <param name="except_notice" target="except_notice" />
+        <param name="consultation" target="consultation" />
+        <param name="display_extra_images" target="display_extra_images" />
+        <param name="display_best_document" target="display_best_document" />
+        <param name="display_best_comment" target="display_best_comment" />
+        <param name="best_sort_index" target="best_sort_index" />
+        <param name="best_date_range" target="best_date_range" />
+        <param name="best_list_count" target="best_list_count" />
+        <param name="list_count" target="list_count" />
+        <param name="page_count" target="page_count" />
+        <param name="search_list_count" target="search_list_count" />
+        <param name="declare_blind_document" target="declare_blind_document" />
+        <param name="declare_blind_comment" target="declare_blind_comment" />
+        <param name="use_category" target="use_category" />
+        <param name="use_vote" target="use_vote" />
+        <param name="use_vote_bonus" target="use_vote_bonus" />
+        <param name="use_vote_empty" target="use_vote_empty" />
+        <param name="use_vote_not_checkip" target="use_vote_not_checkip" />
+        <param name="use_reward" target="use_reward" />
+        <param name="use_reward_value" target="use_reward_value" />
+        <param name="use_down_point_images" target="use_down_point_images" />
+        <param name="use_down_point_medias" target="use_down_point_medias" />
+        <param name="use_down_point_always" target="use_down_point_always" />
+        <param name="use_doc_state" target="use_doc_state" />
+        <param name="use_doc_state_value" target="use_doc_state_value" />
+        <param name="use_anonymous" target="use_anonymous" />
+        <param name="use_anonymous_comment" target="use_anonymous_comment" />
+        <param name="use_anonymous_phase" target="use_anonymous_phase" />
+        <param name="use_secret" target="use_secret" />
+        <param name="use_secret_comment" target="use_secret_comment" />
+        <param name="use_ex_search" target="use_ex_search" />
+        <param name="use_allow_down" target="use_allow_down" />
+        <param name="use_allow_view" target="use_allow_view" />
+        <param name="allow_view_cut_size" target="allow_view_cut_size" />
+        <param name="auto_reply_text" target="auto_reply_text" />
+        <param name="notify_message_type" target="notify_message_type" />
+        <param name="admin_mail" target="admin_mail" />
+        <param name="admin_mail_reply" target="admin_mail_reply" />
+        <param name="description" target="description" />
+        <param name="header_text" target="header_text" />
+        <param name="footer_text" target="footer_text" />
+    </parameter>
+    <response callback_func="completeInsertBodex">
+        <tag name="error" />
+        <tag name="message" />
+        <tag name="module" />
+        <tag name="act" />
+        <tag name="page" />
+        <tag name="module_srl" />
+    </response>
+</filter>

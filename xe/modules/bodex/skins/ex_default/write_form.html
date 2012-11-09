@@ -1,0 +1,224 @@
+<include target="__header.html" />
+
+{@
+    $not_adopted_post_count=$oBodex->getNotAdoptedPostCount();
+    $my_member_point=$oBodex->getMemberPoint();
+
+    $oDocument = $oBodex->getWith($oDocument, array('category_srl','email_address','homepage','title_color','title_bold','reward_point','module_srl','member_srl','nick_name'));
+}
+
+<!--// 게시물 작성 폼 -->
+<form action="./" method="post" onsubmit="return procFilter(this, insert)" id="fo_write">
+<input type="hidden" name="mid" value="{$mid}" />
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+
+    <div name="_col_sc_1" class="exWriteHeader">
+        <!--@if($module_info->use_category!= 'N')-->
+            <select name="category_srl" class="category exISt">
+                <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                <option loop="$category_list=>$val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="($val->grant&&$val->selected)||($oDocument->category_srl && $val->category_srl==$oDocument->category_srl)">
+                    {str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+                </option>
+            </select>
+        <!--@else-->
+            <label class="title">{$lang->title}</label>
+        <!--@endif-->
+        <block cond="$module_info->document_default_title">
+            {@ $module_info->document_default_title = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_title)}
+        </block>
+        <!--@if($module_info->display_title_writer!='N')-->
+        <input type="text" name="title" maxlength="250" class="title exISt" value="{($document_srl)?htmlspecialchars($oDocument->getTitleText()):htmlspecialchars($module_info->document_default_title)}" />
+        <!--@elseif($module_info->document_default_title)-->
+        <input type="hidden" name="title" value="{htmlspecialchars($module_info->document_default_title)}" />
+        <!--@endif-->
+    </div>
+
+    <div class="exWrite">
+        <div cond="!$is_logged" class="exWtIfo">
+            <label for="userName">{$lang->writer}</label>
+            <input type="text" maxlength="20" name="nick_name" value="{$oDocument->getNickName()}" class="userName exISt" id="userName"/>
+
+            <label for="userPw">{$lang->password}</label>
+            <input type="password" name="password" value="" id="userPw" class="userPw exISt" />
+
+            <label for="emailAddress">{$lang->email_address}</label>
+            <input type="text" name="email_address" value="{htmlspecialchars($oDocument->email_address)}" id="emailAddress" class="emailAddress exISt"/>
+
+            <label for="homePage">{$lang->homepage}</label>
+            <input type="text" name="homepage" value="{htmlspecialchars($oDocument->homepage)}" id="homePage" class="homePage exISt"/>
+        </div>
+
+        <!--// 로그인 유저이고 익명 게시판이 아니고 포인트 사용일때 -->
+        <!--@if($is_logged && $module_info->use_reward && $module_info->use_reward != 'N')-->
+            <!--// 항상 첫번째 값은 내 포인트와 비교로 쓰임 -->
+            {@
+                $w_reward_point_list = explode(',',$module_info->use_reward_value);
+                $w_is_disabled = ($module_info->use_allow_view != 'P' && $module_info->use_allow_down != 'P');
+
+                $w_check_member_point = ($w_is_disabled && $module_info->use_reward == 'Y')?0:($w_reward_point_list[0]>0?$w_reward_point_list[0]:0);
+                $w_reward_point_val = ($w_is_disabled && $module_info->use_reward == 'R')? '' : '0';
+                $w_is_disabled = !$is_logged || $my_member_point < $w_check_member_point || ($w_is_disabled && $oDocument->get('comment_count') > 0 && $oDocument->reward_point > 0);
+            }
+
+            <!--// XE 1.4.0 부턴 disabled 된 select 값이 넘어가질 않음 -->
+            <div class="exWtPoint">
+                <div class="reward_point">
+                    <select name="reward_point" class="category exISt">
+                        <!--@if($w_is_disabled)-->
+                            <!--@if(!$is_logged)-->
+                                <option value="{$w_reward_point_val}" selected="selected">{$lang->cmd_reward}: {$lang->msg_please_login}</option>
+                            <!--@elseif($my_member_point < $w_check_member_point)-->
+                                <option value="{$w_reward_point_val}" selected="selected">{$lang->msg_not_enough_point}</option>
+                            <!--@elseif($oDocument->reward_point || $oDocument->isExists())-->
+                                <option value="{$oDocument->reward_point ? $oDocument->reward_point:'0'}" selected="selected">
+                                {$lang->cmd_reward}: {$oDocument->reward_point ? $oDocument->reward_point:'0'}
+                                </option>
+                            <!--@endif-->
+                        <!--@else-->
+                            <!--@if($oDocument->reward_point > 0 && $oDocument->isExists())-->
+                                <option value="{$oDocument->reward_point}">
+                                {$lang->cmd_reward}: {$oDocument->reward_point}
+                                </option>
+                            <!--@else-->
+                                <option value="{$oDocument->reward_point ? $oDocument->reward_point:$w_reward_point_val}">
+                                {$lang->my_point}/{$my_member_point ? $my_member_point : '0'}
+                                </option>
+                            <!--@endif-->
+
+                            <!--// 포인트 선택일땐 0도 포함 -->
+                            <option cond="$module_info->use_reward == 'Y'" value="0">0</option>
+                            <option loop="$w_reward_point_list=>$val" cond="$my_member_point >= $val" value="{$val}">{$val}</option>
+                        <!--@endif-->
+                    </select>
+                    <!--// 미채택 보기 버튼 출력 포인트 답변시만 -->
+                    <span cond="($module_info->use_allow_view != 'P' && $module_info->use_allow_down != 'P')&&$not_adopted_post_count>0" class="bodex_9{$oDocument->module_srl} button {$btn_class}"><input type="button" value="{$lang->cmd_search_not_adopt_post.' ('.$not_adopted_post_count.')'}" /></span>
+                    <p class="info">{$module_info->use_allow_down == 'P'?($lang->about_download_point.' ('.(($module_info->use_down_point_always=='Y')?$lang->use_down_point_always:$lang->use_down_point_one).')'):$lang->about_reward_point}</p>
+                </div>
+            </div>
+        <!--@else-->
+            <input type="hidden" name="reward_point" value="0" />
+        <!--@endif-->
+
+        <dl class="option">
+            <block cond="$grant->manager">
+                {@ $w_color = array('555555','222288','226622','2266EE','8866CC','88AA66','EE2222','EE6622','EEAA22','EEEE22') }
+                <dd><select class="exISt" name="title_color" id="title_color" style="background-color:#{$oDocument->title_color};"|cond="$oDocument->title_color" onchange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor;">
+                        <option value="" style="background-color:#FFFFFF;">{$lang->title_color}</option>
+                        <option loop="$w_color=>$w_col" value="{$w_col}" style="background-color:#{$w_col}" selected="selected"|cond="$oDocument->title_color==$w_col">{$lang->title_color}</option>
+                    </select></dd>
+                <dd>
+                    <input type="checkbox" name="title_bold" id="title_bold" value="Y" checked="checked"|cond="$oDocument->title_bold=='Y'" />
+                    <label for="title_bold">{$lang->title_bold}</label>
+                </dd>
+                <dd>
+                    <input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+                    <label for="is_notice">{$lang->notice}</label>
+                </dd>
+                <dd>
+                    <input type="checkbox" name="lock_comment" value="Y" id="lock_comment" checked="checked"|cond="$oDocument->isLocked()" />
+                    <label for="lock_comment">{$lang->lock_comment}</label>
+                </dd>
+            </block>
+            <dd>
+                <input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="$oDocument->useNotify()" />
+                <label for="notify_message">{$lang->notify}</label>
+            </dd>
+            <!--@if($grant->manager || $module_info->use_secret=='Y')-->
+                <dd>
+                    <input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="$oDocument->isSecret()||(!$document_srl && $module_info->use_secret=='R')" />
+                    <label for="is_secret">{$lang->secret}</label>
+                </dd>
+            <!--@elseif($module_info->use_secret=='R')-->
+                <input type="hidden" name="is_secret" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_anonymous=='Y')-->
+                <dd>
+                    <input type="checkbox" name="is_anonymous" value="Y" id="is_anonymous" checked="checked"|cond="((($oDocument->get('member_srl') && $oDocument->get('user_id') == 'anonymous') || ($oDocument->get('member_srl') < 1)) && $oDocument->get('nick_name') == 'anonymous') || (!$document_srl && $module_info->use_anonymous=='R')" />
+                    <label for="is_anonymous">{$lang->anonymous}</label>
+                </dd>
+            <!--@elseif($module_info->use_anonymous=='R')-->
+                <input type="hidden" name="is_anonymous" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_allow_comment=='Y')-->
+                <dd>
+                    <input type="checkbox" name="allow_comment" value="Y" id="allow_comment" checked="checked"|cond="($document_srl&&$oDocument->allowComment())||(!$document_srl&&$module_info->use_allow_comment!='N')" />
+                    <label for="allow_comment">{$lang->allow_comment}</label>
+                </dd>
+            <!--@else-->
+                <input type="hidden" name="allow_comment" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_allow_trackback=='Y')-->
+                <dd>
+                    <input type="checkbox" name="allow_trackback" value="Y" id="allow_trackback" checked="checked"|cond="($document_srl&&$oDocument->allowTrackback())||(!$document_srl&&$module_info->use_allow_trackback!='N')" />
+                    <label for="allow_trackback">{$lang->allow_trackback}</label>
+                </dd>
+            <!--@else-->
+                <input type="hidden" name="allow_trackback" value="Y" />
+            <!--@endif-->
+        </dl>
+
+        <table cond="count($extra_keys)" cellspacing="0" summary="" class="extVLst">
+        <col width="150px" />
+        <col />
+            <tr loop="$extra_keys=>$key,$val">
+                <th scope="row">{$val->name}{($val->is_required=='Y')?'*':''}</th>
+                <!--@if($val->eid=='writer_display_ccl')-->
+                    {@ $writer_display_ccl = explode('|@|',$val->value)}
+                    <td><ul>
+                            <li><input type="checkbox" value="attribution" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_1" checked="checked"|cond="!$oDocument->isExists()||in_array('attribution', $writer_display_ccl)" /><label for="extra_vars_{$val->idx}_1">{$lang->ccl->attribution}</label></li>
+                            <li><input type="checkbox" value="commercial" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_2" checked="checked"|cond="in_array('commercial', $writer_display_ccl)" /><label for="extra_vars_{$val->idx}_2">{$lang->ccl->commercial}</label></li>
+                            <li><input type="checkbox" value="derivatives" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_3" checked="checked"|cond="in_array('derivatives', $writer_display_ccl)" /><label for="extra_vars_{$val->idx}_3">{$lang->ccl->derivatives}</label></li>
+                            <li><input type="checkbox" value="sharealike" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_4" checked="checked"|cond="!$oDocument->isExists()||in_array('sharealike', $writer_display_ccl)" /><label for="extra_vars_{$val->idx}_4">{$lang->ccl->sharealike}</label></li>
+                        </ul><p>{$val->desc}</p>
+                    </td>
+                <!--@else-->
+                    <td>{$val->getFormHTML()}</td>
+                <!--@endif-->
+            </tr>
+        </table>
+
+        <block cond="$module_info->display_content_writer!='N'">
+            <block cond="$module_info->document_default_text">
+                {@ $module_info->document_default_text = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_text)}
+            </block>
+            <input type="hidden" name="content" value="{(!$oDocument->isExists()&&$module_info->document_default_text)?htmlspecialchars($module_info->document_default_text):$oDocument->getContentText()}" />
+            <div class="editor">{$oDocument->getEditor()}</div>
+
+            <div cond="$module_info->display_link_input!='N'" class="tag fileLink">
+                <input type="hidden" name="editor_sequence_srl" value="{Context::get('editor_sequence')}"  class="exISt" />
+                <input type="text" name="filelink_url" class="exISt" />
+                <span class="button {$btn_class}">
+                    <input type="button" value="{$lang->cmd_file_link}"  onclick="return procFilter(xGetElementById('fo_write'), insert_filelink);" />
+                </span>
+                <a class="button {$btn_class}" title="{$lang->cmd_get_images}" onclick="_exJcPopImageList(); return false;">
+                    <span><img src="./images/common/iconAllImgs.gif" border="0" /></span>
+                </a>
+                <p class="info">{$lang->about_file_link}</p>
+            </div>
+        </block>
+
+        <div cond="$module_info->display_tag_input!='N'" class="tag">
+            <input type="text" name="tags" maxlength="500" class="exISt" value="{htmlspecialchars($oDocument->get('tags'))}" />
+            <a class="button {$btn_class}" title="{$lang->cmd_get_tags}" onclick="_exJcPopTagList(); return false;">
+            <span><img src="./images/common/iconAllTags.gif" border="0" /></span>
+            </a>
+            <p class="info">{$lang->about_tag}</p>
+        </div>
+    </div>
+
+    <div class="fl gap1">
+        <block cond="$is_logged">
+            <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_temp_save}"  onclick="doDocumentSave(this); return false;" /></span>
+            <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_load}"  onclick="doDocumentLoad(this); return false;" /></span>
+        </block>
+        <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_preview}" onclick="doDocumentPreview(this); return false;" /></span>
+    </div>
+
+    <div class="fr gap1">
+        <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_back}" onclick="location.href='{getUrl('act','')}'" /></span>
+        <span class="button black"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+    </div>
+
+</form>
+
+<include target="__footer.html" />

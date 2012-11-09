@@ -1,0 +1,34 @@
+function install(form){ return legacy_filter('install', form, 'install', 'procInstall', completeInstalled, ['error','message','redirect_url'], '', {'password1':'password'}) };
+(function($){
+	var v=xe.getApp('validator')[0];if(!v)return false;
+	v.cast("ADD_FILTER", ["install", {'db_type': {required:true},'db_hostname': {required:true,minlength:1,maxlength:250},'db_port': {minlength:1,maxlength:250},'db_userid': {required:true,minlength:1,maxlength:250},'db_password': {required:true,minlength:1,maxlength:250},'db_database': {required:true,minlength:1,maxlength:250},'db_table_prefix': {required:true,minlength:2,maxlength:20,rule:'alpha'},'user_id': {required:true,minlength:2,maxlength:20,rule:'userid'},'password1': {required:true,minlength:1,maxlength:20},'password2': {required:true,minlength:1,equalto:'password1'},'user_name': {required:true,minlength:2,maxlength:20},'nick_name': {required:true,minlength:2,maxlength:20},'email_address': {required:true,minlength:1,maxlength:200,rule:'email'}}]);
+	
+	v.cast('ADD_MESSAGE',['db_type','DB 종류']);
+	v.cast('ADD_MESSAGE',['db_hostname','DB 호스트네임']);
+	v.cast('ADD_MESSAGE',['db_port','DB Port']);
+	v.cast('ADD_MESSAGE',['db_userid','DB 아이디']);
+	v.cast('ADD_MESSAGE',['db_password','DB 비밀번호']);
+	v.cast('ADD_MESSAGE',['db_database','DB 데이터베이스']);
+	v.cast('ADD_MESSAGE',['db_table_prefix','테이블 머리말']);
+	v.cast('ADD_MESSAGE',['user_id','아이디']);
+	v.cast('ADD_MESSAGE',['password1','비밀번호']);
+	v.cast('ADD_MESSAGE',['password2','비밀번호 확인']);
+	v.cast('ADD_MESSAGE',['user_name','이름']);
+	v.cast('ADD_MESSAGE',['nick_name','닉네임']);
+	v.cast('ADD_MESSAGE',['email_address','이메일 주소']);
+	v.cast('ADD_MESSAGE',['password','비밀번호']);
+	v.cast('ADD_MESSAGE',['use_rewrite','짧은 주소 사용']);
+	v.cast('ADD_MESSAGE',['time_zone','표준 시간대']);
+	v.cast('ADD_MESSAGE',['isnull','%s을 입력해주세요.']);
+	v.cast('ADD_MESSAGE',['outofrange','%s의 글자 수를 맞추어 주세요.']);
+	v.cast('ADD_MESSAGE',['equalto','%s이 잘못되었습니다.']);
+	v.cast('ADD_MESSAGE',['invalid_email','%s의 형식이 잘못되었습니다. (예: xe@xpressengine.com)']);
+	v.cast('ADD_MESSAGE',['invalid_userid','%s의 형식이 잘못되었습니다.\n영문, 숫자와 _로 만드실 수 있으며, 첫 글자는 영문이어야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_user_id','%s의 형식이 잘못되었습니다.\n영문, 숫자와 _로 만드실 수 있으며, 첫 글자는 영문이어야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_homepage','%s의 형식이 잘못되었습니다. (예: http://www.xpressengine.com)']);
+	v.cast('ADD_MESSAGE',['invalid_korean','%s의 형식이 잘못되었습니다. 한글로만 입력하셔야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_korean_number','%s의 형식이 잘못되었습니다. 한글과 숫자로만 입력하셔야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_alpha','%s의 형식이 잘못되었습니다. 영문으로만 입력하셔야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_alpha_number','%s의 형식이 잘못되었습니다. 영문과 숫자로만 입력하셔야 합니다.']);
+	v.cast('ADD_MESSAGE',['invalid_number','%s의 형식이 잘못되었습니다. 숫자로만 입력하셔야 합니다.']);
+})(jQuery);

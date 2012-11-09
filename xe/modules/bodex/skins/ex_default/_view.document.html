@@ -1,0 +1,488 @@
+<!--// 사용하기 쉽고 한번의 호출로 해결하기 위해 여러번 사용되는건 미리 셋팅 -->
+<!--// display_file_list = (A=모두, I=이미지, M=미디어, B=바이너리) -->
+{@
+    $oDocument = $oBodex->getWith($oDocument, array('category_srl','readed_count','voted_count','member_srl','blamed_count','reward_srl','reward_point','comment_count','is_notice'));
+    $oDocument->reward_point=round($oDocument->reward_point/2);
+
+    $oDocument->title=$oDocument->getTitle();
+    $oDocument->permanentUrl = $oDocument->getPermanentUrl();
+    $oDocument->member_srl = $oDocument->getMemberSrl();
+    $oDocument->nickName = $oBodex->cutStrEx($oDocument->getNickName(), $module_info->nick_name_cut_size);
+    $oDocument->nickName = ($oDocument->nickName=='anonymous'?$lang->anonymous:$oDocument->nickName);
+    $oDocument->member_srl = (!$grant->manager && $oDocument->member_srl && $oDocument->get('user_id')=='anonymous')?0:$oDocument->member_srl;
+
+    $oDocument->profileImage = $oDocument->getProfileImage();
+    $oDocument->signature = $oDocument->getSignature();
+
+    $is_document_secret = ($oDocument->isSecret() && !$oDocument->isGranted());
+    $is_document_blind = (((int)$module_info->declare_blind_document > 0 && !$oDocument->isGranted())?((int)$module_info->declare_blind_document<=$oBodex->getDocumentDeclaredCount($oDocument->document_srl)):false);
+    $is_document_logged = $logged_info && (abs($logged_info->member_srl) == abs($oDocument->member_srl));
+
+    $is_display_image = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='I'||$module_info->display_file_list=='BI'||$module_info->display_file_list=='MI');
+    $is_display_media = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='M'||$module_info->display_file_list=='BM'||$module_info->display_file_list=='MI');
+    $is_display_binary = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='B'||$module_info->display_file_list=='BM'||$module_info->display_file_list=='BI');
+
+    $adopted_reward_point = ($module_info->use_reward != 'N' && $oDocument->reward_point > 0)?$oDocument->reward_point:0;
+    $download_file_point = abs($oBodex->getPointConfig('download_file'));
+    $extra_key_list = $writer_rating_list = $writer_display_ccl = array();
+
+    $not_allow_down = $not_allow_view = false;
+}
+
+<block loop="$oDocument->getExtraVars()=>$key,$val">
+    <!--@if(substr($val->eid,0,13) == 'writer_rating')-->
+        {@ $writer_rating_list[$key] = $val}
+    <!--@elseif($val->eid=='writer_display_ccl')-->
+        {@ $writer_display_ccl = explode('|@|',$val->value)}
+    <!--@else-->
+        {@ $extra_key_list[$key] = $val}
+    <!--@endif-->
+</block>
+
+<!--// 공지사항은 권한부여 -->
+<block cond="$oDocument->isNotice()">{@ $grant->view = true}</block>
+
+<!--// 추천 정보를 가져옴, 로그인된 멤버가 있으면 값을 가져와 없으면 아직 투표하지 않음, 필수일 경우 로그인 유저만 댓글 허용 -->
+<block cond="$module_info->use_vote != 'N'">
+    {@
+        $oDocument->voted_list = $oBodex->getVotedLogInfo($oDocument->document_srl, false);
+        $logged_user_voted_star = $oDocument->voted_list[$logged_info->member_srl];
+    }
+    <block cond="!$is_logged && ($module_info->use_vote == 'R' || $module_info->use_vote == 'Z')">
+        {@ $grant->write_comment = false}
+    </block>
+</block>
+
+<!--// 제한 옵션 사용시-->
+<block cond="!$grant->manager && (!$is_logged || $logged_info->member_srl != abs($oDocument->member_srl))">
+    <block cond="$module_info->use_allow_down == 'Y' || $module_info->use_allow_view == 'Y'">
+        {@
+            $not_allow_down = $not_allow_view = !$oBodex->isMemberComment($oDocument->document_srl);
+            $not_allow_down = ($not_allow_down && $module_info->use_allow_down == 'Y');
+            $not_allow_view = ($not_allow_view && $module_info->use_allow_view == 'Y');
+        }
+    </block>
+    <block cond="$module_info->use_reward != 'N' && $module_info->use_allow_view == 'P' && $oDocument->reward_point > 0">
+        {@ $not_allow_view = !$oBodex->getReadedLogInfo($oDocument->document_srl)}
+    </block>
+</block>
+
+<!--// 보기 권한이 없으면 정보 지움 -->
+<!--@if(!$grant->view || $is_document_secret || $is_document_blind)-->
+    {@
+        $oDocument->add('content',sprintf($lang->msg_act_not_permitted,$lang->col_read));
+        $oDocument->add('allow_comment','N');
+        $oDocument->add('allow_Trackback','N');
+        $file_list = $extra_key_list = array();
+    }
+<!--@elseif($oDocument->hasUploadedFiles() && !$is_document_secret)-->
+    {@
+        $file_list = $oBodex->getSplitFileList($oDocument->getUploadedFiles());
+        $downloaded_list = ($module_info->use_down_point_always=='Y') ? array():$oBodex->getDownloadedLogInfo($oDocument->document_srl);
+    }
+<!--@endif-->
+
+<!--// 글 내용 보여주기 -->
+<div class="exRead">
+    <div class="oriCnt">
+
+        <div class="readHeader">
+            <div name="_col_sc_1" class="tleAusr">
+
+                <!--// 블러그 형태 일때 관리자일 경우 게시글 선택 checkbox 표시 -->
+                <div class="title<!--@if($blog_style_doc_no && $grant->manager)--> checkbox<!--@endif-->">
+                    <h4>
+                        <!--@if($blog_style_doc_no && $grant->manager)-->
+                            <input type="checkbox" name="cart" value="{$oDocument->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$oDocument->isCarted()" />
+                        <!--@else-->
+                            <img src="./images/common/iconTitle.gif" border="0" alt="" />
+                        <!--@endif-->
+                        <a href="{getFullUrl('','document_srl',$oDocument->document_srl,'custom_layout_path',$custom_layout_path,'custom_layout_file',$custom_layout_file)}">{$oDocument->title}</a>
+                    </h4>
+                </div>
+
+                <div cond="$module_info->display_author!='N'" class="userInfo">
+                    <div class="nick_name">
+                        <span class="{($oDocument->member_srl?'member_'.$oDocument->member_srl:'bodex_0'.$oDocument->document_srl).($oDocument->member_srl?($is_document_logged?' logged':''):' anonym')}">{$oDocument->nickName}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dayACut exBg1">
+                <block cond="!$is_review">
+                    <!--@if($module_info->use_vote == 'Y' || $module_info->use_vote == 'R')-->
+                        <div class="votedCount">
+                            {$lang->voted_count} : <strong>{$oDocument->voted_count} / {$oDocument->blamed_count}</strong>
+                        </div>
+                    <!--@elseif($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')-->
+                        {@ $average = number_format($oDocument->voted_count / abs($oDocument->blamed_count), 1)}
+                        <div class="exSPFrm fr" title="{$average?$average:'0'}/{abs($oDocument->blamed_count)}">
+                            <span class="exSCol{$module_info->star_color} exBg0" style="width:{$average*15}px">&nbsp;</span>
+                        </div>
+                        <div class="votedCount average"><span>({$average?$average:'0'}/{abs($oDocument->blamed_count)})</span></div>
+                    <!--@endif-->
+                </block>
+
+                <div class="readedCount">{$lang->readed_count} : {$oDocument->readed_count}</div>
+
+                <div class="date" title="{$lang->regdate}">
+                    <strong>{$oDocument->getRegdate('Y.m.d')}</strong> ({$oDocument->getRegdate('H:i:s')})
+                </div>
+
+                <img src="./images/common/iconSecret.gif" cond="$oDocument->isSecret()" class="secret" border="0" title="{$lang->secret}" />
+
+                <block cond="count($writer_display_ccl)">
+                    {@
+                        $ccl['attribution'] = in_array('attribution', $writer_display_ccl)?'yes':'no';
+                        $ccl['commercial'] = in_array('commercial', $writer_display_ccl)?'yes':'no';
+                        $ccl['derivatives'] = in_array('sharealike', $writer_display_ccl)?'alike':(in_array('derivatives', $writer_display_ccl)?'yes':'no');
+
+                        $ccl['licenses'] = ($ccl['attribution']=='yes')?'by':'';
+                        $ccl['licenses'] .= ($ccl['commercial']=='no')?'-nc':'';
+                        $ccl['licenses'] .= ($ccl['derivatives']=='no')?'-nd':'';
+                        $ccl['licenses'] .= ($ccl['derivatives']=='alike')?'-sa':'';
+                    }
+                    <div cond="$ccl['licenses']" class="ccl">
+                        <a href="#" onclick="winopen('http://creativecommons.org/licenses/{$ccl['licenses']}/3.0/deed.{$lang_type}','cclInfo','width=800, height=600, scrollbars=yes')">
+                        <img src="./images/common/ccl_attribution_{$ccl['attribution']}.png" border="0" title="{$lang->ccl->attribution}: {Context::getLang('cmd_'.$ccl['attribution'])}" />
+                        <img src="./images/common/ccl_commercial_{$ccl['commercial']}.png" border="0" title="{$lang->ccl->commercial}: {Context::getLang('cmd_'.$ccl['commercial'])}" />
+                        <img src="./images/common/ccl_derivatives_{$ccl['derivatives']}.png" border="0" title="{$lang->ccl->derivatives}: {Context::getLang('cmd_'.$ccl['derivatives'])}" />
+                        </a>
+                    </div>
+                </block>
+
+                <div cond="$module_info->use_category != 'N' && $oDocument->category_srl" class="category" title="{$lang->category}">
+                    <a href="{getUrl('','mid',$mid,'category',$oDocument->category_srl)}" style="color:{$category_list[$oDocument->category_srl]->color};"|cond="$category_list[$oDocument->category_srl]->color != 'transparent'">{$category_list[$oDocument->category_srl]->title}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="infoBox">
+            <div cond="$is_review" class="exJsThumbnailFrame thumb <!--@if($module_info->thumbnail_position=='R')-->thumbfr<!--@endif-->" style="width:{$module_info->thumbnail_width+4}px;<!--@if($module_info->thumbnail_type!='ratio')-->height:{$module_info->thumbnail_height+4}px;<!--@endif-->">
+                <!--@if($is_document_secret || $is_document_blind)-->
+                    <img src="./images/common/{$is_document_blind?'blind':'secret'}img.png" border="0" alt="{$is_document_blind?'blind':'secret'}" title="{$is_document_blind?'blind':'secret'}" height="{$module_info->thumbnail_height}" width="{$module_info->thumbnail_width}"/>
+                <!--@else-->
+                    <!--@if($oDocument->thumbnailExists($module_info->thumbnail_width, $module_info->thumbnail_height, $module_info->thumbnail_type))-->
+                        <img src="{$oDocument->getThumbnail($module_info->thumbnail_width, $module_info->thumbnail_height, $module_info->thumbnail_type)}" border="0" alt="" />
+                    <!--@else-->
+                        <img src="./images/common/noimg.png" border="0" alt="no image" title="no image" class="thumb" width="{$module_info->thumbnail_width}" height="{$module_info->thumbnail_height}" />
+                    <!--@endif-->
+                <!--@endif-->
+            </div>
+
+            <div class="extVLst">
+                <block cond="$is_review">
+                    <a name="binaryfilelist"></a>
+                    <div class="staRat">
+                        <div cond="in_array($module_info->display_download_button, array('Y','V')) && ((count($file_list['image']) && $is_display_image)||(count($file_list['media']) && $is_display_media)||(count($file_list['binary']) && $is_display_binary))" class="fr">
+                            <span class="button {$btn_class}"><input class="exJsFileListButton" rel="{$oDocument->document_srl}" type="button" value="{htmlspecialchars($module_info->download_button_caption)}" /></span>
+                        </div>
+
+                        <table cellspacing="0">
+                        <tr loop="$writer_rating_list=>$val">
+                            <th>{$val->name}:&nbsp;</th>
+                            <td>
+                                {@ $val->value = (float)$val->value}
+                                <div class="exSPFrm" title="{$val->value}">
+                                    <span class="exSCol{$module_info->star_color} exBg0" style="width:{$val->value*15}px">&nbsp;</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr cond="$module_info->use_vote != 'N'">
+                            <th>{$lang->user.' '.$lang->rating}:&nbsp;</th>
+                            <td>
+                            <!--@if($module_info->use_vote == 'Y' || $module_info->use_vote == 'R')-->
+                                <div class="votedCount">
+                                    {$lang->voted_count} : <strong>{$oDocument->voted_count} / {$oDocument->blamed_count}</strong>
+                                </div>
+                            <!--@elseif($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')-->
+                                {@ $average = number_format($oDocument->voted_count / abs($oDocument->blamed_count), 1)}
+                                <div class="exSPFrm" title="{$average?$average:'0'}/{abs($oDocument->blamed_count)}">
+                                    <div class="fl"><span class="exSCol{$module_info->star_color} exBg0" style="width:{$average*15}px">&nbsp;</span></div>
+                                    <span class="average">({$average?$average:'0'}/{abs($oDocument->blamed_count)})</span>
+                                </div>
+                            <!--@endif-->
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                </block>
+
+                <table cond="$oDocument->isExtraVarsExists()" cellspacing="0" class="extVTbl"|cond="!$is_review">
+                <block cond="!$is_review">
+                    <col width="150" />
+                    <tr loop="$writer_rating_list=>$val">
+                        <th>{$val->name}:&nbsp;</th>
+                        <td>
+                            <div class="exSPFrm" title="{$val->value}">
+                                <span class="exSCol{$module_info->star_color} exBg0" style="width:{$val->value*15}px">&nbsp;</span>
+                            </div>
+                        </td>
+                    </tr>
+                </block>
+                    <tr loop="$extra_key_list=>$key,$val">
+                        <th>{$val->name}:&nbsp;</th>
+                        <td>{$val->getValueHTML()}&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="readBody <!--@if($is_review)-->review<!--@endif-->">
+            <div class="cntBody">
+
+                <block cond="$module_info->document_top_text">
+                    {preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),$oDocument->permanentUrl,$oDocument->title,$oDocument->nickName,$oDocument->document_srl),$module_info->document_top_text)}
+                </block>
+
+                <!--@if($is_document_secret || $is_document_blind)-->
+                    <div class="exSrCnt">
+                        <form action="./" method="get" onsubmit="return procFilter(this, input_password)">
+                            <input type="hidden" name="mid" value="{$mid}" />
+                            <input type="hidden" name="page" value="{$page}" />
+                            <input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+
+                            <div class="title">{$is_document_secret?$lang->msg_is_secret:$lang->msg_is_blind}</div>
+                            <div>
+                                <input type="password" name="password" id="cpw" class="userPw exISt" />
+                                <span class="button {$btn_class}">
+                                    <input type="submit" value="{$lang->cmd_input}" accesskey="s" />
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                <!--@else-->
+                    <!--@if($grant->view && !$is_document_secret)-->
+                        <!--@if($not_allow_view)-->
+                            <div class="exAVCnt">
+                                <div class="title">
+                                <!--@if($module_info->use_allow_view == 'Y')-->
+                                    {$lang->msg_not_allow_view.'<br />'.$lang->msg_not_allow_comment}
+                                <!--@else-->
+                                    {$lang->msg_not_allow_view}<br />
+                                    <a href="#" class="button {$btn_class}" onclick="return doCallModuleAction('bodex','procBoardAllowView','{$oDocument->document_srl}');"><span>{sprintf($lang->msg_not_allow_view_point, round($oDocument->get('reward_point')/2))}</span></a>
+                                <!--@endif-->
+                                </div>
+                                <div class="content">
+                                {$oDocument->getContent(false)}
+                                </div>
+                            </div>
+                        <!--@else-->
+                            {$oDocument->getContent()}
+                        <!--@endif-->
+                        <div cond="$is_logged && !$logged_user_voted_star && ($module_info->display_vote_button == 'A' || $module_info->display_vote_button == 'D')" class="voteBtn">
+                            <a class="button black" href="#" onclick="return _exJcCallAction('document','procDocumentVoteUp','{$oDocument->document_srl}');"><span><img src="./images/common/vote_up.gif" width="13" height="13" />{$lang->col_vote}</span></a>
+                            <a class="button black" href="#" onclick="return _exJcCallAction('document','procDocumentVoteDown','{$oDocument->document_srl}');"><span><img src="./images/common/vote_down.gif" width="13" height="13" />{$lang->col_blame}</span></a>
+                        </div>
+                    <!--@else-->
+                        {@$message=sprintf($lang->msg_act_not_permitted,$lang->col_read); $is_poped=1}
+                        <include target="message.html" />
+                    <!--@endif-->
+                <!--@endif-->
+
+                <div class="clear"></div>
+
+                <block cond="$module_info->document_bottom_text">
+                    {preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),$oDocument->permanentUrl,$oDocument->title,$oDocument->nickName,$oDocument->document_srl),$module_info->document_bottom_text)}
+                </block>
+
+                <!--// 서명 / 프로필 이미지 출력 -->
+                <div cond="$module_info->display_sign != 'N' && $oDocument->member_srl && ($oDocument->profileImage || $oDocument->signature)" class="exMbSign">
+                    <div cond="$module_info->display_sign != 'S' && $oDocument->profileImage" class="profile">
+                        <img src="{$oDocument->profileImage}" alt="profile" />
+                    </div>
+                    <div cond="$oDocument->signature" class="signature">{$oDocument->signature}</div>
+                </div>
+
+                <div class="dRIpAUrl">
+                    <span class="dRUrl" title="{$lang->document_url}"><a onclick="return _exJcCopyClipboard(this.href);" href="{$oDocument->permanentUrl}">{$oDocument->permanentUrl}</a></span>
+                    <span cond="$grant->manager || $module_info->display_ip_address=='Y'" class="dRIp">({$oDocument->getIpaddress()})</span>
+                </div>
+            </div>
+
+        </div>
+
+        <a name="tagfilelist"></a>
+        <div cond="count($tag_list = $oDocument->get('tag_list'))" class="tag">
+            <ul>
+                {@ $j=0; $count=count($tag_list);} <li loop="$i=0;$i<$count;$i++"> {@ $tag = $tag_list[$j++];}
+                    <a href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$tag)}" rel="tag">{htmlspecialchars($tag)}</a><!--@if($j < $count)-->,&nbsp;<!--@end-->
+                </li>
+            </ul>
+        </div>
+
+        <block cond="count($file_list['image']) || count($file_list['binary']) || count($file_list['media'])">
+            <div cond="count($file_list['image']) && $is_display_image" class="<!--@if($is_review && in_array($module_info->display_download_button, array('Y','V')))-->exDHide<!--@else-->fileAtt<!--@endif--> exJsImageListBox" rel="{$oDocument->document_srl}"><a name="imagefilelist"></a>
+                <ul>
+                {@ $downpoint = $idx = 0}
+                <block loop="$file_list['image']=>$file">
+                    <block cond="$module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $module_info->use_down_point_images=='Y'">
+                        {@ $downpoint = (!$file->file_size)?0:(($downloaded_list[$file->file_srl]>0 || (abs($file->member_srl) == $logged_info->member_srl))?'0':$adopted_reward_point)}
+                    </block>
+
+                    <!--@if($not_allow_down)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\'false\')'}
+                    <!--@elseif($module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $module_info->use_down_point_images=='Y' && $module_info->download_point_confirm=='Y' && $downpoint)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\''.$downpoint.'\')'}
+                    <!--@else-->
+                        {@ $msg_download = ''}
+                    <!--@endif-->
+
+                    <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?'iconImage':'iconError'}.gif')">
+                        <a href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($msg_download)?$msg_download:'true'):'false'}">
+                            <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint > 0)?'($'.($downpoint).')':''}</span>
+                        </a>
+                    </li>
+                </block>
+                </ul>
+            </div>
+
+            <div cond="count($file_list['media']) && $is_display_media" class="<!--@if($is_review && in_array($module_info->display_download_button, array('Y','V')))-->exDHide<!--@else-->fileAtt<!--@endif--> exJsMediaListBox" rel="{$oDocument->document_srl}"><a name="mediafilelist"></a>
+                <ul>
+                {@ $downpoint = 0}
+                <block loop="$file_list['media']=>$file">
+                    <block cond="$module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $module_info->use_down_point_medias=='Y'">
+                        {@ $downpoint = (!$file->file_size)?0:(($downloaded_list[$file->file_srl]>0 || (abs($file->member_srl) == $logged_info->member_srl))?'0':$adopted_reward_point)}
+                    </block>
+
+                    <!--@if($not_allow_down)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\'false\')'}
+                    <!--@elseif($module_info->use_reward != 'N' &&$module_info->use_allow_down == 'P' && $module_info->use_down_point_medias=='Y' && $module_info->download_point_confirm=='Y' && $downpoint)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\''.$downpoint.'\')'}
+                    <!--@else-->
+                        {@ $msg_download = ''}
+                    <!--@endif-->
+
+                    <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?'iconMedia':'iconError'}.gif')">
+                        <!--@if($module_info->use_media_player=='Y')-->
+                            <a href="#" onclick="{$file->isvalid=='Y'?'_exJcPopDisplayMedia(\''.$file->file_srl.'\',\''.$file->sid.'\');':''} return false">
+                        <!--@else-->
+                            <a href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($msg_download)?$msg_download:'true'):'false'}">
+                        <!--@endif-->
+                            <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint > 0)?'($'.($downpoint).')':''}</span>
+                        </a>
+                    </li>
+                </block>
+                </ul>
+            </div>
+
+            <div cond="count($file_list['binary']) && $is_display_binary" class="<!--@if($is_review && in_array($module_info->display_download_button, array('Y','V')))-->exDHide<!--@else-->fileAtt<!--@endif--> exJsFileListBox" rel="{$oDocument->document_srl}"><a name="binaryfilelist"></a>
+                <ul>
+                {@ $downpoint = 0}
+                <block loop="$file_list['binary']=>$file">
+                    {@
+                        $downpoint = (($module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $downloaded_list[$file->file_srl]<1)?$adopted_reward_point:'0');
+                        $downpoint = (!$file->file_size)?0:((abs($file->member_srl) == $logged_info->member_srl)?'0':$downpoint+$download_file_point);
+                    }
+
+                    <!--@if($not_allow_down)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\'false\')'}
+                    <!--@elseif($module_info->use_reward != 'N' &&$module_info->use_allow_down == 'P' && $module_info->download_point_confirm=='Y' && $downpoint)-->
+                        {@ $msg_download = '_exJsDownloadConfirm(\''.$downpoint.'\')'}
+                    <!--@else-->
+                        {@ $msg_download = ''}
+                    <!--@endif-->
+
+                    <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?($file->direct_download =='M'?'iconMedia':'iconFile'):'iconError'}.gif')">
+                        <a href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($msg_download)?$msg_download:'true'):'false'}">
+                            <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint >0)?'($'.($downpoint).')':''}</span>
+                        </a>
+                    </li>
+                </block>
+                </ul>
+            </div>
+        </block>
+    </div>
+
+    <div class="cntBtn">
+        <!--// 댓글,엮인글 버튼 -->
+        <div class="repAtbc">
+            <div cond="$oDocument->allowComment()" class="replyCount">
+                <a class="exJsReTrToggle" href="#" rel="Comment" rev="{$blog_style_doc_no}" onclick="return false;">
+                    <strong>{$lang->comment}</strong>
+                    <span class="replies">[{$oDocument->getCommentcount()}]</span>
+                </a>
+            </div>
+            <div cond="$oDocument->allowTrackback()" class="trackbackCount">
+                <a class="exJsReTrToggle" href="#" rel="Trackback" rev="{$blog_style_doc_no}" onclick="return false;">
+                    <strong>{$lang->trackback}</strong>
+                    <span class="trackbacks">({$oDocument->getTrackbackCount()})</span>
+                </a>
+            </div>
+        </div>
+
+        <!--// 버튼이 없으면 위, 아래가 붙는거 방지 -->
+        <span class="button" style="background-image:none;">&nbsp;</span>
+
+        <brock cond="!$oDocument->isNotice()&&$grant->manager&&$module_info->use_doc_state=='Y'">
+            <select name="doc_state" class="doc_state exISt">
+                <option loop="$doc_state_list=>$key,$val" selected="selected"|cond="$oDocument->is_notice==$key" value="{$key}">{strip_tags($val)}</option>
+            </select>
+            <a href="#" onclick="_exJcChangeDocumentState('{$oDocument->document_srl}',document.getElementsByName('doc_state')[0].value); return false;" class="button {$btn_class}">
+                <span>{$lang->cmd_change_state}</span>
+            </a>
+        </brock>
+        <!--// 채택된 답변이 있으면 -->
+        <a cond="($module_info->use_reward != 'N' && ($module_info->use_allow_view != 'P' || $module_info->use_allow_down != 'P')) && $oDocument->reward_point > 0 && $oDocument->reward_srl > 0" href="{getUrl('comment_srl',$oDocument->reward_srl)}#comment_{$oDocument->reward_srl}" class="button {$btn_class}">
+            <span>{$lang->cmd_adopted_comment_view}</span>
+        </a>
+
+        <a cond="$module_info->use_history == 'Y' || $module_info->use_history == 'Trace'" href="{getUrl('act','dispBoardHistoryList')}#history" class="button {$btn_class}">
+            <span>{$lang->cmd_history_all}</span>
+        </a>
+
+        <!--// 블러그가 아니거나 블러그인데 문서번호가 있으면 목록버튼 출력 -->
+        <a cond="!$blog_style_doc_no || ($blog_style_doc_no && $document_srl)" href="{getUrl('act','','document_srl','','page',($page>1)?$page:'')}" class="button black">
+            <span><!--@if($blog_style_doc_no)-->{$lang->cmd_view_all}<!--@else-->{$lang->cmd_list}<!--@endif--></span>
+        </a>
+
+        <!--// 포인트 사용시 답글이 있으면 관리자외 수정 삭제 불가 단, 다운로드 포인트 제외-->
+        <block cond="$oDocument->isEditable() && ($grant->manager || !(($module_info->use_allow_view != 'P' || $module_info->use_allow_down != 'P') && (($module_info->use_reward == 'Y' && $oDocument->reward_point) || $module_info->use_reward == 'R') && $oDocument->comment_count > 0))">
+            <a href="{getUrl('act','dispBoardWrite','document_srl',$oDocument->document_srl)}" class="button black">
+                <span>{$lang->cmd_modify}</span>
+            </a>
+            <a href="{getUrl('act','dispBoardDelete','document_srl',$oDocument->document_srl)}" class="button black">
+                <span>{$lang->cmd_delete}</span>
+            </a>
+        </block>
+    </div>
+
+    <!--// 댓글, 트랙백 펼쳐 보일지 지정, 댓글 감추기시 처음에 exDHide 쓰면 플래시 먹통됨 exJsDHideEx 사용 -->
+    {@ $d_display_comment = $d_display_trackback = ''}
+    <block cond="(!$cpage && !$rnd && !$comment_srl) || ($blog_style_doc_no)">
+        <!--@if($module_info->display_comment_box == 'C')-->
+        {@ $d_display_trackback = 'exDHide'}
+        <!--@elseif($module_info->display_comment_box == 'T')-->
+        {@ $d_display_comment = 'exJsDHideEx'}
+        <!--@elseif($module_info->display_comment_box == 'N')-->
+        {@
+            $d_display_trackback = 'exDHide';
+            $d_display_comment =  'exJsDHideEx';
+        }
+        <!--@endif-->
+    </block>
+
+
+    <!--// 엮인글 -->
+    <block cond="$oDocument->allowTrackback()">
+        <a name="trackback{$blog_style_doc_no}"></a>
+        <div class="exJsTrackbackLayout {$d_display_trackback}" rel="{$blog_style_doc_no}">
+            <include target="_view.trackback.html" />
+        </div>
+    </block>
+
+
+    <!--// 댓글 -->
+    <block cond="$oDocument->allowComment()">
+        <a name="comment{$blog_style_doc_no}"></a>
+        <div class="exJsCommentLayout {$d_display_comment}" rel="{$blog_style_doc_no}">
+            <block cond="$oDocument->getCommentCount()>0"><include target="_view.comment.html" /></block>
+            <!--// 댓글 입력 폼 -->
+            <a name="comment_form"></a>
+            <block cond="$grant->write_comment && $oDocument->isEnableComment()">
+                {@ $form_include = true}
+                <include target="comment_form.html" />
+            </block>
+        </div>
+    </block>
+</div>

@@ -1,0 +1,26 @@
+@charset "utf-8";
+.exList th {text-align:right}
+.exList th.checkbox {width:20px}
+
+ /* bodexList gallery */
+
+.exList .exThumBox{ border:0; padding:0; margin:5px 5px 7px; *margin-bottom:25px; *zoom:1;}
+.exList .exThumBox:after{ content:""; display:block; clear:both;}
+
+.exList .exThumBox li{ position:relative; margin:17px; padding:0; list-style:none; float:left; display:inline;}
+
+.exList .exThumBox li .checkbox{ position:absolute; left:0; top:0; z-index:999;}
+
+.exList .exThumBox li .exJsThumb { position:relative; float:left; clear:both; padding:5px; border:1px solid; overflow:hidden; *overflow:visible;}
+.exList .exThumBox li .exJsThumb img{ display:block;border:1px solid;}
+.exList .exThumBox li .exJsThumb a { display:block; position:relative; text-decoration:none !important; *zoom:1;}
+.exList .exThumBox li .exJsThumb a *{ cursor:pointer;}
+
+.exList .exThumBox li .info{ position:absolute; left:0; bottom:0; width:100%; overflow:hidden; padding:0; white-space:nowrap; }
+.exList .exThumBox li .info p {font-weight:normal; font-size:.9em; margin:7px; text-align:left; line-height:.8em; line-height:.7em\9;}
+.exList .exThumBox li .info p.title {font-weight:bold;font-size:1em}
+.exList .exThumBox li .info p.title span {font-weight:normal}
+.exList .exThumBox li .info p.nameAndDate .anonym {font-style:italic}
+.exList .exThumBox li .info p.category {padding-top:1px}
+.exList .exThumBox li .info p.extravalue span {display:block;margin-bottom:5px;margin-bottom:7px\9}
+.exList .exThumBox li .info p.extravalue .ccl img {display:inline;border:0}

@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.bodexAdminBody {padding-right: 170px;}
+#xeAdmin table.rowTable td {white-space:nowrap;overflow:hidden;}
+#xeAdmin table.rowTable td.title {width:100%;white-space:normal;}
+
+#bodexAdmin .left {float:left; width:150px; margin-right:20px;}
+#bodexAdmin .right {float:left; position: relative; width:100%; margin-right: -100%}
+
+#bodexAdmin .right .infoText {font-size: 12px; border-bottom:2px solid #ccc;padding:3px 0 2px;}
+#bodexAdmin .right .infoText h4{margin:0}
+#bodexAdmin .right .infoText h4 span.vr { font-size:11px; color:#AAA; }
+#bodexAdmin .right .infoText h4 a.view { font-size:11px; font-family:vertical; color:#777e86; }
+
+#bodexAdmin .navigation { position:relative; *zoom:1; margin:0 0 40px 0; padding:0; font-size:12px;}
+#bodexAdmin .navigation:after {content:""; display:block; clear:both;}
+#bodexAdmin .navigation ul{ display:none; position:absolute; top:40px; left:0; list-style:none; margin:0; padding:0; overflow:hidden;}
+#bodexAdmin .navigation li{ list-style:none; margin:2px 0; padding:2px; background:#F4F4F4; border:1px solid #ddd}
+#bodexAdmin .navigation li a{display: block; padding:5px 0 5px 18px; text-decoration:none !important; color:#666}
+#bodexAdmin .navigation li a span{ width:150px; height:19px; }
+#bodexAdmin .navigation li.on {background:#fff;}
+#bodexAdmin .navigation li.on a{ background:none; font-weight:bold;}
+#bodexAdmin .navigation li.module {border:1px solid #2F97FF}
+#bodexAdmin .navigation li.module a{font-weight:bold;color:#2F97FF}
+
+#xeAdmin table.rowTable td.ipaddress {text-align:right;width:80px !important}

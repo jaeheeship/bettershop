@@ -1,0 +1,7 @@
+<block cond="!$iframe_include">{$module_info->footer_text}</block>
+
+<!--//  이미지가 없거나, IE와 Chrom 브라우저에서 색상 깜빡임을 없애기 위해 읽어들인후 색상을 입힘 -->
+<div style="display:none">
+    <img onload="_exJsBgCache(this)" height="0" src="./images/{$module_info->colorset}/bgH3.png" rel="_had_sc_1" rev="{$arr_sub_colorset1[0]}" />
+    <img onload="_exJsBgCache(this)" height="0" src="./images/{$module_info->colorset}/bgListTh.png" rel="_col_sc_1" rev="{$arr_sub_colorset1[0]}" />
+</div>

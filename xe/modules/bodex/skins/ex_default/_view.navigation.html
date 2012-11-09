@@ -1,0 +1,14 @@
+<!--// 이전/다음 네비게이션 -->
+
+{@ $docNavigation = $oBodex->getDocumentNavigation(0,1)}
+<div class="exDocNav">
+    <block loop="$docNavigation=>$key,$arr_val">
+        <div loop="$arr_val=>$val">
+            <img src="./images/common/label{ucfirst($key)}.gif" border="0" title="{Context::getLang($key)}" alt="{Context::getLang($key)}" />
+            <span cond="$module_info->use_category != 'N' && $val->category_srl" class="cat" style="color:{$category_list[$val->category_srl]->color};"|cond="$category_list[$val->category_srl]->color != 'transparent'">{$category_list[$val->category_srl]->title}</span>
+            <a href="{getUrl('mid','','document_srl',$val->document_srl)}">{htmlspecialchars(cut_str($val->title, $module_info->subject_cut_size))}</a>
+            <span cond="$val->comment_count" class="rep" title="Replies">[{$val->comment_count}]</span>
+            <span cond="$val->trackback_count" class="tbc" title="Trackbacks">({$val->trackback_count})</span>
+        </div>
+    </block>
+</div>

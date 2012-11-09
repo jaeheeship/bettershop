@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<items>
+	<item>
+		<document_title>
+			this_is_title
+		</document_title>
+		<document_srl>
+			100
+		</document_srl>
+	</item>
+	<item>
+		<document_title>
+			this_is_title_two
+		</document_title>
+		<document_srl>
+			101
+		</document_srl>
+	</item>
+</items>

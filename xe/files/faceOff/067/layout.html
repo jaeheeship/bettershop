@@ -1,0 +1,48 @@
+<div id="xe" class="{$layout_info->faceoff_ini_config['type']} {$layout_info->faceoff_ini_config['align']}">
+    <div id="container" class="{$layout_info->faceoff_ini_config['column']}">
+        <div id="header">
+            <a href="#content" class="skipToContent">Skip to content</a>
+            <h1><a href="{$layout_info->index_url}"><!--@if($layout_info->logo_image)--><img src="{$layout_info->logo_image}" alt="logo" border="0" class="iePngFix" /><!--@elseif($layout_info->logo_text)-->{$layout_info->logo_text}<!--@else-->Title<!--@end--></a></h1>
+            <hr />
+        </div>
+        <hr />
+
+        <div id="neck">
+            <div class="extension neck">
+            <!-- start-neck --><img class="zbxe_widget_output" widget="navigator" id="ex_1236738400191" menu_srl="29151" layout_srl="39170" skin="horiNavigator" colorset="blue" start_depth="1" done4="2" done3="2" done2="2" done1="2" jquery1236739685370="75" style="clear: both;" /><!-- end-neck -->
+            </div>
+        </div>
+        <hr />
+
+        <div id="body">
+            <div id="content">
+            {$content}
+            </div>
+            <hr />
+            <div class="extension e1">
+                <!-- start-e1 --><img class="zbxe_widget_output" widget="login_info" id="ex_1235560152941" widgetstyle="simple" skin="default" colorset="layout" ws_colorset="white" ws_title="Member" widget_margin_top="0px" widget_margin_right="0px" widget_margin_bottom="0px" widget_margin_left="0px" widget_padding_left="0px" widget_padding_bottom="0px" widget_padding_right="0px" widget_padding_top="0px" style="border: 0px none rgb(0, 0, 0); margin: 0px; width: 100%; background-color: transparent; background-repeat: repeat; font-family: sans-serif; color: rgb(0, 0, 0);" /><img class="zbxe_widget_output" widget="navigator" menu_srl="29151" layout_srl="39170" id="ex_1236747553008" skin="vertNavigator" colorset="layout" start_depth="2" widget_padding_left="0px" widget_padding_bottom="0px" widget_padding_right="0px" widget_padding_top="0px" widget_margin_top="0px" widget_margin_right="0px" widget_margin_bottom="20px" widget_margin_left="0px" style="border: 0px none rgb(0, 0, 0); margin: 0px 0px 20px; background-color: transparent; background-repeat: repeat; font-family: sans-serif; color: rgb(0, 0, 0); width: 200px;" /><img class="zbxe_widget_output" widget="image_counter" ws_title="Counter" ws_colorset="white" graph_height="100" graph_width="200" widgetstyle="simple" id="ex_1236738603437" widget_padding_left="0px" widget_padding_bottom="0px" widget_padding_right="0px" widget_padding_top="0px" style="float: left; width: 100%;" /><img class="zbxe_widget_output" widget="language_select" id="ex_1236738643176" skin="default" colorset="layout" done4="11" done3="11" done2="11" done1="11" widget_margin_left="0px" widget_margin_bottom="0px" widget_margin_right="0px" widget_margin_top="0px" jquery1236739685370="78" widget_padding_left="0px" widget_padding_bottom="0px" widget_padding_right="0px" widget_padding_top="0px" style="border: 0px none rgb(0, 0, 0); margin: 0px; width: 100%; color: rgb(140, 131, 131); background-repeat: repeat; font-family: sans-serif; background-color: transparent;" /><!-- end-e1 -->
+            </div>
+            <hr />
+            <div class="extension e2">
+            <!-- start-e2 --><!-- end-e2 -->
+            </div>
+        </div>
+        <hr />
+        <div id="knee">
+            <div class="extension knee">
+            <!-- start-knee --><!-- end-knee -->
+            </div>
+        </div>
+        <hr />
+        <div id="footer">
+            <hr />
+            <address>
+                <!--@if($layout_info->copyright_text)-->
+                    {$layout_info->copyright_text}
+                <!--@else-->
+                    Copyright &copy; <a href="http://www.xpressengine.com" onclick="window.open(this.href);return false;"><abbr title="Xpress Engine">XE</abbr>.</a> All Rights Reserved.
+                <!--@end-->
+            </address>
+        </div>
+    </div>
+</div>

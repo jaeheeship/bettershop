@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+    <title xml:lang="ko">게시판 EX</title>
+    <title xml:lang="en">Board EX</title>
+    <title xml:lang="es">Tablero EX</title>
+    <title xml:lang="jp">掲示板 EX</title>
+    <title xml:lang="ru">Форум EX</title>
+    <title xml:lang="zh-CN">留言板 EX</title>
+    <title xml:lang="zh-TW">留言板 EX</title>
+    <description xml:lang="ko">
+    게시판의 기능을 담당하는 모듈 입니다.
+    자유도를 높이고 더 많은 형태를 지원하기 위해 만들었습니다.
+    </description>
+    <description xml:lang="en">
+    게시판의 기능을 담당하는 모듈 입니다.
+    자유도를 높이고 더 많은 형태를 지원하기 위해 만들었습니다.
+    </description>
+    <description xml:lang="es">
+    게시판의 기능을 담당하는 모듈 입니다.
+    자유도를 높이고 더 많은 형태를 지원하기 위해 만들었습니다.
+    </description>
+    <description xml:lang="jp">
+    掲示板の機能を担当するモジュールです.
+    自由度を高めてもっと多い形態を支援するために作りました.
+    </description>
+    <description xml:lang="ru">
+    게시판의 기능을 담당하는 모듈 입니다.
+    자유도를 높이고 더 많은 형태를 지원하기 위해 만들었습니다.
+    </description>
+    <description xml:lang="zh-CN">
+    负责留言板功能的板快.
+    为了提高自由度支援更多的格式.
+    </description>
+    <description xml:lang="zh-TW">
+    負責留言板功能的板快.
+    為了提高自由度支援更多的格式.
+    </description>
+    <license>
+    XE-Core and the same (LGPL v2)
+
+    <![CDATA[<span style="font-size: 8pt; color: #999; white-space: nowrap">baseBoard: zero (http://board.xpressengine.net/, zero@zeroboard.com)</span>]]>
+    <![CDATA[<span style="font-size: 8pt; color: #999; white-space: nowrap">Japanese : HIRO (http://rhiro.com/, rhiror@gmail.com)</span>]]>
+    <![CDATA[<span style="font-size: 8pt; color: #999; white-space: nowrap">Chinese : DuRi (http://www, scanmat@gmail.com)</span>]]>
+    <![CDATA[<span style="font-size: 8pt; color: #999; white-space: nowrap">Taiwanese : DuRi (http://www, scanmat@gmail.com)</span>]]>
+    </license>
+
+    <!-- make public 2010-01-01 -->
+    <version>0.9.3</version>
+    <date>2011-08-25</date>
+    <category>package</category>
+
+    <author email_address="phidel@foxb.kr" link="http://phidel.xpressengine.net/">
+        <name xml:lang="ko">phiDel</name>
+        <name xml:lang="zh-CN">phiDel</name>
+        <name xml:lang="en">phiDel</name>
+        <name xml:lang="es">phiDel</name>
+        <name xml:lang="jp">phiDel</name>
+        <name xml:lang="ru">phiDel</name>
+        <name xml:lang="zh-TW">phiDel</name>
+    </author>
+</module>

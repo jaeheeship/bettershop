@@ -1,0 +1,204 @@
+@charset "utf-8";
+
+.exJsDHideEx {position:absolute; top:-99999px;z-index:-999}
+
+/* bodexRead */
+.exRead { text-align:left;margin:5px  0 10px 0}
+
+.exRead .secret {float:left;margin-right:5px}
+
+.exRead a.button,
+.exRead span.button {margin-top:0; *margin-left:5px}
+.exRead select.doc_state {margin:0}
+
+.exRead .readBody .cntBody {white-space:normal; overflow:hidden; padding-top:9px}
+.exRead .readBody .cntBody .xe_content {padding:7px 12px}
+.exRead .readBody {overflow:hidden}
+.exRead .readBody.review {border-top:1px solid;margin-top:15px}
+
+.exRead .tleAusr {white-space:nowrap; overflow:hidden; border-bottom:2px solid; *padding-top:1px; *zoom:1}
+.exRead .tleAusr div.checkbox {margin-left:-4px}
+.exRead .tleAusr h4 {margin:3px; font-size:1.4em}
+
+.exRead .tleAusr .title {float:left; white-space:normal}
+.exRead .tleAusr .userInfo {float:right; margin:10px 3px 0 0}
+.exRead .tleAusr .nick_name span {font-weight:bold;cursor:pointer}
+.exRead .tleAusr .nick_name .anonym {font-style:italic}
+
+.exRead .dayACut {white-space:nowrap; margin:0; padding:4px 3px 2px; font:.9em tahoma; line-height:1.5em; *zoom:1}
+.exRead .dayACut:after { content:""; clear:both; display:block}
+.exRead .dayACut .category {float:left}
+.exRead .dayACut .date {float:right}
+.exRead .dayACut .readedCount,
+.exRead .dayACut .votedCount {float:right; margin-left:12px}
+.exRead .dayACut .average {margin-right:5px}
+.exRead .dayACut .ccl {float:left; margin-right:5px}
+
+.exRead .staRat {margin:10px 0 5px 0}
+.exRead .staRat table {border:0}
+.exRead .staRat table th {font-weight:bold;font-size:1em}
+.exRead .staRat .exSPFrm {width:150px}
+.exRead .staRat .exSPFrm span.average {font-size:.9em; height:14px;line-height:17px}
+.exRead .staRat .exSPFrm div {width:80px}
+.exRead .staRat .average {font-weight:normal}
+
+.exRead div.infoBox {width:100%;*zoom:1}
+.exRead div.infoBox:after { content:""; clear:both; display:block}
+
+.exRead div.thumb {position:relative; float:left; text-align:center; margin:0; border:1px solid; margin-right:10px; overflow:hidden}
+.exRead div.thumbfr {float:right;margin:0;margin-left:10px}
+.exRead div.thumb img {padding:2px; margin-left:auto; margin-right:auto}
+
+.exRead .extVLst {border-top:1px solid;padding:0; overflow:hidden}
+.exRead .extVLst th {font-weight:normal; text-align:left; padding:2px 0 2px 0; white-space:nowrap}
+.exRead .extVLst td {padding-left:5px; white-space:normal}
+
+.exRead .extVTbl {width:100%}
+.exRead .extVTbl th {font-weight:normal; text-align:left; padding:4px 0 4px 10px; border-bottom:1px solid; border-right:1px solid}
+.exRead .extVTbl td {border-bottom:1px solid ; padding:4px 0 4px 10px}
+
+.exRead .cntBtn {text-align:right;margin:0; border-top:1px solid; padding-top:5px}
+
+.exRead .cntBtn .repAtbc {float:left; line-height:normal}
+.exRead .cntBtn .repAtbc .replyCount {float:left; margin-right:10px; background:url(../images/common/iconReply.gif) no-repeat left; padding-left:15px}
+.exRead .cntBtn .repAtbc .trackbackCount {float:left; background:url(../images/common/iconTrackback.gif) no-repeat left; padding-left:15px}
+.exRead .cntBtn .repAtbc .replyCount span {font:.8em tahoma;   }
+.exRead .cntBtn .repAtbc .trackbackCount span { font:.8em tahoma;   }
+
+.exRead .cntBtn .repAtbc a {white-space:nowrap}
+
+.exRead .tag {border-top:1px solid;background: url(../images/common/iconTag.gif) no-repeat 3px 7px; padding:5px 3px 5px 35px; margin:0; *zoom:1}
+.exRead .tag:after { content:""; clear:both; display:block}
+.exRead .tag ul {margin:0; padding:0}
+.exRead .tag li {display:inline; list-style:none; line-height:normal}
+
+.exRead .fileAtt {padding:3px;  margin:0 0 5px 0; border:2px solid; overflow:hidden; *zoom:1}
+.exRead .fileAtt:after { content:""; clear:both; display:block}
+.exRead .fileAtt ul {border:0; margin:0; padding:0}
+.exRead .fileAtt li {font-size: 1em;line-height: normal;list-style: none; float:left;background-position: 0% 50%;background-repeat: no-repeat;margin-left:5px;padding: 2px 0px 2px 17px;white-space: nowrap}
+.exRead .fileAtt li a {font-size:.9em; white-space:nowrap}
+.exRead .fileAtt span.fileDownloaded {font-weight:bold}
+.exRead .fileAtt span.fileError {text-decoration:line-through}
+
+.exRead .dRIpAUrl {margin-bottom:2px; line-height:normal; *zoom:1}
+.exRead .dRIpAUrl:after { content:""; clear:both; display:block}
+.exRead .dRIpAUrl .dRIp {font:.9em tahoma;float:right}
+.exRead .dRIpAUrl .dRUrl {font:.9em tahoma; float:left}
+.exRead .dRIpAUrl .dRUrl a {text-decoration:none}
+
+.exRead .voteBtn {float:left; position:relative; top:-15px; height:15px;margin-left:10px; *zoom:1}
+.exRead .voteBtn:after { content:""; clear:both; display:block}
+.exRead .voteBtn span {text-align:center; padding-top:4px; width:85px}
+.exRead .voteBtn img {margin-right:5px}
+
+/* secret Content */
+.exSrCnt {margin:20px auto; text-align:center; border:1px solid; width:350px}
+.exSrCnt div {padding:10px 0 10px 0;display:block}
+.exSrCnt div.title {border-bottom:1px solid;font-weight:bold}
+.exSrCnt input.userPw {width:100px;margin-right:5px}
+
+/* allow View Content */
+.exAVCnt {margin:20px; text-align:center; border:0}
+.exAVCnt .title {padding:10px; display:block; border:1px solid; font-weight:bold}
+.exAVCnt .content {padding:20px;display:block}
+
+/* extraVars */
+.exRepBox {text-align:left;padding:10px; border:1px solid; margin-top:.5em}
+.exRepBox .repItm {padding:.8em .7em; line-height:1.25em; border-bottom:1px dotted; list-style:none}
+
+.exRepBox .nick_name {float:left; padding:0; margin:0 .3em .5em 0;*position:relative}
+.exRepBox .nick_name span {cursor:pointer}
+.exRepBox .nick_name .anonym {font-style:italic}
+
+.exRepBox .voteIfo {font:1em Tahoma}
+
+.exRepBox .date,
+.exRepBox .voted {float:right; font:.9em Tahoma; margin-right:.8em;*position:relative}
+.exRepBox .bestRep {margin-bottom: 3px; border:1px solid}
+.exRepBox .repImg {float:left; margin-left:5px}
+
+.exRepBox p {display:inline}
+.exRepBox .reply {border-bottom:1px dotted}
+
+.exRepBox .repOpt {height:20px; float:right; white-space:nowrap;}
+.exRepBox .repOpt img {vertical-align:middle}
+
+.exRepBox .repCnt {white-space:normal; overflow:hidden}
+.exRepBox .repCnt p {display:block; *zoom:1}
+.exRepBox .repInd {background:url(../images/common/iconReplyArrow.gif) no-repeat .0em .3em; padding-left:1.3em}
+
+.exRepBox .fileAtt {margin: 5px 0 0;*zoom:1}
+.exRepBox .fileAtt:after { content:""; clear:both; display:block}
+.exRepBox .fileAtt li {padding-left:0; line-height:normal}
+.exRepBox .fileAtt img {padding-right:2px}
+
+.exRepBox .dRIpAUrl {margin: 2px 0 0}
+
+.exRepBox .repRvHad div {font-weight:bold; padding-bottom:5px}
+.exRepBox .repFl {float:left; width:48%;}
+.exRepBox .repFr {float:right; width:48%;}
+
+.exTbcBox {text-align:left;padding:.6em .6em; border:1px solid;margin-top:.5em}
+.exTbcBox .tbcUrl {font-size:.9em;margin:0}
+.exTbcBox .tbcItm {padding:.6em; line-height:1.25em; border-top:1px dotted; list-style:none}
+.exTbcBox p {font-size:.9em;display:block}
+.exTbcBox p a {text-decoration:none}
+.exTbcBox address {display:block; padding:0; *zoom:1}
+.exTbcBox address:after { content:""; clear:both; display:block}
+.exTbcBox address a {font-size:1em; float:left;*position:relative}
+.exTbcBox address .date {font:.8em Tahoma; float:right;*position:relative}
+.exTbcBox hr {border:0\9}
+
+/* commentWrite */
+.exWrite dl.option dd.rePoint {float:right; margin:3px 5px}
+.exWrite dl.option dd.rePoint a.button {margin:-4px 0 0}
+.exWrite dl.option dd.rePoint {*float:none; *margin:0 10px}
+
+.exCWrite {margin:10px 0 5px 0}
+.exCWrite .exWtIfo {margin:0 0 5px; padding:0; white-space:normal; line-height:normal}
+.exCWrite .exWtIfo .votePoint {border-bottom:1px solid;padding:5px 0 5px 10px; overflow:hidden}
+
+.exCWrite .exWtIfo .votePoint a {margin-right:3px}
+.exCWrite .exWtIfo .votePoint input {margin: 0 5px 0 0}
+
+.exCWrite .exWtIfo .votePoint .up {margin-right:5px; padding:0 0 0 18px;background:url(../images/common/vote_up.gif) no-repeat left top}
+.exCWrite .exWtIfo .votePoint .down {padding:0 0 0 18px;background:url(../images/common/vote_down.gif) no-repeat left top}
+
+.exCWrite .exWtIfo .votePoint .exJsSPntBox {padding-left:0; margin:0;list-style:none}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li {float:left}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a { display:block;text-decoration:none; width:15px; height:14px; background:url(../images/common/starOff.png) no-repeat left top; font-size:0; line-height:0}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.onR {background-image:url(../images/common/starOnR.png)}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.onG {background-image:url(../images/common/starOnG.png)}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.onY {background-image:url(../images/common/starOnY.png)}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.vote_register,
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.vote_cancel {margin-left:8px; width:39px; height:15px; background-image:url(../images/common/labelCancel.gif)}
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.vote_register {margin-left:5px;background-image:url(../images/common/labelVote.gif)}
+
+.exCWrite .exWtIfo .votePoint .voteEmpty a {float:left; margin-left:8px; width:39px; height:15px; background:url(../images/common/labelCancel.gif) no-repeat left top; font-size:0; line-height:0}
+
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.vote_register span,
+.exCWrite .exWtIfo .votePoint .exJsSPntBox li a.vote_cancel span,
+.exCWrite .exWtIfo .votePoint .voteEmpty a span {display:none}
+
+/* 게시물의 팝업 메뉴 */
+.comment_popup_menu,
+.document_popup_menu {text-align:right; padding:0 15px 0 0; height:18px}
+.comment_popup_menu a,
+.document_popup_menu a {text-decoration:none}
+
+/* 회원 서명 및 프로필 이미지 출력 */
+.exMbSign {border:1px solid; padding:10px; margin:10px; *zoom:1}
+.exMbSign:after { content:""; clear:both; display:block}
+.exMbSign .profile {float:left; margin-right:20px;*position:relative}
+.exMbSign .profile img {border:1px solid; padding:3px; margin:none}
+.exMbSign .signature {overflow:hidden}
+
+.exCPFImg {float:left; *position:relative}
+.exCPFImg .profile {margin:0 20px 10px 0}
+.exCPFImg .profile .star {margin-bottom:3px}
+.exCPFImg .profile .adoptCmt span {font-weight:bold}
+.exCPFImg .profile .adoptCmt a.button {margin:0 0 3px 0; padding:0}
+.exCPFImg .profile .pImg {border:1px solid; padding:3px; margin:none}
+
+/* 리플창 */
+.exIfmInc {margin-top:0; width:100%}

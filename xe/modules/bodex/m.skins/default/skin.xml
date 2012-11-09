@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">EX 기본 모바일 스킨</title>
+    <title xml:lang="en">EX Basic Mobile Skin</title>
+    <description xml:lang="ko">
+        EX 모바일의 기본 스킨입니다.
+        NHN (developers@xpressengine.com)
+    </description>
+    <description xml:lang="en">
+        This is the basic Mobile skin of EX.
+        NHN (developers@xpressengine.com)
+    </description>
+    <version>0.1</version>
+    <date>2010-06-10</date>
+
+    <author email_address="developers@xpressengine.com" link="http://xpressengine.com/">
+        <name xml:lang="ko">NHN</name>
+        <name xml:lang="en">NHN</name>
+        <name xml:lang="zh-TW">NHN</name>
+        <name xml:lang="tr">NHN</name>
+    </author>
+    <extra_vars />
+</skin>

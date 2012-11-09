@@ -1,0 +1,18 @@
+
+{@ $form_include = (Context::get('is_poped') || $form_include)}
+<block cond="!$form_include"><include target="__header.html" /></block>
+
+<div class="exJsSMBox <!--@if($iframe_include)-->exIfmInc<!--@endif-->">
+
+    <div class="exBoxHad">
+        <h3>{$lang->msg_alert}</h3>
+    </div>
+    <div class="tCenter exMsgBox">{$message}</div>
+
+    <div cond="!Context::get('is_poped')" class="gap1 tCenter">
+        <a cond="!$is_logged && !$iframe_include" href="{getUrl('act','dispMemberLoginForm')}" class="button {$btn_class}"><span>{$lang->cmd_login}</span></a>
+        <a href="#" onclick="<!--@if($iframe_include)-->_exJsIframeCompleteComment();<!--@else-->history.back();<!--@endif--> return false;" class="button {$btn_class}"><span>{$lang->cmd_back}</span></a>
+    </div>
+</div>
+
+<block cond="!$form_include"><include target="__footer.html" /></block>

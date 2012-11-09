@@ -1,0 +1,42 @@
+<!--%import("css/bodex_admin.css")-->
+<!--%import("js/bodex_admin.js")-->
+<!--@if($module!='admin')-->
+<style type="text/css">
+#xeAdmin .localNavigation li a {padding: 7px 13px 0 13px;}
+#xeAdmin table.rowTable td p {white-space:normal;}
+#xeAdmin table.crossTable #sel_editor_colorset,
+#xeAdmin table.crossTable #sel_comment_editor_colorset {width:95%;}
+</style>
+<!--@end-->
+<div id="bodexAdmin" <!--@if($module=='admin')-->class="bodexAdminBody"<!--@end-->>
+    <div <!--@if($module=='admin')-->class="left"<!--@end-->>
+        <!--@if($module=='admin')--><h3 class="xeAdmin">{$lang->bodex} <span class="gray">{$lang->cmd_management}</span></h3><!--@end-->
+
+            <ul class="<!--@if($module=='admin')-->navigation<!--@else-->localNavigation<!--@end-->">
+                <!--@if($module=='admin')-->
+                    <li <!--@if($act=='dispBodexAdminContent')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminContent','module_srl','')}">{$lang->cmd_bodex_content}</a></li>
+                    <li <!--@if($act=='dispBodexAdminInsertBoard')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminInsertBoard','module_srl','')}">{$lang->cmd_Insert_bodex}</a></li>
+                    <li <!--@if($act=='dispBodexAdminBoardList')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminBoardList','module_srl','')}">{$lang->cmd_bodex_list}</a></li>
+                <!--@else-->
+                    <li><a href="{getUrl('act','')}">{$lang->cmd_back}</a></li>
+                <!--@end-->
+                <!--@if($module_srl)-->
+                    <!--@if($module=='admin')--><li class="module"><a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" onclick="window.open(this.href); return false;">{cut_str($module_info->mid,13)}</a></li><!--@end-->
+                    <li <!--@if($act=='dispBodexAdminBoardInfo'||$act=='dispBodexAdminInsertBoard')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminBoardInfo')}">{$lang->cmd_view_info}</a></li>
+                    <li <!--@if($act=='dispBodexAdminCategoryInfo')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminCategoryInfo')}">{$lang->cmd_manage_category}</a></li>
+                    <li <!--@if($act=='dispBodexAdminSearchSetup')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminSearchSetup')}">{$lang->cmd_search_setting}</a></li>
+                    <li <!--@if($act=='dispBodexAdminListSetup')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminListSetup')}">{$lang->cmd_list_setting}</a></li>
+                    <li <!--@if($act=='dispBodexAdminExtraVars')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminExtraVars')}">{$lang->extra_vars}</a></li>
+                    <li <!--@if($act=='dispBodexAdminGrantInfo')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminGrantInfo')}">{$lang->cmd_manage_grant}</a></li>
+                    <li <!--@if($act=='dispBodexAdminBoardAdditionSetup')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminBoardAdditionSetup')}">{$lang->cmd_addition_setup}</a></li>
+                    <li <!--@if($act=='dispBodexAdminSkinInfo')-->class="on"<!--@end-->><a href="{getUrl('act','dispBodexAdminSkinInfo')}">{$lang->cmd_manage_skin}</a></li>
+                <!--@end-->
+            </ul>
+
+    </div>
+    <div <!--@if($module=='admin')-->class="right"<!--@end-->>
+        <!--@if($module=='admin')-->
+            <div class="infoText"><!--@if($module_info && $module_info->mid)--><h4>{$module_info->mid} <span class="vr">|</span> <a href="{getSiteUrl($module_info->domain,'','mid',$module_info->mid)}" onclick="window.open(this.href); return false;" class="view">View</a></h4><!--@else-->{nl2br($lang->about_bodex)}<!--@end--></div>
+        <!--@end-->
+
+

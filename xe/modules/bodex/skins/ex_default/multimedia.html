@@ -1,0 +1,26 @@
+<!--// CSS 파일 로드 (컬러셋에 따라서) -->
+    <!--%import("css/common.css")-->
+    <!--%import("css/skin.js")-->
+
+    <!--@if($module_info->colorset == "black")-->
+        <!--%import("css/black.css")-->
+        {@ $btn_class = "black" }
+    <!--@else-->
+        <!--%import("css/white.css")-->
+    <!--@endif-->
+
+<!--// print tags -->
+
+
+<div class="exJsMidBox">
+    <h3 class="exJsMidTle">{$file->source_filename}</h3>
+
+<script type="text/javascript">displayMultimedia("{$file->uploaded_filename}", "100%","100%", { "autostart" : true, "wmode" : "transparent" });</script>
+</div>
+
+
+<script type="text/javascript">
+    setFixedPopupSize = _exJsPopupResize;
+    window.resizeTo('350', '350');
+    xAddEventListener(window, 'resize', _exJsPopupResize);
+</script>

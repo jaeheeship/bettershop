@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">Yoorim 모바일 게시판 스킨</title>
+    <title xml:lang="en">Yoorim Mobile Borad Skin</title>
+    <description xml:lang="ko">
+        Yoorim 모바일 게시판 스킨입니다.
+        Yi, Yoorim (yoorimyi@gmail.com) 
+    </description>
+    <description xml:lang="en">
+        This is the mobile board skin of Yoorim Yi.
+        Yi, Yoorim (yoorimyi@gmail.com) 
+    </description>
+    <version>1.1.1</version>
+    <date>2011-03-09</date>
+
+    <author email_address="yoorimyi@gmail.com" link="http://yoorim.me/">
+        <name xml:lang="ko">Yi, Yoorim</name>
+        <name xml:lang="en">Yi, Yoorim</name>
+    </author>
+	<extra_vars />
+</skin>

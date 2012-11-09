@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* Yoorim Mobile Package (/modules/board/m.skins/yoorim_m_v1) */
+/* Hx */
+.hx.h2{text-shadow:0 1px 1px #f9b !important;border-top:1px solid #cf4e74;border-bottom:1px solid #b22a50;background:#f69 -webkit-gradient(linear,0% 0%,0% 100%,from(#ffa8cb),to(#f69),color-stop(0.5,#f978a3),color-stop(0.5,#ef558a));background:#f69 -moz-linear-gradient(top,#ffa8cb,#f69);background-color:#f69}
+.hx.h2 em{color:#940040}
+.hx.h3 em{color:#f5558a}
+.hx .ext:before{color:#b22a50}
+.hx.h2 .ca:after{border-left-color:#c42457}
+.hx.h2 .write{border-color:#bd3a62 !important}
+/* Global Navigation */
+.gn em{color:#f5558a}
+/* List */
+.lt .notice{background:#f776a2}
+.lt .title em{color:#f5558a}
+/* Button Area */
+.bn.dark{text-shadow:0 1px 1px #fbd;border-color:#ee6299 #e24c62 #d03077;background:#f69 -webkit-gradient(linear,0% 0%,0% 100%,from(#ffa8cb),to(#f69),color-stop(0.5,#f978a3),color-stop(0.5,#ef558a));background:#f69 -moz-linear-gradient(top,#ffa8cb,#f69);background-color:#f69}

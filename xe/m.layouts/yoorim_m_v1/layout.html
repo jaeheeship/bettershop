@@ -1,0 +1,142 @@
+<!--%import("css/mx.css")-->
+<!--@if($layout_info->colorset == "tq")-->
+    <!--%import("css/tq.css")-->
+<!--@elseif($layout_info->colorset == "bu")-->
+    <!--%import("css/bu.css")-->
+<!--@elseif($layout_info->colorset == "pk")-->
+    <!--%import("css/pk.css")-->
+<!--@else-->
+    <!--%import("css/wh.css")-->
+<!--@end-->
+<script src="{getUrl()}common/js/jquery.js"></script>
+<script src="{getUrl()}common/js/x.js"></script>
+<script>
+	function tgMbd() {
+		jQuery("#login").toggle();
+		jQuery("#on").toggle();
+		jQuery("#off").toggle();
+	};
+	function tgMy() {
+		jQuery("#my").toggle();
+		jQuery("#on").toggle();
+		jQuery("#off").toggle();
+	};
+	function showGn() {
+		jQuery("#mu").hide();
+		jQuery("#tgMbn").hide();
+		jQuery("#tgMy").hide();
+		jQuery("#login").hide();
+		jQuery("#my").hide();
+		jQuery("#on").hide();
+		jQuery("#off").show();
+		jQuery("#nav").show();
+	};
+	function hideGn() {
+  		jQuery("#nav").hide();
+		jQuery("#mu").show();
+		jQuery("#tgMbn").show()
+		jQuery("#tgMy").show();
+	};
+</script>
+<div class="hd">
+	<!--@if($layout_info->logo_image)-->
+	<h1 class="h1"><a href="{$layout_info->index_url}"><img src="{$layout_info->logo_image}" alt="{$layout_info->index_title}" /></a></h1>
+	<!--@elseif($layout_info->index_title)-->
+	<h1 class="h1"><a href="{$layout_info->index_url}">{$layout_info->index_title}</a></h1>
+	<!--@else-->
+	<h1 class="h1"><a href="{$layout_info->index_url}">Yoorim Layout</a></h1>
+	<!--@end-->
+	<div class="fr">
+    	<!--@if($is_logged)-->
+        <a href="#" onclick="tgMy()" id="tgMy" class="mbn mu"><img src="img/{$layout_info->colorset}/my.png" width="16" height="16" border="0" id="on" /><img src="img/my.png" width="16" height="16" border="0" id="off" /></a>
+        <!--@else-->
+        <a href="#" onclick="tgMbd()" id="tgMbn" class="mbn mu"><img src="img/{$layout_info->colorset}/my.png" width="16" height="16" border="0" id="on" /><img src="img/my.png" width="16" height="16" border="0" id="off" /></a>
+        <!--@end-->
+    <!--@if($layout_info->menu->main_menu->menu_srl)-->
+   	    <!--@if($layout_info->view_menu == "layer")-->
+        <a href="#" onclick="showGn()" id="mu" class="mu">Menu</a>
+        </div>
+        <!--Main Menu-->
+        <div id="nav" class="nav">
+            <a href="#" onclick="hideGn()" class="muon">Go Back</a>
+            <!--@if($layout_info->menu->main_menu->list)-->
+            <ul class="gn"><!--@foreach($layout_info->menu->main_menu->list as $key => $val)--><!--@if(strlen($val['text']) > 0)-->
+            <li><a href="{$val['href']}">{$val['text']}</a><!--@if($val['list'])-->
+                <ul><!--@foreach($val['list'] as $skey => $sval)--><!--@if(strlen($sval['text']) > 0)-->
+                <li><a href="{$sval['href']}">{$sval['text']}</a><!--@if($sval['list'])-->
+                    <ul><!--@foreach($sval['list'] as $sskey => $ssval)--><!--@if(strlen($ssval['text']) > 0)-->
+                    <li><a href="{$ssval['href']}">{$ssval['text']}</a><!--@if($ssval['list'])-->
+                        <ul><!--@foreach($ssval['list'] as $ssskey => $sssval)--><!--@if(strlen($sssval['text']) > 0)-->
+                        <li><a href="{$sssval['href']}">{$sssval['text']}</a>
+                        </li><!--@end--><!--@end--></ul><!--@end-->
+                    </li><!--@end--><!--@end--></ul><!--@end-->
+                </li><!--@end--><!--@end--></ul><!--@end-->
+            </li><!--@end--><!--@end--></ul><!--@end-->
+        </div>
+        <!--@else-->
+            <!--@if($act=='dispMenuMenu')-->
+            <button type="button" id="muon" class="muon" onclick="history.back()">Go Back</button>
+            <!--@else-->
+            <a href="{getUrl('act','dispMenuMenu','menu_srl',$layout_info->menu->main_menu->menu_srl)}" id="mu" class="mu">Menu</a>
+            <!--@end-->
+        <!--@end-->
+    </div>
+    <!--@else-->
+    </div>
+	<!--@end-->
+</div>
+<!--@if($is_logged)-->
+<div id="my" class="bg">
+    <h2 class="hx h2">{$lang->cmd_view_member_info}</h2>
+    <fieldset class="sn">
+        <ul>
+            <!--@if($logged_info->profile_image->src)-->
+            <li class="fr pimg"><label for="pimg" class="">{$lang->profile_image}</label><div id="pimg"><img src="{$logged_info->profile_image->src}" border="0" alt="{$lang->profile_image}" /></div></li>
+            <!--@end-->
+            <li><label for="uname" class="db fb al">{$lang->user_name}</label><div id="uname">{htmlspecialchars($logged_info->user_name)}</div></li>
+            <li><label for="nname" class="db fb al">{$lang->nick_name}</label><div id="nname">{htmlspecialchars($logged_info->nick_name)}</div></li>
+            <li><label for="hpage" class="db fb al">{$lang->homepage}</label><div id="hpage"><a href="{$logged_info->homepage}">{htmlspecialchars($logged_info->homepage)}</a></div></li>
+            <li><label for="bpage" class="db fb al">{$lang->blog}</label><div id="bpage"><a href="{$logged_info->blog}">{htmlspecialchars($logged_info->blog)}</a></div></li>
+            <li><label for="group" class="db fb al">{$lang->group}</label><!--@foreach($logged_info->group_list as $key => $val)-->{$val} <!--@end--></li>
+            <!--@if($logged_info->member_srl == $logged_info->member_srl || $logged_info->is_admin == 'Y' )-->
+            <li><label for="llogin" class="db fb al">{$lang->last_login}</label><div>{zdate($logged_info->last_login,"Y-m-d H:i")}</div></li>
+            <!--@end-->
+        </ul>
+        <div class="fr">
+        	<a href="{getUrl('act','dispMemberLogout')}" class="bn dark">{$lang->cmd_logout}</a>
+            <!--@if($logged_info->is_admin=="Y" && !$site_module_info->site_srl)-->
+        	<a href="{getUrl('','module','admin')}" onclick="window.open(this.href);return false;" class="bn white">{$lang->cmd_management}</a>
+        	<!--@end-->
+        </div>
+    </fieldset>
+</div>
+<!--@else-->
+<div id="login" class="bg">
+    <div class="wr">
+        <form action="./" method="POST" class="ff">
+            <input type="hidden" name="module" value="member" />
+            <input type="hidden" name="act" value="procMemberLogin" />
+            <input type="hidden" name="redirect_url" value="{getUrl('act','')}" />
+            <ul>
+                <li><label for="id">{$lang->user_id}</label><input name="user_id" type="text" id="id" value="" /></li>
+                <li><label for="pw">{$lang->password}</label><input name="password" type="password" id="pw" value="" /></li>
+            </ul>
+            <div class="bna">
+            <div class="fl"><input name="keep_signed" type="checkbox" value="Y" /> <label for="autoLogin">{$lang->keep_signed}</label></div>
+            <div class="fr"><button type="submit" class="bn dark">{$lang->cmd_login}</button></div>
+            </div>
+        </form>
+        <ul class="help">
+            <li class="first-child"><a href="{getUrl('act','dispMemberSignUpForm')}">{$lang->cmd_signup}</a></li>
+            <li><a href="{getUrl('act','dispMemberFindAccount')}">{$lang->cmd_find_member_account}</a></li>
+            <li><a href="{getUrl('act','dispMemberResendAuthMail')}">{$lang->cmd_resend_auth_mail}</a></li>
+        </ul>
+    </div>
+</div>
+<!--@end-->
+<div id="bd" class="bd">{$content}</div>
+<ul class="ft">
+	<!--@if($layout_info->copyright)--><li class="cr">&copy; {$layout_info->copyright}</li><!--@end-->
+	<li class="fr"><a href="{getUrl('m',0)}">PC</a></li>
+	<li class="fr"><a href="{getUrl('act','dispModuleChangeLang','oldact',$act)}">LANG</a></li>
+</ul>

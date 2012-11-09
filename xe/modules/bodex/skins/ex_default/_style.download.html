@@ -1,0 +1,406 @@
+<!--// 목록 출력 -->
+
+{@
+    $download_file_point = abs($oBodex->getPointConfig('download_file'));
+    $grant->manager ? $col_count = 3 : $col_count = 2;
+    $arr_display_var  = $extra_key_list = $writer_rating_list = array();
+    $writer_ccl_key = null;
+
+    $is_display_image = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='I'||$module_info->display_file_list=='BI'||$module_info->display_file_list=='MI');
+    $is_display_media = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='M'||$module_info->display_file_list=='BM'||$module_info->display_file_list=='MI');
+    $is_display_binary = (!$module_info->display_file_list || $module_info->display_file_list=='A'||$module_info->display_file_list=='B'||$module_info->display_file_list=='BM'||$module_info->display_file_list=='BI');
+}
+
+<table border="1" cellspacing="0" class="exList">
+    <!--@if($module_info->display_list_head == 'Y')-->
+    <thead>
+        <tr name="_col_sc_1">
+
+            <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+            <th cond="$grant->manager" scope="col" class="checkbox"><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></th>
+
+            <th scope="col" colspan="2" class="title">
+                <!--// 카테고리 사용시 카테고리 선택 표시 -->
+                <div cond="$module_info->use_category == 'Y'" class="category">
+                    <select name="category" id="board_category" onchange="_exJcChangeCategory(); return false;" class="exISt" style="width:{$arr_category_width[0]};">
+                        <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                        <option loop="$category_list=>$cat_val" value="{$cat_val->category_srl}" selected="selected"|cond="$category==$cat_val->category_srl">{str_repeat("&nbsp;&nbsp;",$cat_val->depth)}&nbsp;{$cat_val->title.($cat_val->document_count?'&nbsp;('.$cat_val->document_count.')':'')}</option>
+                    </select>
+                </div>
+                &nbsp;
+            </th>
+
+            <!--// 목록 설정으로 table theader 생성 -->
+            <block loop="$list_config=>$key,$val">
+                <!--// 기본 컨텐츠일 경우 -->
+                <!--@if($val->idx == -1)-->
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <block cond="in_array($val->type,array('thumbnail','summary','category','nick_name','regdate','last_update','last_updater','readed_count','voted_count','blamed_count'))">
+                        {@$arr_display_var[$val->type] = 'Y'}
+                        <!--@if($val->sort=='Y')-->
+                            <!--@
+                                if(in_array($val->type,array('thumbnail','summary','category'))) continue;
+                                elseif($val->type=='voted_count') $t_lang = ($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')?$lang->col_star:$lang->voted_count;
+                                elseif($val->type=='blamed_count' && ($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')) continue;
+                                else $t_lang = Context::getLang($val->type);
+                            -->
+                                {@ $col_count++}
+                                <th scope="col" class="{$val->type} {$val->sort=='Y'?'sort':''}">
+                                    <!--@if($val->sort=='Y')-->
+                                        <a class="{($sort_index==$val->type)?$order_type:''}" href="{getUrl('sort_index',$val->type,'order_type',$order_type)}">{$t_lang}</a>
+                                    <!--@else-->
+                                        {$t_lang}
+                                    <!--@endif-->
+                                </th>
+                            <!--@endif-->
+                        <!--@endif-->
+                    </block>
+                <!--@else-->
+                    <!--// 일반 문서 출력때 루프를 줄이기위해 미리 키값 저장 -->
+                    <!--@if(substr($val->eid,0,13) == 'writer_rating')-->
+                        {@ $writer_rating_list[] = $key}
+                    <!--@elseif($val->eid=='writer_display_ccl')-->
+                        {@ $writer_ccl_key = $key}
+                    <!--@else-->
+                        {@ $extra_key_list[] = $key}
+                    <!--@endif-->
+                    <th cond="$val->sort=='Y'" scope="col" class="extravalue {$val->sort=='Y'?'sort':''}">
+                        {@$col_count++}
+                        <a class="{($sort_index==$val->type)?$order_type:''}" href="{getUrl('sort_index','extra_vars'.$val->idx,'order_type',$order_type)}">{$val->name}</a>
+                    </th>
+                <!--@endif-->
+            </block>
+        </tr>
+    </thead>
+    <!--@else-->
+        <block loop="$list_config=>$key,$val">
+            <!--@if($val->idx == -1)-->
+                {@$arr_display_var[$val->type] = 'Y'}
+            <!--@else-->
+                <!--@if(substr($val->eid,0,13) == 'writer_rating')-->
+                    {@ $writer_rating_list[] = $key}
+                <!--@elseif($val->eid=='writer_display_ccl')-->
+                    {@ $writer_ccl_key = $key}
+                <!--@else-->
+                    {@ $extra_key_list[] = $key}
+                <!--@endif-->
+            <!--@endif-->
+        </block>
+    <!--@endif-->
+    <tbody>
+
+    <!--// 게시물이 없으면 등록된 글이 없음을 표시 -->
+    <!--@if(!$document_list && !$notice_list)-->
+        <tr class="exBg0 tCenter">
+            <td class="title" colspan="{$col_count}">
+                {$lang->no_documents}
+            </td>
+        </tr>
+    <!--@else-->
+
+        <!--// 공지사항 출력 -->
+        <block cond="!$is_view_document || ($is_view_document && $module_info->display_foot_list_ex == 'Y')">
+            <block loop="$notice_list=>$no,$document">
+                {@
+                    $document = $oBodex->getWith($document, array('category_srl','last_update','readed_count','voted_count','blamed_count','member_srl','reward_point','reward_srl','is_notice'));
+                    $document->reward_point=round($document->reward_point / 2);
+                    $document->permanentUrl=getUrl('mid','','document_srl',$document->document_srl);
+                    $is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
+                    $doc_logged = $logged_info && (abs($logged_info->member_srl) == abs($document->member_srl));
+                }
+                <tr class="notice exBg1">
+                    <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+                    <td cond="$grant->manager" class="checkbox"><input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <td class="notice"><img src="./images/common/{($document_srl == $document->document_srl)?'arrowNextB2.gif" alt="Selected"':($document->is_notice == 'Y'?'notice.gif" title="Notice" alt="Notice"':'iconBest.gif" title="Best" alt="Best"')} border="0" /></td>
+
+                    <td class="title">
+                        <span cond="$module_info->display_notice_category == 'Y' && $arr_display_var['category']=='Y' && $module_info->use_category != 'N' && $document->category_srl" class="category" style="color:{$category_list[$document->category_srl]->color};"|cond="$category_list[$document->category_srl]->color != 'transparent'">{$category_list[$document->category_srl]->title}</span>
+
+                        <span cond="$module_info->use_reward && $module_info->use_reward != 'N' && $document->reward_point > 0" class="rePoint {($document->reward_srl > 0 || $document->reward_point === 0)?'reAdopt':''}" title="{($document->reward_srl > 0 || $document->reward_point === 0)?$lang->adopted:$lang->not_adopted}">{$document->reward_point}</span>
+
+                        <a href="{$document->permanentUrl}">{$document->getTitle($module_info->subject_cut_size)}</a>
+                        {$oBodex->printExtraImages($document->getExtraImages($module_info->duration_new))}
+                        {@
+                            $r_count=$document->getCommentCount();
+                            $t_count=$document->getTrackbackCount();
+                        }
+                        <span cond="$r_count || $t_count" class="repAtbc">
+                            <!--@if($is_grant)-->
+                                <a cond="$r_count" href="{$document->permanentUrl}#comment"><span class="replies" title="Replies">[{$r_count}]</span></a>
+                                <a cond="$t_count" href="{$document->permanentUrl}#trackback"><span class="trackbacks" title="Trackbacks">({$t_count})</span></a>
+                            <!--@else-->
+                                <span cond="$r_count" class="replies" title="Replies">[{$r_count}]</span>
+                                <span cond="$t_count" class="trackbacks" title="Trackbacks">({$t_count})</span>
+                            <!--@endif-->
+                        </span>
+                    </td>
+
+                    <!--// 목록 설정으로 table theader 생성 -->
+                    <block loop="$list_config=>$key,$val">
+                        <block cond="$val->sort=='Y'">
+                            <!--@if($val->idx == -1)-->
+                                <block cond="in_array($val->type,array('nick_name','regdate','last_update','last_updater','readed_count','voted_count','blamed_count'))">
+                                    <!--@
+                                        if($val->type == 'nick_name'){
+                                            $l_value=$oBodex->cutStrEx($document->getNickName(), $module_info->nick_name_cut_size);
+                                            $document->member_srl = (!$grant->manager && $document->member_srl && $document->get('user_id')=='anonymous')?0:$document->member_srl;
+                                            $l_value='<div class="'.($document->member_srl?'member_'.$document->member_srl:'bodex_0'.$document->document_srl).(($document->member_srl)?($doc_logged?' logged':''):' anonym').'">'.($l_value=='anonymous'?$lang->anonymous:$l_value).'</div>';
+                                        }elseif($val->type == 'regdate')
+                                            $l_value=$document->getRegdate('Y-m-d');
+                                        elseif($val->type == 'last_update')
+                                            $l_value=zdate($document->last_update,'Y-m-d H:i');
+                                        elseif($val->type == 'readed_count')
+                                            $l_value=$document->readed_count>0?$document->readed_count:'&nbsp;';
+                                        elseif($val->type == 'voted_count'){
+                                            if($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')
+                                                $l_value=(abs($document->blamed_count)>0?number_format($document->voted_count / abs($document->blamed_count),1):'0').'/'.abs($document->blamed_count);
+                                            else $l_value=$document->voted_count>0?$document->voted_count:'&nbsp;';
+                                        }elseif($val->type == 'blamed_count'){
+                                            if($module_info->use_vote == 'S' || $module_info->use_vote == 'Z') continue;
+                                            $l_value=$document->blamed_count<0?$document->blamed_count:'&nbsp;';
+                                        }else $l_value= $document->get($val->type);
+                                    -->
+                                        <td class="{$val->type}">{$l_value}</td>
+                                    <!--@endif-->
+                                </block>
+                            <!--// 사용자 선언 확장변수일 경우 -->
+                            <!--@else-->
+                                <td class="extravalue"><!--@if(!$is_grant && $module_info->display_secret_extravalue=='N')-->{$lang->secret}<!--@else-->{$oBodex->cutStrEx($document->getExtraValueHTML($val->idx), $module_info->content_extravalue_size)}<!--@endif--></td>
+                            <!--@endif-->
+                        </block>
+                    </block>
+                </tr>
+            </block>
+        </block>
+
+        <tr class="itembox exBg0">
+            <td colspan="{$col_count}">
+                <!--// 목록 출력 -->
+                <block loop="$document_list=>$no,$document">
+                        {@
+                            $document = $oBodex->getWith($document, array('category_srl','last_update','last_updater','readed_count','voted_count','blamed_count','member_srl','reward_point','reward_srl'));
+                            $document->reward_point=round($document->reward_point/2);
+                            $document->permanentUrl=getUrl('mid','','document_srl',$document->document_srl);
+
+                            $is_blind = (((int)$module_info->declare_blind_document > 0)?((int)$module_info->declare_blind_document<=$oBodex->getDocumentDeclaredCount($document->document_srl)):false);
+                            $is_grant = !$is_blind && $grant->view && (!$document->isSecret() || $document->isGranted());
+                            $doc_logged = $logged_info && (abs($logged_info->member_srl) == abs($document->member_srl));
+                            $file_list = array();
+                            $is_button = false;
+                            $total_down = 0;
+                        }
+                        <block cond="in_array($module_info->display_download_button, array('Y','L')) && $document->hasUploadedFiles() && $is_grant">
+                            {@
+                                $file_list = $oBodex->getSplitFileList($document->getUploadedFiles());
+                                $downloaded_list = ($module_info->use_down_point_always=='Y') ? array():$oBodex->getDownloadedLogInfo($document->document_srl);
+                            }
+                        </block>
+
+                        <div class="downBox {$module_info->use_hot_track?'exJsHotTrackBox':''}">
+                            <div cond="$arr_display_var['thumbnail']=='Y'" class="thumb <!--@if($module_info->thumbnail_position=='R')-->thumbfr<!--@endif-->" style="width:{(int)$module_info->thumbnail_width+4}px;">
+                                <a class="exJsHotTrackA" href="{($is_blind && !$document->isGranted())?'#':$document->permanentUrl}">
+                                <!--@if($is_blind || (!$is_grant && $module_info->display_secret_extravalue=='N'))-->
+                                    <img src="./images/common/{$is_blind?'blind':'secret'}img.png" border="0" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$module_info->thumbnail_height}" width="{$module_info->thumbnail_width}"/>
+                                <!--@else-->
+                                    <!--@if($document->thumbnailExists($module_info->thumbnail_width, $module_info->thumbnail_height, $module_info->thumbnail_type))-->
+                                        <img src="{$document->getThumbnail($module_info->thumbnail_width, $module_info->thumbnail_height, $module_info->thumbnail_type)}" border="0" alt=""/>
+                                    <!--@else-->
+                                        <img src="./images/common/noimg.png" border="0" alt="no image" title="no image" height="{$module_info->thumbnail_height}" width="{$module_info->thumbnail_width}"/>
+                                    <!--@endif-->
+                                <!--@endif-->
+                                </a>
+                            </div>
+                            <div class="info">
+                                <ul>
+                                    <li class="title">
+                                        <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+                                        <input cond="$grant->manager" class="checkbox" type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+                                        <img src="./images/common/arrowNextB2.gif" cond="$document_srl == $document->document_srl" border="0" alt="Selected" />
+                                        <span cond="$module_info->use_reward && $module_info->use_reward != 'N' && $document->reward_point > 0" class="rePoint {($document->reward_srl > 0 || $document->reward_point === 0)?'reAdopt':''}" title="{($document->reward_srl > 0 || $document->reward_point === 0)?$lang->adopted:$lang->not_adopted}">{$document->reward_point}</span>
+                                        <!--@if($is_blind && !$document->isGranted())-->
+                                        <span class="blind">{$lang->msg_is_blind}</span>
+                                        <!--@else-->
+                                        <a href="{$document->permanentUrl}">{$is_blind?$lang->msg_is_blind:$document->getTitle($module_info->subject_cut_size)}</a>
+                                        <!--@endif-->
+                                        <block cond="$module_info->display_pang_point == 'Y' || $module_info->use_mobile_express == 'Y'">
+                                            {@ $arr_extra=unserialize($document->get('extra_vars'))}
+                                            <block cond="$module_info->display_pang_point == 'Y' && $arr_extra && $arr_extra->ppang->d->p > 0">
+                                                {@$pangpang_point = sprintf($lang->pang_pang, $arr_extra->ppang->d->p)}
+                                                <img src="./images/{$module_info->colorset}/coin.gif" title="{$pangpang_point}" alt="{$pangpang_point}" />
+                                            </block>
+                                            <img src="./images/common/mobile.gif" cond="$module_info->use_mobile_express == 'Y' && $arr_extra && $arr_extra->bodex->d->mp" title="{$lang->mobile}" alt="{$lang->mobile}" />
+                                        </block>
+                                        {$oBodex->printExtraImages($document->getExtraImages($module_info->duration_new))}
+                                        {@
+                                            $r_count=$document->getCommentCount();
+                                            $t_count=$document->getTrackbackCount();
+                                        }
+                                        <span cond="$r_count || $t_count" class="repAtbc">
+                                            <!--@if($is_grant)-->
+                                                <a cond="$r_count" href="{$document->permanentUrl}#comment"><span class="replies" title="Replies">[{$r_count}]</span></a>
+                                                <a cond="$t_count" href="{$document->permanentUrl}#trackback"><span class="trackbacks" title="Trackbacks">({$t_count})</span></a>
+                                            <!--@else-->
+                                                <span cond="$r_count" class="replies" title="Replies">[{$r_count}]</span>
+                                                <span cond="$t_count" class="trackbacks" title="Trackbacks">({$t_count})</span>
+                                            <!--@endif-->
+                                        </span>
+                                    </li>
+                                    <li class="CASBox">
+                                        <div class="catAstar">
+                                            <div class="catAaut">
+                                                <span cond="$arr_display_var['category']=='Y' && $module_info->use_category != 'N' && $document->category_srl" style="color:{$category_list[$document->category_srl]->color};"|cond="$category_list[$document->category_srl]->color != 'transparent'" class="category">{$category_list[$document->category_srl]->title}</span>
+
+                                                <span cond="$arr_display_var['nick_name']=='Y'||$arr_display_var['last_updater']=='Y'" class="nick_name">
+                                                    <block cond="$arr_display_var['nick_name']=='Y'">
+                                                        {@
+                                                            $nick_name = $oBodex->cutStrEx($document->getNickName(), $module_info->nick_name_cut_size);
+                                                            $document->member_srl = (!$grant->manager && $document->member_srl && $document->get('user_id')=='anonymous')?0:$document->member_srl;
+                                                        }
+                                                        <span class="{($document->member_srl?'member_'.$document->member_srl:'bodex_0'.$document->document_srl).(($document->member_srl)?($doc_logged?' logged':''):' anonym')}">{($nick_name=='anonymous'?$lang->anonymous:$nick_name)}</span>
+                                                    </block>
+                                                    <em cond="$arr_display_var['last_updater']=='Y' && $document->last_updater" class="last_updater " title="{$lang->last_updater}">(last by {$document->last_updater})</em>
+                                                </span>
+                                            </div>
+                                            <div class="star">
+                                                <ul>
+                                                <block loop="$writer_rating_list=>$val">
+                                                    {@ $writer_rating_value = (float)$document->getExtraValue($list_config[$val]->idx)}
+                                                    <li>
+                                                    <div class="exSPFrm fr" title="{$writer_rating_value}">
+                                                        <span class="exSCol{$module_info->star_color} exBg0" style="width:{$writer_rating_value*15}px"></span>
+                                                        <i>{$writer_rating_value}</i>
+                                                    </div>
+                                                    <div class="fr">{$list_config[$val]->name}:&nbsp;</div>
+                                                    <div class="clear"></div>
+                                                    </li>
+                                                </block>
+
+                                                <!--@if($module_info->use_vote == 'Y' || $module_info->use_vote == 'R')-->
+                                                    <li><a href="{$document->permanentUrl}#comment_form">
+                                                        <span cond="$arr_display_var['blamed_count']=='Y'" class="blamed_count fr" title="{$lang->col_blame}">{$document->blamed_count}</span>
+                                                        <span cond="$arr_display_var['voted_count']=='Y'" class="voted_count fr" title="{$lang->col_vote}">{$document->voted_count}</span>
+                                                    </a></li>
+                                                <!--@elseif($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')-->
+                                                    {@ $average = number_format($document->voted_count / abs($document->blamed_count),1)}
+                                                    <li><a href="{$document->permanentUrl}#comment_form">
+                                                        <div class="exSPFrm fr" title="{($average?$average:'0').'/'.(abs($document->blamed_count))}">
+                                                            <span class="exSCol{$module_info->star_color} exBg0" style="width:{$average*15}px"></span>
+                                                            <i>{($average?$average:'0').'/'.(abs($document->blamed_count))}</i>
+                                                        </div>
+                                                        <div class="fr">{$lang->user.' '.$lang->rating}:&nbsp;</div>
+                                                    </a></li>
+                                                <!--@endif-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    <block cond="count($file_list['image']) || count($file_list['binary']) || count($file_list['media'])">
+                                        {@$adopted_reward_point = ($module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $document->reward_point > 0)?$document->reward_point:0}
+                                        <div class="exJsFileListBox exDHide" rel="{$no}">
+                                            <ul cond="count($file_list['image']) && $is_display_image">
+                                            {@$downpoint = 0; $is_button = true;}
+                                            <block loop="$file_list['image']=>$file">
+                                                <block cond="$module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $module_info->use_down_point_images=='Y'">
+                                                    {@ $downpoint = (!$file->file_size)?0:(($downloaded_list[$file->file_srl]>0 || (abs($file->member_srl) == $logged_info->member_srl))?'0':$adopted_reward_point)}
+                                                </block>
+                                                {@ $total_down += $file->download_count}
+                                                <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?'iconImage':'iconError'}.gif')">
+                                                    <a href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($module_info->download_point_confirm=='Y')?'_exJsDownloadConfirm(\''.$downpoint.'\')':'true'):'false'}">
+                                                        <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint >0)?'($'.($downpoint).')':''}</span>
+                                                    </a>
+                                                </li>
+                                            </block>
+                                            </ul>
+                                            <ul cond="count($file_list['media']) && $is_display_media">
+                                            {@$downpoint = 0; $is_button = true;}
+                                            <block loop="$file_list['media']=>$file">
+                                                <block cond="$module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $module_info->use_down_point_medias=='Y'">
+                                                    {@ $downpoint = (!$file->file_size)?0:(($downloaded_list[$file->file_srl]>0 || (abs($file->member_srl) == $logged_info->member_srl))?'0':$adopted_reward_point)}
+                                                </block>
+                                                {@ $total_down += $file->download_count}
+                                                <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?'iconMedia':'iconError'}.gif')">
+                                                    <!--@if($module_info->use_media_player=='Y')-->
+                                                        <a href="#" onclick="{$file->isvalid=='Y'?'_exJcPopDisplayMedia(\''.$file->file_srl.'\',\''.$file->sid.'\');':''} return false">
+                                                    <!--@else-->
+                                                        <a href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($module_info->download_point_confirm=='Y')?'_exJsDownloadConfirm(\''.$downpoint.'\')':'true'):'false'}">
+                                                    <!--@endif-->
+                                                        <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint >0)?'($'.($downpoint).')':''}</span>
+                                                    </a>
+                                                </li>
+                                            </block>
+                                            </ul>
+                                            <ul cond="count($file_list['binary']) && $is_display_binary">
+                                            {@$downpoint = 0; $is_button = true;}
+                                            <block loop="$file_list['binary']=>$file">
+                                                {@
+                                                    $downpoint = (($module_info->use_reward != 'N' && $module_info->use_allow_down == 'P' && $downloaded_list[$file->file_srl]<1)?$adopted_reward_point:'0');
+                                                    $downpoint = (!$file->file_size)?0:((abs($file->member_srl) == $logged_info->member_srl)?'0':$downpoint+$download_file_point);
+                                                    $total_down += $file->download_count;
+                                                }
+                                                <li style="background-image:url('{$tpl_path}images/{$module_info->colorset}/{$file->isvalid=='Y'?($file->direct_download =='M'?'iconMedia':'iconFile'):'iconError'}.gif')">
+                                                    <a  href="{getUrl('').$file->download_url}" {(!$file->file_size)?'target="_bodexLink"':''} onclick="return {$file->isvalid=='Y'?(($module_info->download_point_confirm=='Y')?'_exJsDownloadConfirm(\''.$downpoint.'\')':'true'):'false'}">
+                                                        <span {$file->isvalid=='Y'?($downloaded_list[$file->file_srl]>0?'class="fileDownloaded"':''):'class="fileError" title="invalid"'}>{$file->source_filename}({($file->file_size)?FileHandler::filesize($file->file_size):'link'})[{number_format($file->download_count)}]{($downpoint >0)?'($'.($downpoint).')':''}</span>
+                                                    </a>
+                                                </li>
+                                            </block>
+                                            </ul>
+                                        </div>
+
+                                        <div class="fr <!--@if(!in_array($module_info->display_download_button, array('Y','L')) || !$is_button)-->exDHide<!--@endif-->">
+                                            <span class="button {$btn_class}"><input class="exJsFileListButton" rel="{$no}" type="button" value="{htmlspecialchars($module_info->download_button_caption)}" /></span>
+                                        </div>
+                                    </block>
+                                    <block cond="$writer_ccl_key">
+                                        {@
+                                            $writer_display_ccl = explode('|@|',$document->getExtraValue($list_config[$writer_ccl_key]->idx));
+                                            $ccl['attribution'] = in_array('attribution', $writer_display_ccl)?'yes':'no';
+                                            $ccl['commercial'] = in_array('commercial', $writer_display_ccl)?'yes':'no';
+                                            $ccl['derivatives'] = in_array('sharealike', $writer_display_ccl)?'alike':(in_array('derivatives', $writer_display_ccl)?'yes':'no');
+
+                                            $ccl['licenses'] = ($ccl['attribution']=='yes')?'by':'';
+                                            $ccl['licenses'] .= ($ccl['commercial']=='no')?'-nc':'';
+                                            $ccl['licenses'] .= ($ccl['derivatives']=='no')?'-nd':'';
+                                            $ccl['licenses'] .= ($ccl['derivatives']=='alike')?'-sa':'';
+                                        }
+                                        <div cond="$ccl['licenses']" class="ccl">
+                                            <a href="#" onclick="winopen('http://creativecommons.org/licenses/{$ccl['licenses']}/3.0/deed.{$lang_type}','cclInfo','width=800, height=600, scrollbars=yes')">
+                                            <img src="./images/common/ccl_attribution_{$ccl['attribution']}.png" border="0" title="{$lang->ccl->attribution}: {Context::getLang('cmd_'.$ccl['attribution'])}" />
+                                            <img src="./images/common/ccl_commercial_{$ccl['commercial']}.png" border="0" title="{$lang->ccl->commercial}: {Context::getLang('cmd_'.$ccl['commercial'])}" />
+                                            <img src="./images/common/ccl_derivatives_{$ccl['derivatives']}.png" border="0" title="{$lang->ccl->derivatives}: {Context::getLang('cmd_'.$ccl['derivatives'])}" />
+                                            </a>
+                                        </div>
+                                    </block>
+
+                                    <div loop="$extra_key_list=>$val" class="extravalue">
+                                        {$list_config[$val]->name}: <!--@if(!$is_grant && $module_info->display_secret_extravalue=='N')-->{$lang->secret}<!--@else-->{$oBodex->cutStrEx($document->getExtraValueHTML($list_config[$val]->idx), $module_info->content_extravalue_size)}<!--@endif-->
+                                    </div>
+
+                                    <block cond="$arr_display_var['summary']=='Y'">
+                                        <div class="summary">
+                                        <!--@if(!$is_grant && $module_info->display_secret_extravalue=='N')-->{sprintf($lang->msg_act_not_permitted,$lang->col_read)}<!--@else-->{$document->getSummary($module_info->content_cut_size)}<!--@endif-->&nbsp;
+                                        </div>
+                                    </block>
+                                    </li>
+                                </ul>
+                            <div class="clear"></div>
+                            </div>
+
+                            <div class="date" style="float:left;"|cond="$module_info->thumbnail_position=='R'">
+                                <!--@if($is_button)--><a href="{($is_blind && !$document->isGranted())?'#':$document->permanentUrl}#binaryfilelist"><!--@endif-->
+                                <!--@if($arr_display_var['readed_count']=='Y')-->
+                                    {$lang->readed_count.'&nbsp;'.$document->readed_count}&nbsp;/
+                                <!--@endif-->
+                                <!--@if($arr_display_var['regdate']=='Y')-->
+                                    {$lang->regdate.'&nbsp;'.$document->getRegdate('Y.m.d')}&nbsp;/
+                                <!--@endif-->
+                                    {$lang->file_last_update.'&nbsp;'.zdate($document->last_update,'Y-m-d H:i')}
+                                <!--@if($is_button)-->/ {$lang->file_total_download.'&nbsp;'.$total_down}</a><!--@endif-->
+                            </div>
+                        </div>
+                </block>
+            </td>
+        </tr>
+    <!--@endif-->
+    </tbody>
+</table>

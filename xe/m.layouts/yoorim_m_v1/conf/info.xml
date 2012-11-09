@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.2">
+    <title xml:lang="ko">Yoorim 모바일 레이아웃 v1</title>
+    <title xml:lang="en">Yoorim Mobile layout v1</title>
+    <description xml:lang="ko">
+        Yoorim 모바일 레이아웃입니다.
+        Yi, Yoorim (yoorimyi@gmail.com)</description>
+    <description xml:lang="en">
+        This layout is the mobile layout of Yoorim Yi.
+        Yi, Yoorim (yoorimyi@gmail.com)</description>
+    <version>1.1.0</version>
+    <date>2011-02-21</date>
+    <link>http://yoorim.me</link>
+
+    <author email_address="yoorimyi@gmail.com" link="http://yoorim.me/">
+        <name xml:lang="ko">이유림</name>
+        <name xml:lang="en">Yi, Yoorim</name>
+    </author>
+    <extra_vars>
+	    <var name="colorset" type="select">
+            <title xml:lang="ko">컬러셋</title>
+			<title xml:lang="jp">カラーセット</title>
+            <title xml:lang="zh-CN">颜色</title>
+            <title xml:lang="zh-TW">顏色設定</title>
+            <title xml:lang="en">Colorset</title>
+            <title xml:lang="ge">Colorset</title>
+            <title xml:lang="ru">Colorset</title>
+            <title xml:lang="es">Set de colores</title>
+	   		<title xml:lang="vi">Màu sắc</title>
+            <description xml:lang="ko">원하시는 컬러셋을 선택해주세요.</description>
+            <description xml:lang="jp">希望するカラーセットを選択して下さい。</description>
+            <description xml:lang="zh-CN">请选择颜色。</description>
+            <description xml:lang="zh-TW">請選擇顏色。</description>
+            <description xml:lang="en">Please select a colorset you want.</description>
+            <description xml:lang="ge">Bitte wählen Sie ein colorset Sie wollen.</description>
+            <description xml:lang="ru">Выберите colorset хотите.</description>
+            <description xml:lang="es">Seleccione set de colores que desea.</description>
+	    	<description xml:lang="vi">Hãy chọn màu sắc bạn muốn.</description>
+            <options value="wh">
+                <title xml:lang="ko">흰색</title>
+                <title xml:lang="jp">白</title>
+                <title xml:lang="zh-CN">白色</title>
+                <title xml:lang="zh-TW">白色</title>
+				<title xml:lang="en">White</title>
+		        <title xml:lang="vi">White</title>                
+            </options>
+			<options value="tq">
+                <title xml:lang="ko">청녹색</title>
+			    <title xml:lang="jp">靑綠</title>
+				<title xml:lang="zh-CN">靑綠色</title>
+                <title xml:lang="zh-TW">靑綠色</title>
+				<title xml:lang="en">Turquoise</title>
+		        <title xml:lang="vi">Turquoise</title>
+            </options>
+            <options value="bu">
+                <title xml:lang="ko">파란색</title>
+				<title xml:lang="jp">靑</title>
+				<title xml:lang="zh-CN">靑色</title>
+                <title xml:lang="zh-TW">靑色</title>
+			    <title xml:lang="en">Blue</title>
+				<title xml:lang="vi">Blue</title>
+            </options>
+            <options value="pk">
+                <title xml:lang="ko">분홍색</title>
+				<title xml:lang="jp">粉紅</title>
+				<title xml:lang="zh-CN">粉紅色</title>
+                <title xml:lang="zh-TW">粉紅色</title>
+			    <title xml:lang="en">Pink</title>
+				<title xml:lang="vi">Pink</title>
+            </options>
+        </var>
+    	<var name="index_title" type="text">
+            <title xml:lang="ko">홈페이지 Title</title>
+            <title xml:lang="en">Homepage Title</title>
+            <title xml:lang="zh-CN">网站标题</title>
+            <title xml:lang="zh-TW">首頁標題</title>
+		</var>
+        <var name="logo_image" type="image">
+            <title xml:lang="ko">로고이미지</title>
+            <title xml:lang="jp">ロゴイメージ</title>
+            <title xml:lang="zh-CN">LOGO图片</title>
+            <title xml:lang="zh-TW">Logo圖片</title>
+            <title xml:lang="en">Logo image</title>
+            <title xml:lang="ge">Logobildes</title>
+            <title xml:lang="ru">Изображения логотипа</title>
+            <title xml:lang="es">Imagen del logotipo</title>
+	    	<title xml:lang="vi">Hình Logo</title>
+            <description xml:lang="ko">레이아웃의 상단에 표시될 로고이미지를 입력하세요. (세로길이가 28px인 투명 이미지가 가장 어울립니다)</description>
+            <description xml:lang="jp">レイアウトの上段に表示されるロゴイメージを入力して下さい。 (縦幅が28pxである透明イメージをお勧めします。。)</description>
+            <description xml:lang="zh-CN">请输入显示在布局顶部的LOGO图片(高度为28px的透明图片为适)。</description>
+            <description xml:lang="zh-TW">請輸入要顯示在版面上端的 Logo 圖片。(適當高度為 28px 的透明圖片。)</description>
+            <description xml:lang="en">Please input a logo image which will be displayed on the top of layout. (Transparent image with height of 28px is recommended.)</description>
+            <description xml:lang="ge">Bitte geben Sie ein Logo das Bild wird auf dem oberen Layout. (Transparent Bild mit einer Höhe von 28px wird empfohlen).</description>
+            <description xml:lang="ru">Введите логотип изображение, которое будет отображаться в верхней части формы. (Прозрачный изображение с высотой 28px рекомендуется.)</description>
+            <description xml:lang="es">Ingresar una imagen para logotipo. ( Se recomienda una imagen de fondo transparente con una altura de 28px.</description>
+	    	<description xml:lang="vi">Hãy chọn Logo hiển thị phía trên cùng của giao diện. (Đề nghị: Hình ảnh có nền trong suốt và kích thước 28px.)</description>
+        </var>
+        <var name="index_url" type="text">
+            <title xml:lang="ko">홈페이지 URL</title>
+            <title xml:lang="jp">ホームページURL</title>
+            <title xml:lang="zh-CN">主页地址</title>
+            <title xml:lang="zh-TW">主頁網址</title>
+            <title xml:lang="en">Homepage URL</title>
+            <title xml:lang="ge">Homepage URL</title>
+            <title xml:lang="ru">Домашняя страница URL</title>
+            <title xml:lang="es">URL de la página web</title>
+	    	<title xml:lang="vi">URL Trang chủ</title>
+            <description xml:lang="ko">로고를 클릭시에 이동할 홈 페이지 URL을 입력해 주세요.</description>
+            <description xml:lang="jp">ロゴをクリックした時に移動するホームページのURLを入力して下さい。</description>
+            <description xml:lang="zh-CN">点击网站LOGO时要移动的页面URL。</description>
+            <description xml:lang="zh-TW">請輸入當用戶按了網站 Logo 後，要前往的頁面網址。</description>
+            <description xml:lang="en">Please input the URL to redirect when user clicks the logo</description>
+            <description xml:lang="ge">Bitte geben Sie die URL umzuleiten, wenn Benutzer klickt das Logo</description>
+            <description xml:lang="ru">Пожалуйста, введите URL для перенаправления, когда пользователь нажимает логотип</description>
+            <description xml:lang="es">Ingresar el URL de la página web para redireccionar al pulsar el logotipo</description>
+	        <description xml:lang="vi">Hãy nhập địa chỉ bạn muốn chuyển đến khi bấm vào Logo</description>
+        </var>
+		<var name="copyright" type="text">
+            <title xml:lang="ko">저작권</title>
+            <title xml:lang="jp">コピーライト</title>
+            <title xml:lang="zh-CN">著作权</title>
+            <title xml:lang="zh-TW">著作权</title>
+            <title xml:lang="en">Copyright</title>
+            <title xml:lang="ge">Urheberrecht</title>
+            <title xml:lang="ru">Авторские права</title>
+            <title xml:lang="es">los derechos de autor</title>
+	    	<title xml:lang="vi">quyền tác giả</title>
+        </var>
+		<var name="view_menu" type="select">
+            <title xml:lang="ko">메뉴 보기</title>
+            <title xml:lang="en">View menu</title>
+            <description xml:lang="ko">현재 페이지에서 메뉴 레이어 열기 방식은 XE 설치 환경 등에 영향을 받아 오작동할 가능성이 있습니다. 먼저 테스트한 후에 사용해 주세요.</description>
+            <description xml:lang="en">The approach to menu by opening the menu layer in the currunt page has the potential to malfunction under the influence of the XE installation environment, etc. Please use this after testing.</description>
+			<options value="page">
+                <title xml:lang="ko">메뉴 페이지로 이동(기본값)</title>
+				<title xml:lang="en">Go to the menu page(default)</title>                
+            </options>
+			<options value="layer">
+                <title xml:lang="ko">현재 페이지에서 메뉴 레이어 열기</title>
+				<title xml:lang="en">Open the menu layer in the current page</title>
+            </options>
+        </var>
+    </extra_vars>
+    <menus>
+        <menu name="main_menu" maxdepth="3" default="true">
+            <title xml:lang="ko">상단 메뉴</title>
+            <title xml:lang="jp">上段用メニュー</title>
+            <title xml:lang="zh-CN">主菜单</title>
+            <title xml:lang="zh-TW">主選單</title>
+            <title xml:lang="en">Top menu</title>
+            <title xml:lang="ge">Top Menü</title>
+            <title xml:lang="ru">Верхнее меню</title>
+            <title xml:lang="es">Menú Principal</title>
+	        <title xml:lang="vi">Menu trên</title>
+        </menu>
+    </menus>
+</layout>

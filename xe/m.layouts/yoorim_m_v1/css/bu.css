@@ -1,0 +1,7 @@
+@charset "utf-8";/* Yoorim Mobile Package (/m.layouts/yoorim_m_v1/) */
+/* Hx */
+.hx.h2{text-shadow:0 1px 1px #bdf;border-top:1px solid #7090c0;border-bottom:1px solid #5070a0;background:#6da8e8 -webkit-gradient(linear,0% 0%,0% 100%,from(#abd8ff),to(#6da8e8),color-stop(0.5,#74bafa),color-stop(0.5,#62aafa));background:#6da8e8 -moz-linear-gradient(top,#abd8ff,#6da8e8);background-color:#6da8e8}
+/* Global Navigation */
+.gn em{color:#47d}
+/* Button Area */
+.bn.dark{text-shadow:0 1px 1px #9bf;border-color:#7ba9d9 #58c #36b;background:#6da8e8 -webkit-gradient(linear,0% 0%,0% 100%,from(#abd8ff),to(#6da8e8),color-stop(0.5,#74bafa),color-stop(0.5,#44acdc));background:#6da8e8 -moz-linear-gradient(top,#abd8ff,#6da8e8);background-color:#6da8e8}

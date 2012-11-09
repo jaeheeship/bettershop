@@ -1,0 +1,4 @@
+@charset "utf-8";
+body {padding:5px;margin:0;}
+.xeAdmin {padding:0}
+#scollbarFrame {width:100%;height:500px;overflow:auto}

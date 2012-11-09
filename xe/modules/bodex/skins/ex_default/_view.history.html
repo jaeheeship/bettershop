@@ -1,0 +1,63 @@
+<!--// 목록 출력 -->
+<a name="history"></a>
+<table cellspacing="0" class="exList exhislst">
+    <thead>
+        <tr class="bg{(int)$bg=!$bg}">
+            <th class="no">{$lang->no}</th>
+            <th class="nick_name">{$lang->nick_name}</th>
+            <th class="regdate">{$lang->regdate}</th>
+            <th class="title" colspan="2"><strong>{$lang->col_history}</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <!--// 게시물이 없으면 등록된 글이 없음을 표시 -->
+    <!--@if(!$history_list)-->
+        <tr class="bg1 tCenter">
+            <td colspan="5" class="title">
+                {$lang->no_documents}
+            </td>
+        </tr>
+    <!--@else-->
+
+        <!--// 일반 글 출력 -->
+        <!--@foreach($history_list as $no => $history)-->
+            {@
+                $history->nick_name=($history->nick_name=='anonymous'?$lang->anonymous:$history->nick_name);
+                $history_logged = $logged_info && (abs($logged_info->member_srl) == abs($history->member_srl));
+            }
+            <tr class="bg{(int)$bg=!$bg}">
+                <td class="no">{$no}</td>
+                <td class="nick_name">
+                    <div class="{($history->member_srl?'member_'.$history->member_srl:'bodex_0'.$history->document_srl).(($history->member_srl)?($history_logged?' logged':''):' anonym')}">{$oBodex->cutStrEx(htmlspecialchars($history->nick_name), $module_info->nick_name_cut_size)}</div>
+                </td>
+                <td class="regdate">{zdate($history->regdate, 'Y.m.d H:i:s')}</td>
+                <td class="title">
+                <!--@if($module_info->use_history == 'Y')--><a href="{getUrl('history_srl',$history->history_srl, 'is_poped', '1')}" target="historyView">{cut_str(strip_tags($history->content), $module_info->content_cut_size, '...')}</a><!--@endif-->
+                </td>
+                <td class="restore">
+                <!--@if($module_info->use_history == 'Y' && ($grant->manager || ($logged_info && (abs($history->member_srl) == $logged_info->member_srl))))-->
+                    <!--@if($grant->manager)-->
+                    <a href="#" onclick="_exJcDeleteHistory('{$history->history_srl}'); return false;"><strong class="delBtn">({$lang->cmd_delete})</strong></a>
+                    <!--@endif-->
+                    <a href="#" onclick="_exJcRestoreHistory('{$history->history_srl}'); return false;"><strong>({$lang->restore})</strong></a>
+                <!--@else-->
+                    &nbsp;
+                <!--@endif-->
+                </td>
+            </tr>
+        <!--@endforeach-->
+    <!--@endif-->
+    </tbody>
+</table>
+
+<!--// 페이지 네비게이션 -->
+{@
+    $pagination_navigation = $hpage_navigation;
+    $pagination_name='history';
+}
+<include target="_view.pagination.html" />
+
+<div class="fr gap1">
+    <a href="{getUrl('act','')}" class="button {$btn_class}"><span>{$lang->cmd_back}</span></a>
+</div>

@@ -1,0 +1,39 @@
+<!--// 페이지 네비게이션 -->
+<!--@
+    if($pagination_name == 'list'){
+        $first_pagination = getUrl('page','','document_srl','','division',$division,'last_division',$last_division,'entry','');
+        $last_pagination = getUrl('page',$pagination_navigation->last_page,'document_srl','','division',$division,'last_division',$last_division,'entry','');
+        $current_page = $page;
+    }elseif($pagination_name == 'history'){
+        $first_pagination = getUrl('hpage','','document_srl',$oDocument->document_srl,'division',$division,'last_division',$last_division,'entry','').'#history';
+        $last_pagination = getUrl('hpage',$pagination_navigation->last_page,'document_srl',$oDocument->document_srl,'division',$division,'last_division',$last_division,'entry','').'#history';
+        $current_page = $hpage;
+    }elseif($pagination_name == 'comment'){
+        $first_pagination = getUrl('cpage',1).$c_url_tail;
+        $last_pagination = getUrl('cpage',$pagination_navigation->last_page).$c_url_tail;
+        $current_page = $cpage;
+    }
+-->
+
+    <div class="exPagNav a1">
+        <a href="{$first_pagination}" class="prevEnd">{$lang->first_page}</a>
+        <!--@while($pagination_no = $pagination_navigation->getNextPage())-->
+            <!--@if($current_page == $pagination_no)-->
+                <strong>{$pagination_no}</strong>
+            <!--@else-->
+                <!--@
+                    if($pagination_name == 'list')
+                        $pagination_url = getUrl('page',$pagination_no,'document_srl','','division',$division,'last_division',$last_division,'entry','');
+                    elseif($pagination_name == 'history')
+                        $pagination_url = getUrl('hpage',$pagination_no,'document_srl',$oDocument->document_srl,'division',$division,'last_division',$last_division,'entry','').'#history';
+                    elseif($pagination_name == 'comment')
+                        $pagination_url = getUrl('cpage',$pagination_no).$c_url_tail;
+                -->
+                    <a href="{$pagination_url}">{$pagination_no}</a>
+                <!--@endif-->
+            <!--@endif-->
+        <!--@end-->
+        <a href="{$last_pagination}" class="nextEnd">{$lang->last_page}</a>
+    </div>
+<!--@endif-->
+

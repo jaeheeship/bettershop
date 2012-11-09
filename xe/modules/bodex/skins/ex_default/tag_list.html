@@ -1,0 +1,56 @@
+{@ $is_poped = Context::get('is_poped')}
+<!--@if($is_poped)-->
+    <!--// CSS 파일 로드 (컬러셋에 따라서) -->
+    <!--%import("css/common.css")-->
+
+    <!--@if($module_info->colorset == "black")-->
+        <!--%import("css/black.css")-->
+        {@ $btn_class = "black" }
+    <!--@else-->
+        <!--%import("css/white.css")-->
+    <!--@endif-->
+
+<!--@else-->
+    <include target="__header.html" />
+<!--@endif-->
+
+<!--// print tags -->
+
+<div class="exTagBox">
+    <h4><img src="./images/common/iconTag.gif" alt="{$lang->tag}" width="27" height="11" class="tagIcon" /> {$lang->tag} ({count($tag_list)})</h4>
+    <div class="tags">
+        <block loop="$tag_list=>$val">
+            <!--@if($val->count>5)-->
+                {@ $tag_class = "tagTypA" }
+            <!--@elseif($val->count>3)-->
+                {@ $tag_class = "tagTypB" }
+            <!--@elseif($val->count>2)-->
+                {@ $tag_class = "tagTypC" }
+            <!--@elseif($val->count>1)-->
+                {@ $tag_class = "tagTypD" }
+            <!--@else-->
+                {@ $tag_class = "tagTypE" }
+            <!--@endif-->
+
+            <div class="{$tag_class}"|cond="$tag_class">
+                <!--@if($is_poped)-->
+                    <a onclick="_exJcSelectTag('{$val->tag}');return false;" href="#">{htmlspecialchars($val->tag)}</a>
+                <!--@else-->
+                    <!--@if($layout_info->mid)-->
+                        <a href="{getUrl('','mid',$layout_info->mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
+                    <!--@else-->
+                        <a href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
+                    <!--@endif-->
+                <!--@endif-->
+            </div>
+        </block>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<block cond="!$is_poped">
+    <div class="fr gap1">
+        <a href="{getUrl('act','','pop_list_count','')}" class="button {$btn_class}"><span>{$lang->cmd_back}</span></a>
+    </div>
+    <include target="__footer.html" />
+</block>

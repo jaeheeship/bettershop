@@ -1,0 +1,111 @@
+
+<!--%import("../../../document/tpl/js/document_admin.js")-->
+<!--%import("../../../document/tpl/filter/insert_extra_var.xml")-->
+<!--%import("../../../document/tpl/filter/delete_extra_var.xml")-->
+
+<!--%import("./help/lang")-->
+<!--%import("../../../admin/tpl/css/admin.css")-->
+<!--%import("./help/css/help.css")-->
+
+    {@$id_view=null}
+    <!--@foreach($extra_keys as $key => $val)-->
+        <!--@if($val->eid == 'writer_display_ccl')-->
+            {@$id_view=$val}
+        <!--@end-->
+    <!--@end-->
+
+    <!--@if($id_view)-->
+    <h4 class="xeAdmin">{$lang->help->is_writer_display_ccl}</h4>
+    <table cellspacing="0" class="crossTable ">
+    <col width="50" />
+    <col />
+    <col />
+    <col width="30" />
+    <thead>
+    <tr>
+        <th><div>{$lang->no}</div></th>
+        <th><div>{$lang->column_name}</div></th>
+        <th><div>{$lang->description}</div></th>
+        <th><div>&nbsp;</div></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{$id_view->idx}</td>
+            <td class="nowrap"><b>{$id_view->name}</b></td>
+            <td >{$id_view->desc}</td>
+            <td class="nowrap">
+                <a href="#" onclick="return doDeleteExtraKey('{$module_srl}','{$id_view->idx}');" class="buttonSet buttonDelete"><span>{$lang->cmd_delete}</span></a>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <h4 class="xeAdmin">{$lang->help->about_delete}</h4>
+<form id="fo_delete" name="fo_delete" method="post" action="./">
+<input type="hidden" name="module_srl" value="" />
+<input type="hidden" name="var_idx" value="" />
+</form>
+    <!--@else-->
+<div>
+    <form action="./" method="post" onsubmit="return procFilter(this, insert_extra_var)">
+    <input type="hidden" name="module_srl" value="{$module_srl}" />
+    <input type="hidden" name="var_idx" value="" />
+    <input type="hidden" name="type" value="checkbox" />
+    <input type="hidden" name="is_required" value="Y" />
+    <input type="hidden" name="default" value="attribution,commercial,derivatives,sharealike" />
+    <input type="hidden" name="search" value="N" />
+    <input type="hidden" name="eid" value="writer_display_ccl" />
+
+        <h4 class="xeAdmin">{$lang->help->about_writer_display_ccl}</h4>
+        <table cellspacing="0" class="crossTable ">
+        <tr>
+            <th><div>{$lang->help->preview}</div></th>
+            <td class="wide"><img src="help/images/displayccl-001.png" /></td>
+        </tr>
+        <tr>
+            <th><div>{$lang->column_name}</div></th>
+            <td class="wide">
+                <input type="text" name="name" value="{$selected_var->name?$selected_var->name:$lang->help->display_ccl_name}" class="inputTypeText w200" id="name" /><a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','name')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
+            </td>
+        </tr>
+        <tr>
+            <th><div>{$lang->description}</div></th>
+            <td><input type="text" name="desc" value="{$selected_var->desc?$selected_var->desc:$lang->help->display_ccl_description}" id="desc" class="inputTypeText w400" /><a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','desc')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a></td>
+        </tr>
+        <tr>
+            <th colspan="2" class="button">
+                <span class="button strong black"><input type="submit" value="{$lang->cmd_insert}" accesskey="s" /></span>
+            </th>
+        </tr>
+        </table>
+
+    </form>
+</div>
+<!--@end-->
+<br /><br />
+
+        <table cellspacing="0" class="crossTable ">
+                <tr>
+                    <th colspan="2"><div>{$lang->help->about_ccl_option}</div></th>
+                </tr>
+                <tr>
+                    <th><div>Attribution</div></th>
+                    <td class="wide">{$lang->help->about_ccl_option_attribution}</td>
+                </tr>
+                <tr>
+                    <th><div>Commercial</div></th>
+                    <td class="wide">{$lang->help->about_ccl_option_commercial}</td>
+                </tr>
+                <tr>
+                    <th><div>Derivative Works</div></th>
+                    <td class="wide">{$lang->help->about_ccl_option_derivatives}</td>
+                </tr>
+                <tr>
+                    <th><div>Share Alike</div></th>
+                    <td class="wide">{$lang->help->about_ccl_option_sharealike}</td>
+                </tr>
+        </table>
+
+<script type="text/javascript">
+    window.resizeTo('600', '550');
+</script>

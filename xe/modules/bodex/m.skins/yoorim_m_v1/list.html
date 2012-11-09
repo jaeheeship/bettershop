@@ -1,0 +1,22 @@
+<!--%import("css/mboard.css")-->
+<!--%import("css/wh.css")-->
+<!--@if($layout_info->colorset == "tq")-->
+    <!--%import("css/tq.css")-->
+<!--@elseif($layout_info->colorset == "bu")-->
+    <!--%import("css/bu.css")-->
+<!--@elseif($layout_info->colorset == "pk")-->
+    <!--%import("css/pk.css")-->
+<!--@else-->
+    <!--%import("css/wh.css")-->
+<!--@end-->
+<div class="bd">
+<!--@if($oDocument->isExists())-->
+<!--#include("read.html")-->
+<!--@elseif($module_info->default_style == 'webzine')-->
+<!--#include("./_webzine.html")-->
+<!--@elseif($module_info->default_style == 'gallery')-->
+<!--#include("./_gallery.html")-->
+<!--@else-->
+<!--#include("./_list.html")-->
+<!--@end-->
+</div>

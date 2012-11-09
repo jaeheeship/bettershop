@@ -1,0 +1,33 @@
+<query id="getNotAdoptedPost" action="select">
+    <tables>
+        <table name="documents" />
+        <table name="comments" />
+    </tables>
+    <columns>
+        <column name="distinct(documents.document_srl)" alias="document_srl" />
+        <column name="documents.title" alias="title" />
+        <column name="documents.comment_count" alias="comment_count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="documents.module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="comments.module_srl" var="module_srl" filter="number" notnull="notnull" pipe="and" />
+        <condition operation="equal" column="documents.document_srl" var="comments.document_srl" filter="number" notnull="notnull" pipe="and" />
+        <condition operation="excess" column="documents.comment_count" filter="number" default="0" pipe="and" />
+        <condition operation="excess" column="documents.reward_point" filter="number" default="0" pipe="and" />
+        <group pipe="and">
+            <condition operation="equal" column="documents.reward_srl" default="0" filter="number" pipe="or" />
+            <condition operation="null" column="documents.reward_srl" default="0" filter="number" pipe="or" />
+        </group>
+        <group pipe="and">
+            <condition operation="equal" column="documents.member_srl" var="member_srl" filter="number" notnull="notnull" pipe="or" />
+            <condition operation="equal" column="documents.member_srl" var="minus_member_srl" filter="number" notnull="notnull" pipe="or" />
+        </group>
+        <group pipe="and">
+            <condition operation="notequal" column="comments.member_srl" var="member_srl" filter="number" notnull="notnull" pipe="or" />
+            <condition operation="notequal" column="comments.member_srl" var="minus_member_srl" filter="number" notnull="notnull" pipe="or" />
+        </group>
+    </conditions>
+    <navigation>
+        <list_count var="list_count" default="999" />
+    </navigation>
+</query>

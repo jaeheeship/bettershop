@@ -1,0 +1,22 @@
+<!--// CSS 파일 로드 (컬러셋에 따라서) -->
+    <!--%import("css/common.css")-->
+    <!--%import("css/view.css")-->
+
+    <!--@if($module_info->colorset == "black")-->
+        <!--%import("css/black.css")-->
+        {@ $btn_class = "black" }
+    <!--@else-->
+        <!--%import("css/white.css")-->
+    <!--@endif-->
+
+<!--// print tags -->
+
+<div class="exRead">
+    <div class="oriCnt">
+        <div class="readBody">
+            <div class="cntBody">
+                {$history_data->content}
+            </div>
+        </div>
+    </div>
+</div>

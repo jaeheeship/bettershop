@@ -1,0 +1,14 @@
+<query id="updateDocumentState" action="update">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="is_notice" var="is_notice" notnull="notnull" />
+        <column name="last_updater" var="last_updater" notnull="notnull" />
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+        <condition operation="notequal" column="is_notice" default="Y" pipe="and" />
+    </conditions>
+</query>

@@ -1,0 +1,21 @@
+<query id="getDocument" action="select">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="category_srl" var="category_srl" pipe="and" />
+        <group pipe="and">
+            <condition operation="equal" column="document_srl" var="document_srl" pipe="and" />
+            <condition operation="excess" column="document_srl" var="excess_document_srl" pipe="and" />
+            <condition operation="below" column="document_srl" var="below_document_srl" pipe="and" />
+        </group>
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="order_type" />
+        <list_count var="list_count" default="1" />
+    </navigation>
+</query>

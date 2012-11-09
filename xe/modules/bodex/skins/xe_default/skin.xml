@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">삭제된 스킨 (다른 스킨을 선택해주세요)</title>
+    <license xml:lang="ko">XE 코어와 동일 (LGPL v2)</license>
+
+    <!-- make public 2010-01-01 -->
+    <version>0.8</version>
+    <date>2011-04-19</date>
+
+    <history version="0.8" date="2011-04-19">
+        <author email_address="phidel@foxb.kr" link="http://foxb.kr/">
+            <name>phiDel</name>
+        </author>>
+    </history>
+
+    <author email_address="phidel@foxb.kr" link="http://foxb.kr/">
+        <name xml:lang="ko">phiDel</name>
+    </author>
+    <author link="http://phidel.xpressengine.net/">
+        <name xml:lang="ko">프로젝트 홈</name>
+    </author>
+
+    <colorset>
+        <color name="white" src="screenshot/white.gif">
+            <title xml:lang="ko">하얀색(기본)</title>
+        </color>
+    </colorset>
+    <extra_vars>
+        <group>
+            <title xml:lang="ko">색상</title>
+            <var name="sub_colorset1" type="text">
+                <title xml:lang="ko">보조 배경색</title>
+            </var>
+        </group>
+    </extra_vars>
+</skin>

@@ -392,6 +392,32 @@ class Users extends CI_Model
 		$this->db->where('user_id', $user_id);
 		$this->db->delete($this->profile_table_name);
 	}
+
+    public function hasShop($user_id){
+        $this->db->where('user_id',$user_id) ; 
+        $query = $this->db->get('bs_shop_info') ; 
+
+        $arr = $query->result() ; 
+
+        if(count($arr)){
+            return $arr[0] ; 
+        }
+
+        return null ; 
+    }
+
+    public function getShop($user_id){
+        $this->db->where('user_id',$user_id) ; 
+        $query = $this->db->get('bs_shop_info') ; 
+
+        $arr = $query->result() ; 
+
+        if(count($arr)){
+            return $arr[0] ; 
+        }
+
+        return null ; 
+    }
 }
 
 /* End of file users.php */

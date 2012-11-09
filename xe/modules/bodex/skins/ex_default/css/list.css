@@ -1,0 +1,4 @@
+@charset "utf-8";
+
+.exList td.extravalue {white-space:nowrap; overflow:hidden}
+.exList tr.docList td {border-bottom:1px solid}

@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/* bodexWrite */
+.exWrite {padding:5px 0 5px 0}
+.exWrite div.editor {margin-top:10px}
+
+.exWriteHeader {border:1px solid;padding:5px 10px;margin-bottom:5px}
+.exWriteHeader label.title {margin-right:10px}
+.exWriteHeader input[type="text"] {margin-top:0;width:70%}
+.exWriteHeader input {*margin-top:0;*width:70%}
+
+.exWrite .exWtPoint {margin:5px 0 0 10px;}
+.exWrite .exWtPoint .reward_point {vertical-align:middle;margin:2px 0px 2px 0px}
+.exWrite .exWtPoint .reward_point a.button {margin-top:0;margin-left:5px}
+
+.exWrite .tag {margin-top:10px; margin-left:10px}
+.exWrite .tag .button {margin-top:-1px\9;*margin-top:2px}
+.exWrite .tag .button span {padding-left:3px; padding-right:5px}
+.exWrite .tag input.exISt {width:85%; background: url(../images/common/iconTag.gif) no-repeat 5px 5px; padding-left:35px}
+.exWrite .fileLink input.exISt {width:65%;background-image:url(../images/common/iconLink.gif)}
+
+.exWrite .info {font-size:1em; background:url(../images/common/iconArrowD8.gif) no-repeat 0% 40%; margin-top:5px; padding-left:5px}
+
+.exWrite .extVLst {width:100%;border-top:1px solid; border-bottom:none; margin:10px 0 0 0}
+.exWrite .extVLst th {font-weight:normal; text-align:left; padding:4px 0 4px 10px; border-bottom:1px solid; border-right:1px solid}
+.exWrite .extVLst td {border-bottom:1px solid; padding:4px 0 4px 10px}
+
+.exWrite .extVLst tr td ul {*zoom:1}
+.exWrite .extVLst tr td ul:after { content:""; clear:both; display:block}
+
+.exWrite .extVLst p {margin:5px 0 0 0; padding:0}
+
+.exWrite .extVLst select,
+.exWrite .extVLst textarea,
+.exWrite .extVLst input[type="password"],
+.exWrite .extVLst input[type="text"] {border:1px solid; font-size:1em}
+
+.exWrite .extVLst textarea {height:100px}
+.exWrite .extVLst select {height:22px;height:20px\9}
+.exWrite .extVLst input[type="password"],
+.exWrite .extVLst input[type="text"] {padding-left:2px;height:18px}
+
+.extVLst tr td .text {margin-right:10px; width:90%}
+.extVLst tr td .email_address {margin-right:10px; width:300px}
+.extVLst tr td .homepage {margin-right:10px; width:300px}
+.extVLst tr td .tel {margin-right:10px; width:40px; margin-right:10px}
+.extVLst tr td .textarea {margin-right:10px; width:90%; height:80px; font-size:1em}
+.extVLst tr td ul {margin:0; padding:0; list-style:none}
+.extVLst tr td ul li {display:inline-block; margin-right:10px; *float:left}
+.extVLst tr td ul li input[type="text"] {margin-right:5px; vertical-align:middle}
+.extVLst tr td .date {margin-right:10px; width:100px}
+.extVLst tr td .address {margin-right:10px; width:300px}
+
+.exWSimFrmHead {margin-bottom:10px}
+.exWSimFrmFoot {margin-top:10px}

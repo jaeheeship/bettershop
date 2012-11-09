@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response>
+	<control>
+		<result>
+			<![CDATA[success]]>
+		</result>
+		<error>
+			<![CDATA[none]]>
+		</error>
+		<message>
+			<![CDATA[성공하였습니다.]]>
+		</message>
+	</control>
+	<data>
+		<sections>
+			<section>		
+				<shop_name>
+					<![CDATA[오이시 초밥!]]>
+				</shop_name>
+				<shop_point>
+					<![CDATA[21000]]>
+				</shop_point>
+				<coupons>
+					<coupon>
+						<coupon_title>
+							<![CDATA[녹차 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[10000]]>
+						</coupon_point>
+					</coupon>
+					<coupon>
+						<coupon_title>
+							<![CDATA[음료수 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[5000]]>
+						</coupon_point>
+					</coupon>
+					<coupon>
+						<coupon_title>
+							<![CDATA[초밥세트 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[7000]]>
+						</coupon_point>
+					</coupon>
+				</coupons>
+			</section>
+			<section>
+				<shop_name>
+					<![CDATA[로로리 케익!]]>
+				</shop_name>
+				<shop_point>
+					<![CDATA[15000]]>
+				</shop_point>
+				<coupons>
+					<coupon>
+						<coupon_title>
+							<![CDATA[치즈케익 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[10000]]>
+						</coupon_point>
+					</coupon>
+					<coupon>
+						<coupon_title>
+							<![CDATA[티라미스 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[5000]]>
+						</coupon_point>
+					</coupon>
+				</coupons>
+			</section>
+			<section>	
+				<shop_name>
+					<![CDATA[로리 파스타!]]>
+				</shop_name>
+				<shop_point>
+					<![CDATA[10009]]>
+				</shop_point>
+				<coupons>
+					<coupon>
+						<coupon_title>
+							<![CDATA[탄산음료 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[8009]]>
+						</coupon_point>
+					</coupon>
+					<coupon>
+						<coupon_title>
+							<![CDATA[생과일쥬스 무료!]]>
+						</coupon_title>
+						<coupon_point>
+							<![CDATA[8009]]>
+						</coupon_point>
+					</coupon>
+				</coupons>
+			</section>
+		</sections>
+	</data>
+</response>
+

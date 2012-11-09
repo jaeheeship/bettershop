@@ -1,0 +1,126 @@
+<include target="__header.html" />
+
+<!--// 선택된 게시물이 있고 권한이 있으면 내용 출력 -->
+{@ $is_view_document = ($oDocument->isExists() && ($module_info->default_style != 'memo' || $oDocument->isNotice() && $module_info->default_style == 'memo'))}
+
+<!--@if($is_view_document)-->
+    <div class="viewDocument"><include target="_view.document.html" /></div>
+<!--@elseif($module_info->display_simple_writer == "H" || (!$grant->manager && $module_info->display_simple_writer == "S"))-->
+    <div class="exWSimFrmHead"><include target="write_simple_form.html" /></div>
+<!--@endif-->
+
+<!--@if($history_list || $act == 'dispBoardHistoryList')-->
+    <include target="_view.history.html" />
+<!--@elseif($module_info->display_simple_writer != "S" || ($grant->manager && $module_info->display_simple_writer == "S" ))-->
+    <!--@if($is_view_document && $module_info->display_foot_list == "S")-->
+        <include target="_view.navigation.html" />
+    <!--@elseif(!$is_view_document || ($is_view_document && $module_info->display_foot_list == "Y"))-->
+        <div class="exCat">
+            <!--// 분류 보기 선택시 category 표시 -->
+            <!--@if($module_info->use_category == "T")-->
+                <div class="exCatTab"><include target="_view.categorymenu.html" /></div>
+            <!--@elseif($module_info->use_category == "L" || $module_info->use_category == "R")-->
+                <table cellspacing="0" class="exCatMnu">
+                <col width="{$arr_category_width[0]}"|cond="$module_info->use_category == 'L'" />
+                <col width="{$arr_category_width[0]}"|cond="$module_info->use_category == 'R'" />
+                <tbody>
+                <tr>
+                    <td cond="$module_info->use_category == 'L'"><include target="_view.categorymenu.html" /></td>
+                    <td>
+            <!--@endif-->
+
+            <!--// 목록 출력 -->
+            <!--@if($module_info->default_style == 'memo')-->
+                <include target="_style.memo.html" />
+            <!--@elseif($module_info->default_style == 'blog')-->
+                <!--@if($is_view_document || $search_keyword)-->
+                    <include target="_style.list.html" />
+                <!--@else-->
+                    <include target="_style.blog.html" />
+                <!--@end-->
+            <!--@elseif($default_style == 'webzine')-->
+                <include target="_style.webzine.html" />
+            <!--@elseif($default_style == 'gallery')-->
+                <include target="_style.gallery.html" />
+            <!--@elseif($default_style == 'download')-->
+                <include target="_style.download.html" />
+            <!--@else-->
+                <include target="_style.list.html" />
+            <!--@endif-->
+
+            <!--// 분류 보기 선택시 category 표시 -->
+            <!--@if($module_info->use_category == 'L' || $module_info->use_category == 'R')-->
+                    </td>
+                    <td cond="$module_info->use_category == 'R'"><include target="_view.categorymenu.html" /></td>
+                </tr></tbody></table>
+            <!--@endif-->
+        </div>
+
+        <div class="exPage">
+            <!--// 게시물 관리 버튼 -->
+            <div class="fl"><a cond="$grant->manager" href="{getUrl('','module','document','act','dispDocumentManageDocument')}" onclick="popopen(this.href,'manageDocument'); return false;" class="button {$btn_class}"><span>{$lang->cmd_manage_document}</span></a></div>
+
+            <div class="fr">
+                <block cond="$grant->manager&&!$is_view_document&&$module_info->use_doc_state=='Y'">
+                    <select name="doc_state" class="doc_state exISt">
+                        <option value="">{$lang->cmd_select}</option>
+                        <option loop="$doc_state_list=>$key,$val" value="{$key}">{strip_tags($val)}</option>
+                    </select>
+                    <a href="#" onclick="_exJcChangeDocumentsState(document.getElementsByName('doc_state')[0].value); return false;" class="button {$btn_class}">
+                        <span>{$lang->cmd_change_state}</span>
+                    </a>
+                </block>
+                <!--// 검색바 감추기시 여기에 쓰기 표시 -->
+                <a cond="$module_info->display_search_position == 'H' && ($module_info->default_style != 'memo' && $module_info->display_simple_writer!='H' && $module_info->display_simple_writer!='F')" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="button black"><span>{$lang->cmd_write}</span></a>
+            </div>
+
+            <!--// 페이지 네비게이션 -->
+            {@
+                $pagination_navigation = $page_navigation;
+                $pagination_name='list';
+            }
+            <include target="_view.pagination.html" />
+        </div>
+
+        <div cond="!$is_view_document&&$module_info->display_simple_writer == 'F'" class="exWSimFrmFoot"><include target="write_simple_form.html" /></div>
+    <!--@endif-->
+
+    <div cond="$module_info->display_search_position != 'H'" class="exBtom">
+        <div cond="$module_info->use_ex_search == 'Y'" class="exJsSchExBox exDHide">
+            <label loop="$search_option=>$key,$val" cond="strpos($key,'extra_vars')===0">
+                <input type="checkbox" name="ex_search_option" value="{substr($key, strlen('extra_vars'))}" />{$val}
+            </label>
+        </div>
+
+        <!--// 검색 -->
+        <div class="exSchBox" style="float:right"|cond="$module_info->display_search_position == 'R'">
+            <a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag.' '.$lang->cmd_list}" class="exTSch" style="float:right"|cond="$module_info->display_search_position == 'R'"><span>Tag List</span></a>
+            <form action="{getUrl()}" method="get" onsubmit="return _exJsExSearchFilter(this, search_document)" id="fo_search" class="exDSch <!--@if($module_info->display_search_position == 'R')-->fr<!--@else-->fl<!--@endif-->">
+                <input cond="$vid" type="hidden" name="vid" value="{$vid}" />
+                <input type="hidden" name="mid" value="{$mid}" />
+                <input type="hidden" name="category" value="{$category}" />
+                <select name="search_target" class="exISt" onchange="_exJsExSearchBoxToggle(this)"|cond="$module_info->use_ex_search == 'Y'">
+                    <!--@if($module_info->default_style == 'memo')-->
+                        <option value="title" selected="selected"|cond="$search_target=='title'">{$lang->title}</option>
+                        <option value="nick_name" selected="selected"|cond="$search_target=='nick_name'">{$lang->nick_name}</option>
+                        <option value="user_id" selected="selected"|cond="$search_target=='user_id'">{$lang->user_id}</option>
+                    <!--@else-->
+                        <option loop="$search_option=>$key,$val" cond="$module_info->use_ex_search != 'Y'||strpos($key,'extra_vars')===false" value="{$key}" selected="selected"|cond="$search_target==$key">{$val}</option>
+                    <!--@endif-->
+                    <option cond="$module_info->use_ex_search == 'Y'" value="ex_search" selected="selected"|cond="$search_target=='ex_search'">* {$lang->ex_search} *</option>
+                </select>
+                <input type="text" maxlength="40" class="exISt" name="search_keyword" value="{htmlspecialchars($search_keyword)}" />
+                <a cond="$last_division" href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','','entry','')}" class="button {$btn_class}"><span>{$lang->cmd_search_next}</span></a>
+                <span class="button {$btn_class}"><input type="submit" value="{$lang->cmd_search}" accesskey="s" /></span>
+                <a cond="$search_keyword" href="{getUrl('search_target','','search_keyword','')}" class="button {$btn_class}"><span>{$lang->cmd_cancel}</span></a>
+            </form>
+        </div>
+
+        <div class="exWBBox" style="float:left"|cond="$module_info->display_search_position == 'R'">
+            <a href="{getUrl('document_srl','','mid',$mid,'page',($page>1)?$page:'')}" class="button black"><span>{$lang->cmd_list}</span></a>
+            <a cond="$module_info->default_style != 'memo' && $module_info->display_simple_writer!='H' && $module_info->display_simple_writer!='F'" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="button black"><span>{$lang->cmd_write}</span></a>
+        </div>
+    </div>
+<!--@endif-->
+
+<include target="__footer.html" />

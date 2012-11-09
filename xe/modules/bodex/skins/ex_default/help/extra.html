@@ -1,0 +1,118 @@
+
+<!--%import("../../../document/tpl/js/document_admin.js")-->
+<!--%import("../../../document/tpl/filter/insert_extra_var.xml")-->
+<!--%import("../../../document/tpl/filter/delete_extra_var.xml")-->
+
+<!--%import("./help/lang")-->
+<!--%import("../../../admin/tpl/css/admin.css")-->
+<!--%import("./help/css/help.css")-->
+<!--%import("./help/css/help.js")-->
+
+    <script>
+        function half_checkbox_click(th, fr){
+            if(th.checked)
+                fr['default'].value = '1,1.5,2,2.5,3,3.5,4,4.5,5';
+            else
+                fr['default'].value = '1,2,3,4,5';
+
+            xSetCookie('half_checkbox_value', th.checked?'true':'false');
+        }
+    </script>
+
+    {@$writer_rating_index=$writer_rating_sort=array()}
+    <!--@foreach($extra_keys as $key => $val)-->
+        <!--@if(substr($val->eid,0,13) == 'writer_rating')-->
+            {@$writer_rating_sort[$key]=$writer_rating_index[$key]=$val->eid}
+        <!--@end-->
+    <!--@end-->
+    {@asort($writer_rating_sort); $index=0;}
+    <!--@foreach($writer_rating_sort as $key => $val)-->
+        <!--@if(substr($val,0,14) != 'writer_rating_')continue;--><!--@end-->
+        <!--@if($val != 'writer_rating_'.$index)break;--><!--@end-->
+        {@$index++}
+    <!--@end-->
+        <form action="./" method="post" onsubmit="return procFilter(this, insert_extra_var)" id="insert_extra_form">
+        <input type="hidden" name="module_srl" value="{$module_srl}" />
+        <input type="hidden" name="var_idx" value="" />
+        <input type="hidden" name="type" value="radio" />
+        <input type="hidden" name="is_required" value="Y" />
+        <input type="hidden" name="default" value="1,2,3,4,5" />
+        <input type="hidden" name="search" value="N" />
+        <input type="hidden" name="eid" value="writer_rating_{$index}" />
+
+            <h4 class="xeAdmin">{$lang->help->about_writer_rating}</h4>
+            <table cellspacing="0" class="crossTable ">
+            <tr>
+                <th><div>{$lang->help->preview}</div></th>
+                <td class="wide"><img src="help/images/extra-001.png" /></td>
+            </tr>
+            <tr>
+                <th><div>{$lang->help->writer_rating_option}</div></th>
+                <td class="wide">
+                    <input id="half_checkbox" type="checkbox" value="Y" onclick="half_checkbox_click(this, document.getElementById('insert_extra_form'))" />
+                    <script>if(xGetCookie('half_checkbox_value')==='true'){
+                         document.getElementById('half_checkbox').checked = true;
+                         document.getElementById('insert_extra_form')['default'].value = '1,1.5,2,2.5,3,3.5,4,4.5,5';
+                         }</script>
+                </td>
+            </tr>
+            <tr>
+                <th><div>{$lang->column_name}</div></th>
+                <td class="wide">
+                    <input type="text" name="name" value="{$selected_var->name}" class="inputTypeText w200" id="name" /><a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','name')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
+                </td>
+            </tr>
+            <tr>
+                <th><div>{$lang->description}</div></th>
+                <td><input type="text" name="desc" value="{$selected_var->desc}" id="desc" class="inputTypeText w400" /><a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','desc')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a></td>
+            </tr>
+            <tr>
+                <th colspan="2" class="button">
+                    <span class="button strong black"><input type="submit" value="{$lang->cmd_insert}" accesskey="s" /></span>
+                </th>
+            </tr>
+            </table>
+
+        </form>
+    <h4 class="xeAdmin">{$lang->help->about_delete}</h4>
+    <h4 class="xeAdmin">{$lang->help->is_writer_rating}</h4>
+    <div id="scollbarFrame">
+        <table cellspacing="0" class="crossTable ">
+        <col width="50" />
+        <col />
+        <col />
+        <col width="30" />
+        <thead>
+        <tr>
+            <th><div>{$lang->no}</div></th>
+            <th><div>{$lang->column_name}</div></th>
+            <th><div>{$lang->description}</div></th>
+            <th><div>&nbsp;</div></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--@foreach($writer_rating_index as $key => $val)-->
+            {@$val=$extra_keys[$key]}
+            <!--@if(substr($val->eid,0,13) == 'writer_rating')-->
+            <tr>
+                <td>{$val->idx}</td>
+                <td class="nowrap"><b>{$val->name}</b></td>
+                <td >{$val->desc}</td>
+                <td class="nowrap">
+                    <a href="#" onclick="return doDeleteExtraKey('{$module_srl}','{$val->idx}');" class="buttonSet buttonDelete"><span>{$lang->cmd_delete}</span></a>
+                </td>
+            </tr>
+            <!--@end-->
+        <!--@end-->
+        </tbody>
+        </table>
+    </div>
+<form id="fo_delete" name="fo_delete" method="post" action="./">
+<input type="hidden" name="module_srl" value="" />
+<input type="hidden" name="var_idx" value="" />
+</form>
+
+<script type="text/javascript">
+    window.resizeTo('600', '550');
+        autoShowScrollbars();
+</script>

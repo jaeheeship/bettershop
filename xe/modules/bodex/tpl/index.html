@@ -1,0 +1,122 @@
+<!--#include("./header.html")-->
+
+<table cellspacing="0" class="rowTable">
+<thead>
+    <tr>
+        <th scope="col" class="half_wide"><div>{$lang->recent.' '.$lang->document}</div></th>
+        <th scope="col" colspan="3"><div>&nbsp;</div></th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($new_documents as $no => $val)-->
+    <tr>
+        <td class="title">
+            <a href="{getSiteUrl($val->domain,'','mid',$val->mid,'document_srl',$val->document_srl)}" onclick="window.open(this.href); return false;">
+            {trim(cut_str($val->title, 80, '...'))}
+            </a>
+        </td>
+        <td><div class="{'member_'.$val->member_srl}" style="cursor:pointer">{$val->nick_name}</div></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td class="ipaddress">{$val->ipaddress}</td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+
+<table cellspacing="0" class="rowTable">
+<thead>
+    <tr>
+        <th scope="col" class="half_wide"><div>{$lang->recent.' '.$lang->comment}</div></th>
+        <th scope="col" colspan="3"><div>&nbsp;</div></th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($new_comments as $no => $val)-->
+    <tr>
+        <td class="title">
+            <a href="{getSiteUrl($val->domain,'','mid',$val->mid,'document_srl',$val->document_srl)}#comment_{$val->comment_srl}" onclick="window.open(this.href); return false;">
+            {trim(cut_str(strip_tags($val->content), 80, '...'))}
+            </a>
+        </td>
+        <td><div class="{'member_'.$val->member_srl}" style="cursor:pointer">{$val->nick_name}</div></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td class="ipaddress">{$val->ipaddress}</td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+
+<table cellspacing="0" class="rowTable">
+<thead>
+    <tr>
+        <th scope="col" class="half_wide"><div>{$lang->recent.' '.$lang->download.' '.$lang->about_new_download}</div></th>
+        <th scope="col" colspan="3"><div>&nbsp;</div></th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($new_downloads as $no => $val)-->
+    <tr>
+        <td class="title">
+            <a href="{getSiteUrl($val->domain,'','mid',$val->mid,'document_srl',$val->upload_target_srl)}" onclick="window.open(this.href); return false;">
+            {trim(cut_str($val->source_filename, 80, '...'))}
+            </a>
+        </td>
+        <td><div class="{'member_'.$val->member_srl}" style="cursor:pointer">{$val->nick_name}</div></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td class="ipaddress">{$val->ipaddress}</td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+
+<table cellspacing="0" class="rowTable">
+<thead>
+    <tr>
+        <th scope="col" class="half_wide"><div>{$lang->document.' '.$lang->recent.' '.$lang->cmd_declare}</div></th>
+        <th scope="col"><div>{$lang->declared_count}</div></th>
+        <th scope="col" colspan="3"><div>&nbsp;</div></th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($new_declareds as $no => $val)-->
+    <tr>
+        <td class="title">
+            <a href="{getSiteUrl($val->domain,'','mid',$val->mid,'document_srl',$val->document_srl)}" onclick="window.open(this.href); return false;">
+            {trim(cut_str($val->title, 80, '...'))}
+            </a>
+        </td>
+        <td>{$val->declared_count}</td>
+        <td><div class="{'member_'.$val->member_srl}" style="cursor:pointer">{$val->nick_name}</div></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td class="ipaddress">{$val->ipaddress}</td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+
+<table cellspacing="0" class="rowTable">
+<thead>
+    <tr>
+        <th scope="col" class="half_wide"><div>{$lang->comment.' '.$lang->recent.' '.$lang->cmd_declare}</div></th>
+        <th scope="col"><div>{$lang->declared_count}</div></th>
+        <th scope="col" colspan="3"><div>&nbsp;</div></th>
+    </tr>
+</thead>
+<tbody>
+    <!--@foreach($new_declareds_comment as $no => $val)-->
+    <tr>
+        <td class="title">
+            <a href="{getSiteUrl($val->domain,'','mid',$val->mid,'document_srl',$val->document_srl)}#comment_{$val->comment_srl}" onclick="window.open(this.href); return false;">
+            {trim(cut_str(strip_tags($val->content), 80, '...'))}
+            </a>
+        </td>
+        <td>{$val->declared_count}</td>
+        <td><div class="{'member_'.$val->member_srl}" style="cursor:pointer">{$val->nick_name}</div></td>
+        <td>{zdate($val->regdate,"Y-m-d")}</td>
+        <td class="ipaddress">{$val->ipaddress}</td>
+    </tr>
+    <!--@end-->
+</tbody>
+</table>
+
+<!--#include("./footer.html")-->

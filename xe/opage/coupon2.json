@@ -1,0 +1,48 @@
+[
+  {
+    "shop_name" : "오이시 초밥",
+    "shop_point" : "21000",
+    "coupons" : [
+      {
+        "coupon_title" : "녹차 무료",
+        "coupon_point" : "10000"
+      },
+      {
+        "coupon_title" : "음료수 무료",
+        "coupon_point" : "5000"
+      },
+      {
+        "coupon_title" : "초밥세트 무료",
+        "coupon_point" : "7000"
+      }
+    ]
+  },
+  {
+    "shop_name" : "로로리 케익",
+    "shop_point" : "15000",
+    "coupons" : [
+      {
+        "coupon_title" : "치즈케익 무료",
+        "coupon_point" : "10000"
+      },
+      {
+        "coupon_title" : "티라미스 무료",
+        "coupon_point" : "5000"
+      }
+    ]
+  },
+  {
+    "shop_name" : "로리 파스타",
+    "shop_point" : "10000",
+    "coupons" : [
+      {
+        "coupon_title" : "탄산음료 무료",
+        "coupon_point" : "8000"
+      },
+      {
+        "coupon_title" : "생과일쥬스 무료",
+        "coupon_point" : "8000"
+      }
+    ]
+  }
+]

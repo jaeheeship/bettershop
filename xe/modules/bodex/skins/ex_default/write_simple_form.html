@@ -1,0 +1,142 @@
+<!--@if($grant->write_document)-->
+    <!--%import("../../tpl/filter/insert.xml")-->
+
+    <!--// 게시물 작성 폼 -->
+    <form action="./" method="post" onsubmit="return procFilter(this, insert)" id="fo_write">
+    <input type="hidden" name="mid" value="{$mid}" />
+    <input type="hidden" name="document_srl" value="" />
+
+    <div name="_col_sc_1" class="exWriteHeader">
+        <!--@if($module_info->use_category!= 'N')-->
+            <select name="category_srl" class="category exISt">
+                <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                <option loop="$category_list=>$val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="($val->grant&&$val->selected)||($oDocument->category_srl && $val->category_srl==$oDocument->category_srl)">
+                    {str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+                </option>
+            </select>
+        <!--@else-->
+        <label class="title">{$lang->title}</label>
+        <!--@endif-->
+        <block cond="$module_info->document_default_title">
+            {@ $module_info->document_default_title = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_title)}
+        </block>
+        <!--@if($module_info->display_title_writer!='N')-->
+        <input type="text" name="title" maxlength="250" class="title exISt" value="{$module_info->document_default_title?htmlspecialchars($module_info->document_default_title):''}" />
+        <!--@elseif($module_info->document_default_title)-->
+        <input type="hidden" name="title" value="{htmlspecialchars($module_info->document_default_title)}" />
+        <!--@endif-->
+    </div>
+
+        <div class="exWrite">
+            <div cond="!$is_logged" class="exWtIfo">
+                <label for="userName">{$lang->writer}</label>
+                <input type="text" maxlength="20" name="nick_name" value="" class="userName exISt" id="userName"/>
+
+                <label for="userPw">{$lang->password}</label>
+                <input type="password" name="password" value="" id="userPw" class="userPw exISt" />
+
+                <label for="emailAddress">{$lang->email_address}</label>
+                <input type="text" name="email_address" value="" id="emailAddress" class="emailAddress exISt"/>
+
+                <label for="homePage">{$lang->homepage}</label>
+                <input type="text" name="homepage" value="" id="homePage" class="homePage exISt"/>
+            </div>
+
+            <dl class="option">
+                <!--@if($grant->manager || $module_info->use_secret=='Y')-->
+                <dd>
+                    <input type="checkbox" name="is_secret" value="Y" checked="checked"|cond="$module_info->use_secret=='R'" id="is_secret" />
+                    <label for="is_secret">{$lang->secret}</label>
+                </dd>
+                <!--@elseif($module_info->use_secret=='R')-->
+                    <input type="hidden" name="is_secret" value="Y" />
+                <!--@endif-->
+                <dd cond="$is_logged">
+                    <input type="checkbox" name="notify_message" value="Y" id="notify_message" />
+                    <label for="notify_message">{$lang->notify}</label>
+                </dd>
+                <!--@if($grant->manager || $module_info->use_allow_comment=='Y')-->
+                <dd>
+                    <input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="$module_info->use_allow_comment!='N'" id="allow_comment" />
+                    <label for="allow_comment">{$lang->allow_comment}</label>
+                </dd>
+                <!--@else-->
+                    <input type="hidden" name="allow_comment" value="Y" />
+                <!--@endif-->
+                <!--@if($grant->manager || $module_info->use_allow_trackback=='Y')-->
+                <dd>
+                    <input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="$module_info->use_allow_trackback!='N'" id="allow_trackback" />
+                    <label for="allow_trackback">{$lang->allow_trackback}</label>
+                </dd>
+                <!--@else-->
+                    <input type="hidden" name="allow_trackback" value="Y" />
+                <!--@endif-->
+            </dl>
+
+            {@
+                $oDocumentController = &getController('document');
+                $oDocumentController->addXmlJsFilter($module_info->module_srl);
+            }
+            <table cond="count($extra_keys)" cellspacing="0" summary="" class="extVLst">
+            <col width="150" />
+            <col />
+                <tr loop="$extra_keys=>$key,$val">
+                {@ $val->value = null}
+                    <th scope="row">{$val->name}{($val->is_required=='Y')?'*':''}</th>
+                    <!--@if($val->eid=='writer_display_ccl')-->
+                        <td><ul>
+                            <li><input type="checkbox" value="attribution" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_1" checked="checked" /><label for="extra_vars_{$val->idx}_1">{$lang->ccl->attribution}</label></li>
+                            <li><input type="checkbox" value="commercial" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_2" /><label for="extra_vars_{$val->idx}_2">{$lang->ccl->commercial}</label></li>
+                            <li><input type="checkbox" value="derivatives" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_3" /><label for="extra_vars_{$val->idx}_3">{$lang->ccl->derivatives}</label></li>
+                            <li><input type="checkbox" value="sharealike" name="extra_vars{$val->idx}" id="extra_vars_{$val->idx}_4" checked="checked" /><label for="extra_vars_{$val->idx}_4">{$lang->ccl->sharealike}</label></li>
+                            </ul><p>{$val->desc}</p>
+                        </td>
+                    <!--@else-->
+                        <td>{$val->getFormHTML()}</td>
+                    <!--@endif-->
+                </tr>
+            </table>
+
+            <block cond="$module_info->display_content_writer!='N'">
+                <block cond="$module_info->document_default_text">
+                    {@ $module_info->document_default_text = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_text)}
+                </block>
+                <input type="hidden" name="content" value="{$module_info->document_default_text?htmlspecialchars($module_info->document_default_text):''}" />
+                <div class="editor">{$oDocument->getEditor()}</div>
+            </block>
+
+            <div cond="$module_info->display_tag_input!='N'" class="tag">
+                <input type="text" name="tags" maxlength="500" class="exISt" value="{htmlspecialchars($oDocument->get('tags'))}" />
+                <a class="button {$btn_class}" title="{$lang->cmd_get_tags}" onclick="_exJcPopTagList(); return false;">
+                <span><img src="./images/common/iconAllTags.gif" border="0" /></span>
+                </a>
+                <p class="info">{$lang->about_tag}</p>
+            </div>
+        </div>
+
+        <div class="fl gap1">
+            <block cond="$is_logged">
+            <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_temp_save}"  onclick="doDocumentSave(this); return false;" /></span>
+            <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_load}"  onclick="doDocumentLoad(this); return false;" /></span>
+            </block>
+            <span class="button {$btn_class}"><input type="button" value="{$lang->cmd_preview}" onclick="doDocumentPreview(this); return false;" /></span>
+        </div>
+
+        <div class="fr gap1">
+            <span class="button {$btn_class}"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+        </div>
+    </form>
+
+<!--@else-->
+
+    <!--@if($is_logged)-->
+        <a href="#" onclick="return false" class="button {$btn_class}"><span>{sprintf($lang->msg_act_not_permitted,$lang->cmd_write)}</span></a>
+    <!--@else-->
+        <!--@if($module_info->display_simple_writer == "S")-->
+            <script>var login_url = "{getUrl('','mid',$mid,'act','dispMemberLoginForm')}";location.href=login_url.replace(/&amp;/g,'&');</script>
+        <!--@else-->
+            <a href="{getUrl('','mid',$mid,'act','dispMemberLoginForm')}" class="button {$btn_class}"><span>{$lang->msg_please_login}</span></a>
+        <!--@endif-->
+    <!--@endif-->
+<!--@endif-->
+<div class="clear"></div>

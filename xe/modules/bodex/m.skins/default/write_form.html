@@ -1,0 +1,130 @@
+{@ Context::addJsFile("./common/js/jquery.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/js_app.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/x.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/common.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/xml_handler.js", true, '', -100000) }
+{@ Context::addJsFile("./common/js/xml_js_filter.js", true, '', -100000) }
+<!--%import("js/mboard.js")-->
+<!--%import("css/mboard.css")-->
+<div class="bd">
+    <div class="hx h3">
+        <h2><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$module_info->browser_title}</a></h2>
+    </div>
+    <div class="hx h2">
+        <h3>{$lang->cmd_write}</h3>
+    </div>
+    <form action="./" method="post" class="ff" onsubmit="return procFilter(this, insert)">
+    <input type="hidden" name="mid" value="{$mid}" />
+    <input type="hidden" name="document_srl" value="{$document_srl}" />
+        <ul>
+            <!--@if($module_info->use_category != "N")-->
+            <li>
+                <label for="nCategory">{$lang->category}</label>
+                <select name="category_srl" id="nCategory">
+                    <!--@foreach($category_list as $val)-->
+                    <option <!--@if(!$val->grant)-->disabled="disabled"<!--@endif--> value="{$val->category_srl}" <!--@if($val->grant&&$val->selected||$val->category_srl==$oDocument->get('category_srl'))-->selected="selected"<!--@endif-->>
+                    {str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+                    </option>
+                    <!--@end-->
+                </select>
+            </li>
+            <!--@end-->
+            <!--@if($module_info->document_default_title)-->
+                {@ $module_info->document_default_title = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_title)}
+            <!--@endif-->
+            <li>
+                <label for="nTitle">{$lang->title}</label>
+                <input name="title" type="text" id="nTitle" value="{htmlspecialchars($module_info->document_default_title)}" />
+            </li>
+            <!--//bodex 포인트 배팅-->
+            <!--@if($module_info->use_reward == 'R')-->
+            {@ $_reward_point_list = explode(',',$module_info->use_reward_value)}
+            <li>
+                <label for="nRewardPoint" class="db fb">{$lang->cmd_reward}</label>
+                <select name="reward_point" id="nRewardPoint">
+                        <!--@foreach($_reward_point_list as $_val)-->
+                            <option value="{$_val}">{$_val}</option>
+                        <!--@endforeach-->
+                </select>
+            </li>
+            <!--@end-->
+            <!--@if(count($extra_keys))-->
+            <!--@foreach($extra_keys as $key=> $val)-->
+            <li class="exvar">
+                <label for="ex_{$val->name}">{$val->name} <!--@if($val->is_required=="Y")-->*<!--@end--></label>
+                {$val->getFormHTML()}
+            </li>
+            <!--@endforeach-->
+            <!--@end-->
+            <!--@if($module_info->document_default_text)-->
+                {@ $module_info->document_default_text = preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->document_default_text)}
+            <!--@endif-->
+            <li>
+                <label for="nText">{$lang->content}</label>
+                <textarea name="content" cols="20" rows="8" id="nText">{htmlspecialchars($module_info->document_default_text)}</textarea>
+            </li>
+            <!--@if(!$is_logged)-->
+            <li>
+                <label for="uName">{$lang->writer}</label>
+                <input name="nick_name" type="text" id="uName" />
+            </li>
+            <li>
+                <label for="uPw">{$lang->password}</label>
+                <input name="password" type="password" id="uPw" />
+            </li>
+            <li>
+                <label for="uMail">{$lang->email_address}</label>
+                <input name="email_address" type="text" id="uMail" />
+            </li>
+            <li>
+                <label for="uSite">{$lang->homepage}</label>
+                <input name="homepage" type="text" id="uSite" value="http://" />
+            </li>
+            <!--@endif-->
+            <li>
+            <!--@if($grant->manager)-->
+                {@ $w_color = array('555555','222288','226622','2266EE','8866CC','88AA66','EE2222','EE6622','EEAA22','EEEE22') }
+                <select class="exISt" name="title_color" id="title_color" style="background-color:#{$oDocument->title_color};"|cond="$oDocument->title_color" onchange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor;">
+                        <option value="" style="background-color:#FFFFFF;">{$lang->title_color}</option>
+                        <option loop="$w_color=>$w_col" value="{$w_col}" style="background-color:#{$w_col}" selected="selected"|cond="$oDocument->title_color==$w_col">{$lang->title_color}</option>
+                    </select>
+                    <input type="checkbox" name="title_bold" id="title_bold" value="Y" checked="checked"|cond="$oDocument->title_bold=='Y'" />
+                    <label for="title_bold">{$lang->title_bold}</label>
+                    <input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" id="is_notice" />
+                    <label for="is_notice">{$lang->notice}</label>
+                    <input type="checkbox" name="lock_comment" value="Y" id="lock_comment" checked="checked"|cond="$oDocument->isLocked()" />
+                    <label for="lock_comment">{$lang->lock_comment}</label>
+            <!--@endif-->
+            <input type="checkbox" name="notify_message" value="Y" id="notify_message" checked="checked"|cond="$oDocument->useNotify()" />
+            <label for="notify_message">{$lang->notify}</label>
+            <!--@if($grant->manager || $module_info->use_secret=='Y')-->
+                    <input type="checkbox" name="is_secret" value="Y" id="is_secret" checked="checked"|cond="$oDocument->isSecret()||(!$document_srl&&$module_info->use_secret=='R')" />
+                    <label for="is_secret">{$lang->secret}</label>
+            <!--@elseif($module_info->use_secret=='R')-->
+                <input type="hidden" name="is_secret" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_anonymous=='Y')-->
+                    <input type="checkbox" name="is_anonymous" value="Y" id="is_anonymous" checked="checked"|cond="((($oDocument->member_srl && $oDocument->user_id == 'anonymous') || ($oDocument->member_srl < 1)) && $oDocument->nick_name == 'anonymous') || (!$document_srl && $module_info->use_anonymous=='R')" />
+                    <label for="is_anonymous">{$lang->anonymous}</label>
+            <!--@elseif($module_info->use_anonymous=='R')-->
+                <input type="hidden" name="is_anonymous" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_allow_comment=='Y')-->
+                <input type="checkbox" name="allow_comment" value="Y" id="allow_comment" checked="checked"|cond="($document_srl&&$oDocument->allowComment())||(!$document_srl&&$module_info->use_allow_comment!='N')" />
+                <label for="allow_comment">{$lang->allow_comment}</label>
+            <!--@else-->
+                <input type="hidden" name="allow_comment" value="Y" />
+            <!--@endif-->
+            <!--@if($grant->manager || $module_info->use_allow_trackback=='Y')-->
+                <input type="checkbox" name="allow_trackback" value="Y" id="allow_trackback" checked="checked"|cond="($document_srl&&$oDocument->allowTrackback())||(!$document_srl&&$module_info->use_allow_trackback!='N')" />
+                <label for="allow_trackback">{$lang->allow_trackback}</label>
+            <!--@else-->
+                <input type="hidden" name="allow_trackback" value="Y" />
+            <!--@endif-->
+            </li>
+        </ul>
+        <div class="bna">
+            <button type="submit" class="bn dark">{$lang->cmd_registration}</button>
+        </div>
+</form>
+</div>

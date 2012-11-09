@@ -1,0 +1,88 @@
+<!--// exJs 으로 시작하는 함수, ID, Class 는 skin.js 에서 사용되니 주의하세요. -->
+
+<!--// 스킨 언어 -->
+<!--%import("lang")-->
+
+{@
+    $iframe_include = (Context::get('is_iframe') == '1');
+    $default_style = $module_info->default_style?$module_info->default_style:($listStyle?$listStyle:'list');
+    $module_info->duration_new = 60 * 60 * $module_info->duration_new;
+}
+
+<!--// 사용자가 선택한 게시판 형태에 따른 설정, 메모 제외, 리뷰일때는 다운로드로 바꿈 -->
+<block cond="!in_array($module_info->default_style,array('memo','blog')) && in_array($listStyle, array('list','webzine','gallery','review','download'))">
+    {@ $default_style = $listStyle}
+</block>
+
+<block cond="$default_style == 'review'">
+    {@
+        $default_style = 'download';
+        $module_info->use_media_player=='Y';
+    }
+</block>
+
+<!--// 베스트글 있으면 공지랑 합체 -->
+<block cond="$best_document_list && count($best_document_list)">
+    {@ $notice_list = array_merge((array)$notice_list, (array)$best_document_list)}
+</block>
+
+<!--// 보기 제한시 미리보기 글자수 재 설정  -->
+<block cond="$module_info->use_allow_view == 'Y' && ($module_info->content_cut_size < 1 || $module_info->content_cut_size > $module_info->allow_view_cut_size)">
+    {@ $module_info->content_cut_size = $module_info->allow_view_cut_size}
+</block>
+
+{@
+    // download, review 일땐 리뷰 셋팅
+    $is_review = ($module_info->display_review_style == 'Y' || $default_style == 'download');
+
+    // 보조 컬러셋 설정
+    $arr_sub_colorset1 = explode(',',$module_info->sub_colorset1);
+    $arr_sub_colorset2 = explode(',',$module_info->sub_colorset2);
+
+    // 컬러셋 체크
+    $module_info->colorset = ($module_info->colorset)?$module_info->colorset:'white';
+    $btn_class = ($module_info->colorset == 'black')? 'black':'';
+
+    // 정렬 바꿈
+    $order_type = ($order_type == 'desc')?'asc':'desc';
+
+    // 닉네임 색상
+    $arr_login_nickname_color = explode(',',$module_info->login_nickname_color);
+
+    // 분류 넓이
+    $arr_category_width = explode(',',$module_info->category_width);
+}
+
+<!--// CSS 파일 로드 (컬러셋에 따라서) -->
+<!--%import("css/common.css")-->
+<block cond="$act == 'dispBoardWrite' || $module_info->display_simple_writer != 'N'"><!--%import("css/write.css")--></block>
+<block cond="$module_info->default_style == 'blog' || in_array($act,array('dispBoardReplyComment','dispBoardModifyComment')) || ($oDocument && $oDocument->isExists())"><!--%import("css/view.css")--></block>
+
+{@
+    Context::addCSSFile($tpl_path.'css/'.$default_style.'.css');
+    Context::addCSSFile($tpl_path.'css/'.$module_info->colorset.'.css');
+}
+
+<!--// 보조색, 사용자 정의 CSS 덮어씀 -->
+<style cond="$arr_category_width[1] || $arr_sub_colorset1[0] || $arr_sub_colorset2[0] || $module_info->document_custom_css" type="text/css">
+    <block cond="$module_info->document_custom_css">{$module_info->document_custom_css}</block>
+    <include cond="$arr_category_width[1] || $arr_sub_colorset1[0] || $arr_sub_colorset2[0]" target="./css/_custom.html" />
+</style>
+
+<!--// 자바 메세지 언어 세팅 -->
+<script cond="($oDocument && $oDocument->isExists()) || $default_style == 'download' || $module_info->default_style == 'memo'">
+    var _exJsMessage = new Array();
+    _exJsMessage['enter_password'] = '{$lang->msg_enter_password}';
+    _exJsMessage['download_point'] = '{$lang->msg_download_point}';
+    _exJsMessage['enter_comment'] = '{$lang->msg_not_allow_down}';
+</script>
+
+<!--%import("css/skin.js")-->
+
+<!--// i프레임 댓글용 -->
+<script cond="$iframe_include" type="text/javascript">
+    completeInsertComment = _exJsIframeCompleteComment;
+    completeDeleteComment = _exJsIframeCompleteComment;
+    xAddEventListener(window, 'load', _exJsIframeResizeHeight);
+</script>
+

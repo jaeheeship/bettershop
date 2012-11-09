@@ -1,0 +1,46 @@
+@charset "utf-8";
+.exList th {text-align:right}
+.exList tr.itembox td {padding:2px 0;white-space:nowrap; overflow:hidden;}
+
+.exList .downBox {margin:0 0 .3em 0;padding:3px 0;border-bottom:1px solid; white-space:normal; overflow:hidden; vertical-align:top; text-align:left; *zoom:1}
+
+.exList .downBox div.thumb {float:left;text-align:center;border:1px solid; margin:0 7px 0 0}
+.exList .downBox div.thumbfr {float:right;margin:0 0 0 7px}
+.exList .downBox div.thumb img {padding:2px}
+
+.exList .downBox div.info ul {margin:0; padding:0;*zoom:1}
+.exList .downBox div.info li {padding:0 2px;list-style:none; white-space:normal; overflow:hidden}
+
+.exList .downBox div.info li.title {padding:.4em 2px .1em; border-top:1px solid; word-break:break-all}
+.exList span.blind,
+.exList .downBox div.info li.title a {font-weight:bold;font-size:1.2em}
+.exList .downBox div.info li.title .checkbox {font-size:1px; margin:0; padding:0}
+
+.exList .downBox div.info li.CASBox {margin:.3em 0 .3em 0}
+
+.exList .downBox div.info li .catAaut {float:left}
+.exList .downBox div.info li span.category  {margin-right:.3em; padding-right:.6em; font-size:1em; line-height:1em}
+
+.exList .downBox div.info li span.nick_name span {cursor:pointer}
+.exList .downBox div.info li span.nick_name span.anonym {font-style:italic}
+
+.exList .downBox div.info li .catAstar {margin-bottom:3px;*zoom:1}
+.exList .downBox div.info li .catAstar:after { content:""; clear:both; display:block}
+
+.exList .downBox div.info li.CASBox span.button {margin-top:5px}
+
+.exList .downBox div.info li .star li {margin:0;font-weight:bold;text-align:right}
+.exList .downBox div.info li .star span.voted_count ,
+.exList .downBox div.info li .star span.blamed_count {padding-left:1.2em; font-weight:bold;font-size:.9em;background:url(../images/common/iconLove.gif) no-repeat left top}
+.exList .downBox div.info li .star span.voted_count {background-position:0 1px}
+.exList .downBox div.info li .star span.blamed_count {margin-left:.5em;background-position:0 -15px}
+.exList .downBox div.info li .star div {margin-bottom:.1em;font-size:1em;line-height:1.2em}
+
+.exList .downBox div.info li .last_updater {font:.9em Tahoma}
+
+.exList .downBox div.info li .ccl {padding:3px 0 2px}
+.exList .downBox div.info li .extravalue {padding:1px 0 0}
+.exList .downBox div.info li .summary {margin:7px 0 1px; word-break:break-all}
+.exList .downBox div.info li .summary:first-letter { font-size: 200%; font-weight: bold; float:left}
+
+.exList .downBox div.date {float:right;height:1.2em;font:.9em Tahoma}

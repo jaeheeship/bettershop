@@ -1,0 +1,143 @@
+<block cond="!$form_include"><include target="__header.html" /></block>
+<style cond="$iframe_include" type="text/css">body {border:0;margin:1px;padding:1px}</style>
+
+    <!--// 만약 댓글의 답을 다는 것이라면 원문 보여줌 -->
+<div cond="!$iframe_include && $oSourceComment && $oSourceComment->isExists()" class="exRepBox">
+    <div class="repItm">
+        {@
+            $oSourceComment->nickName = $oSourceComment->getNickName();
+            $oSourceComment->member_srl = $oSourceComment->getMemberSrl();
+            $oSourceComment->nickName = ($oSourceComment->nickName=='anonymous'?$lang->anonymous:$oSourceComment->nickName);
+            $oSourceComment->member_srl = (!$grant->manager && $oSourceComment->member_srl && $oSourceComment->get('user_id')=='anonymous')?0:$oSourceComment->member_srl;
+        }
+        <div class="author"><div class="member_{$oSourceComment->member_srl}">{$oSourceComment->nickName}</div></div>
+        <div class="date">
+            {$oSourceComment->getRegdate("Y.m.d H:i")}
+            <block cond="$grant->manager">
+                ({$oSourceComment->get('ipaddress')})
+            </block>
+        </div>
+        <div class="clear"></div>
+
+        <div class="repCnt gap1">
+            {$oSourceComment->getContent(false)}
+        </div>
+    </div>
+</div>
+
+<!--// 글쓰기 폼 !$oComment 에러 방지 -->
+<block cond="$oComment">
+    {@
+        $oComment = $oBodex->getWith($oComment, array('document_srl','parent_srl','comment_srl','member_srl','user_id','nick_name','email_address','homepage','content'));
+
+        $oComment->email_address = htmlspecialchars($oComment->email_address);
+        $oComment->homepage = htmlspecialchars($oComment->homepage);
+        $oComment->content = htmlspecialchars($oComment->content);
+
+        $oComment->is_secret = $oComment->isSecret();
+        $oComment->use_notify = $oComment->useNotify();
+    }
+</block>
+    <form action="./" method="post" onsubmit="return procFilter(this, insert_comment)" class="bodexEditor" >
+        <input type="hidden" name="mid" value="{$mid}" />
+        <input type="hidden" name="document_srl" value="{($oComment)?$oComment->document_srl:$oDocument->document_srl}" />
+        <input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
+        <input type="hidden" name="content" value="{$oComment->content}" />
+        <input type="hidden" name="parent_srl" value="{$oComment->parent_srl}" />
+
+        <div class="exWrite exCWrite <!--@if($iframe_include)-->exIfmInc<!--@endif-->">
+            <div class="exWtIfo">
+
+                <block cond="!$oComment">
+                    <!--@if(!$is_logged || $module_info->use_vote == 'N' || ($module_info->display_review_comment != 'Y' && abs($oDocument->member_srl) == abs($logged_info->member_srl)))-->
+                        <input type="hidden" name="vote_point" value="0" />
+                    <!--@else-->
+                        <div class="votePoint">
+                        <!--@if($logged_user_voted_star && $logged_user_voted_star != 0)-->
+                            <!--@if($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')-->
+                                <div class="exSPFrm fl" title="{sprintf($lang->msg_acted_current_document,$lang->cmd_vote)}">
+                                    <span class="exSCol{$module_info->star_color} exBg0" style="width:{$logged_user_voted_star*15}px">&nbsp;</span>
+                                </div>
+                            <!--@else-->
+                                <div class="fl">{sprintf($lang->msg_acted_current_document,($logged_user_voted_star < 0? $lang->cmd_vote_down:$lang->cmd_vote))}</div>
+                            <!--@endif-->
+                            <div cond="$module_info->use_vote_empty == 'Y'" class="voteEmpty">
+                                <a href="#" onclick="doCallModuleAction('{$module_info->module}','procBoardVoteEmpty','{$oDocument->document_srl}'); return false; " title="{$lang->cmd_vote_empty}"><span>{$lang->cmd_vote_empty}</span></a>
+                            </div>
+                        <!--@elseif($is_logged && $module_info->use_vote == 'Y')-->
+                            <input type="hidden" name="vote_point" value="0" />
+                            <a class="up" href="#" onclick="return _exJcCallAction('document','procDocumentVoteUp','{$oDocument->document_srl}');">{$lang->cmd_vote}</a>
+                            <a class="down" href="#" onclick="return _exJcCallAction('document','procDocumentVoteDown','{$oDocument->document_srl}');">{$lang->cmd_vote_down}</a>
+                        <!--@elseif($is_logged && $module_info->use_vote == 'R')-->
+                            <input name="vote_point" value="1" id="votePoint_0" type="radio">
+                            <label class="up" for="votePoint_0">{$lang->cmd_vote}</label>
+                            <input name="vote_point" value="-1" id="votePoint_1" type="radio">
+                            <label class="down" for="votePoint_1">{$lang->cmd_vote_down}</label>
+                        <!--@elseif($is_logged && ($module_info->use_vote == 'S' || $module_info->use_vote == 'Z'))-->
+                            <ul class="exJsSPntBox">
+                            <li><input type="hidden" name="vote_point" value="{$module_info->use_vote == 'S'?'0':''}" rel="{$module_info->use_vote == 'S'?'0':''}" /></li>
+                            {@ $j=1}<li loop="$i=1;$i<6;$i++"><a href="#" onclick="return false;" rel="{$j++}" col="{$module_info->star_color}">&nbsp;</a></li>
+                            <block cond="$module_info->use_vote == 'S'">
+                                <li><a class="vote_cancel" href="#" onclick="return false;" rel="0" col="{$module_info->star_color}" title="{$lang->cancel}"><span>{$lang->cancel}</span></a></li>
+                                <li><a class="vote_register" href="#" onclick="_exJcDocumentRating(jQuery('input[name=vote_point]').val()); return false;" title="{$lang->rating}"><span>{$lang->rating}</span></a></li>
+                            </block>
+                            </ul>
+                        <!--@endif-->
+                        </div>
+                    <!--@endif-->
+                </block>
+
+                <dl class="option">
+                    <block cond="!$is_logged">
+                        <dd><label for="userName">{$lang->writer}</label>
+                        <input class="userName exISt" type="text" name="nick_name" maxlength="20" value="{$oComment->nick_name}" id="userName"/></dd>
+                        <dd><label for="userPw">{$lang->password}</label>
+                        <input class="userPw exISt" type="password" name="password" id="userPw" /></dd>
+                        <dd><label for="emailAddress">{$lang->email_address}</label>
+                        <input class="emailAddress exISt" type="text" name="email_address" value="{$oComment->email_address}" id="emailAddress"/></dd>
+                        <dd><label for="homePage">{$lang->homepage}</label>
+                        <input class="homePage exISt" type="text" name="homepage" value="{$oComment->homepage}" id="homePage"/></dd>
+                        </dl><dl class="option">
+                    </block>
+                    <dd>
+                        <input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->use_notify" id="notify_message" />
+                        <label for="notify_message">{$lang->notify}</label>
+                    </dd>
+                    <!--@if($grant->manager || $module_info->use_secret_comment=="Y")-->
+                        <dd><input type="checkbox" name="is_secret" value="Y" checked="checked"|cond="$oComment->is_secret||(!$oComment && $module_info->use_secret_comment=='R')" id="is_secret" />
+                        <label for="is_secret">{$lang->secret}</label></dd>
+                    <!--@elseif($module_info->use_secret_comment=="R")-->
+                        <input type="hidden" name="is_secret" value="Y" />
+                    <!--@endif-->
+                    <!--@if($grant->manager || $module_info->use_anonymous_comment=="Y")-->
+                        <dd><input type="checkbox" name="is_anonymous" value="Y" checked="checked"|cond="((($oComment->member_srl && $oComment->user_id == 'anonymous') || ($oComment->member_srl < 1)) && $oComment->nick_name == 'anonymous') || (!$oComment && $module_info->use_anonymous_comment=='R')" id="is_anonymous" />
+                            <label for="is_anonymous">{$lang->anonymous}</label></dd>
+                    <!--@elseif($module_info->use_anonymous_comment=="R")-->
+                        <input type="hidden" name="is_anonymous" value="Y" />
+                    <!--@endif-->
+
+                    <dd cond="!$oComment && $module_info->use_reward != 'N' && $oDocument->reward_point > 0" class="rePoint">
+                    <!--@if($module_info->use_allow_view != 'P' && $module_info->use_allow_down != 'P')-->
+                        <block cond="!$oDocument->reward_srl">
+                            ({sprintf($lang->msg_reward_point_adopt, '<strong>'.$adopted_reward_point.'</strong>')})
+                        </block>
+                    <!--@elseif($module_info->use_allow_down == 'P')-->
+                        ({($module_info->use_down_point_always=='Y')?$lang->always:$lang->first} {sprintf($lang->msg_reward_point_download, '<strong>'.$adopted_reward_point.'</strong>'.($download_file_point>0?' + '.$lang->always.': <strong>'.$download_file_point.'</strong>':''))})
+                        <block cond="$module_info->use_down_point_medias == 'Y' || $module_info->use_down_point_images == 'Y'">
+                            ({sprintf($lang->msg_apply_with, (($module_info->use_down_point_medias == 'Y')?($lang->media.(($module_info->use_down_point_images == 'Y')?', ':'')):'').(($module_info->use_down_point_images == 'Y')?$lang->image:''))})
+                        </block>
+                    <!--@endif-->
+                    </dd>
+                <dl>
+            </div>
+
+            <div class="editor">{($oComment)?$oComment->getEditor():$oDocument->getCommentEditor()}</div>
+
+        </div>
+
+        <div class="commentButton tRight">
+            <span cond="$oComment" class="button {$btn_class}"><input type="button" value="{$lang->cmd_back}" onclick="<!--@if($iframe_include)-->_exJsIframeClose({$oSourceComment->isExists()?$oComment->parent_srl:$oComment->comment_srl});<!--@else-->location.href='{getUrl('act','')}';<!--@endif--> return false;"/></span>
+            <span class="button black"><input type="submit" value="{$lang->cmd_comment_registration}" accesskey="s" /></span>
+        </div>
+    </form>
+<block cond="!$form_include"><include target="__footer.html" /></block>

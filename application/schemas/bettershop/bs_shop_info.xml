@@ -1,0 +1,6 @@
+<table name="bs_shop_info" > 
+    <column name="shop_code" type="int" size="11" auto_increment="true" primary_key="true" />
+    <column name="document_srl" type="int" size="11"  />
+    <column name="shop_name" type="varchar" size="64"  />
+    <column name="user_id" type="int" size="11"  />
+</table>

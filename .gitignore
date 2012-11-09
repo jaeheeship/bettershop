@@ -2,7 +2,10 @@
 */logs/log-*.php
 */logs/!index.html
 */cache/*
+*/files/*
 */cache/!index.html
 user_guide/
+*.swp
+*.swo
 *DS_STORE*
 DS_Store* 

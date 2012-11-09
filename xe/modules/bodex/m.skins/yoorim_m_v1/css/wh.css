@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* Yoorim Mobile Package (/modules/board/m.skins/yoorim_m_v1) */
+/* Hx */
+.hx.h2 em{color:#666}
+.hx.h3 em{color:#e31}
+.hx .ext:before{color:#888}
+.hx.h2 .ca:after{border-left-color:#999}
+.hx.h2 .write{border-color:#999}
+/* Global Navigation */
+.gn em{color:#e31}
+/* List */
+.lt .notice{background:#666}
+.lt .title em{color:#e31}
+/* Button Area */
+.bn.dark{text-shadow:0 1px 1px #fff;border-color:#aaa #8d8d8d #6d6d6d;background:#d0d0d0 -webkit-gradient(linear,0% 0%,0% 100%,from(#fff),to(#ddd),color-stop(0.5,#d8d8d8),color-stop(0.5,#bbb));background:#d0d0d0 -moz-linear-gradient(top,#fff,#ddd);background-color:#d0d0d0}

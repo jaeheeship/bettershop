@@ -1,0 +1,20 @@
+<query id="getNewestDeclaredList" action="select">
+    <tables>
+        <table name="document_declared_log" alias="declared_log" />
+        <table name="document_declared" alias="declared" />
+        <table name="documents" alias="documents" />
+    </tables>
+    <columns>
+        <column name="declared_log.*" />
+        <column name="declared.declared_count" alias="declared_count" />
+        <column name="documents.title" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="documents.document_srl" var="declared_log.document_srl" filter="number" notnull="notnull" />
+        <condition operation="equal" column="declared.document_srl" var="declared_log.document_srl" filter="number" notnull="notnull" pipe="and" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="regdate" order="order_type" />
+        <list_count var="list_count" default="10" />
+    </navigation>
+</query>

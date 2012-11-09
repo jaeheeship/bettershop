@@ -1,0 +1,1824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+    <title xml:lang="ko">게시판 EX 기본 스킨</title>
+    <title xml:lang="jp">掲示板 EXの基本スキン</title>
+    <title xml:lang="en">Basic Board EX Skin</title>
+    <title xml:lang="es">Basic Board EX Skin</title>
+    <title xml:lang="zh-CN">留言板EX基本皮肤</title>
+    <title xml:lang="zh-TW">留言板EX基本皮膚</title>
+    <description xml:lang="ko">
+        게시판 EX의 기본 스킨입니다.
+    </description>
+    <description xml:lang="jp">
+        掲示板 EXの基本スキンです.
+    </description>
+    <description xml:lang="en">
+        게시판 EX의 기본 스킨입니다.
+    </description>
+    <description xml:lang="es">
+        게시판 EX의 기본 스킨입니다.
+    </description>
+    <description xml:lang="zh-CN">
+        留言板EX基本皮肤.
+    </description>
+    <description xml:lang="zh-TW">
+        留言板EX基本皮膚.
+    </description>
+
+    <license xml:lang="ko">XE 코어와 동일 (LGPL v2)</license>
+    <license xml:lang="en">XE 코어와 동일 (LGPL v2)</license>
+    <license xml:lang="es">XE 코어와 동일 (LGPL v2)</license>
+    <license xml:lang="jp">XE コア-と同一 (LGPL v2)</license>
+    <license xml:lang="zh-CN">XE 与CORE相同 (LGPL v2)</license>
+    <license xml:lang="zh-TW">XE 與CORE相同 (LGPL v2)</license>
+
+    <!-- make public 2010-01-01 -->
+    <version>1.0</version>
+    <date>2011-05-15</date>
+
+    <history version="1.0" date="2011-05-15">
+        <author email_address="phidel@foxb.kr" link="http://foxb.kr/">
+            <name>phiDel</name>
+        </author>
+        <!--<description>스킨 개발자분들은 아래 변경 기록을 참고하세요.</description>-->
+        <!--<log link="http://phidel.xpressengine.net/wiki/18717163">변경 기록 보러가기.↗</log>-->
+    </history>
+
+    <author email_address="phidel@foxb.kr" link="http://foxb.kr/">
+        <name xml:lang="ko">phiDel</name>
+        <name xml:lang="jp">phiDel</name>
+        <name xml:lang="en">phiDel</name>
+        <name xml:lang="es">phiDel</name>
+        <name xml:lang="zh-CN">phiDel</name>
+        <name xml:lang="zh-TW">phiDel</name>
+    </author>
+    <author link="http://phidel.xpressengine.net/">
+        <name xml:lang="ko">프로젝트 홈</name>
+        <name xml:lang="jp">プロジェクトホーム</name>
+        <name xml:lang="en">프로젝트 홈</name>
+        <name xml:lang="es">프로젝트 홈</name>
+        <name xml:lang="zh-CN">项目主页</name>
+        <name xml:lang="zh-TW">項目主頁</name>
+    </author>
+
+    <colorset>
+        <color name="white" src="screenshot/white.gif">
+            <title xml:lang="ko">하얀색(기본)</title>
+            <title xml:lang="jp">白(基本)</title>
+            <title xml:lang="en">White (default)</title>
+            <title xml:lang="es">Blanco (por defecto)</title>
+            <title xml:lang="zh-CN">白色(基本)</title>
+            <title xml:lang="zh-TW">白色(基本)</title>
+        </color>
+        <color name="black" src="screenshot/black.gif">
+            <title xml:lang="ko">검은색</title>
+            <title xml:lang="jp">黒</title>
+            <title xml:lang="en">Black</title>
+            <title xml:lang="es">Negro</title>
+            <title xml:lang="zh-CN">黑色</title>
+            <title xml:lang="zh-TW">黑色</title>
+        </color>
+    </colorset>
+
+    <extra_vars>
+        <group>
+            <title xml:lang="ko">색상</title>
+            <title xml:lang="jp">色相</title>
+            <title xml:lang="en">색상</title>
+            <title xml:lang="es">색상</title>
+            <title xml:lang="zh-CN">颜色</title>
+            <title xml:lang="zh-TW">顏色</title>
+            <var name="sub_colorset1" type="text">
+                <title xml:lang="ko">보조 배경색</title>
+                <title xml:lang="jp">補助背景色</title>
+                <title xml:lang="en">보조 배경색</title>
+                <title xml:lang="es">보조 배경색</title>
+                <title xml:lang="zh-CN">補助背景色</title>
+                <title xml:lang="zh-TW">補助背景色</title>
+            </var>
+            <var name="sub_colorset2" type="text">
+                <title xml:lang="ko">보조 글자색</title>
+                <title xml:lang="jp">補助文字色</title>
+                <title xml:lang="en">보조 글자색</title>
+                <title xml:lang="es">보조 글자색</title>
+                <title xml:lang="zh-CN">補助文字色</title>
+                <title xml:lang="zh-TW">補助文字色</title>
+                <description xml:lang="ko">
+                스킨에 사용될 보조 색상을 지정할 수 있습니다.
+                값이 없으면 기본색을 가지며 ,(콤마)로 복수 등록이 가능합니다.
+
+                보조 배경색 : 타이틀, 목록1, 목록2, 댓글1, 댓글2 (ex: transparent,red,pink,blue,gray)
+                보조 글자색 : 총글, 댓글, 엮인글, 페이지, 추천 수 (ex: purple,orange,green,white,yellow)
+                </description>
+                <description xml:lang="jp">
+                スキンに使われる補助色相を指定することができます.
+                値がなければ基本色 ,(コンマ)で復讐登録が可能です.
+
+                補助背景色 : タイトル,リスト1,リスト2,コメント1,コメント2 (ex: transparent,red,pink,blue,gray)
+                補助文字色 : 総文書,コメント,トラックバック,ページ,推薦数 (ex: purple,orange,green,white,yellow)
+                </description>
+                <description xml:lang="en">
+                스킨에 사용될 보조 색상을 지정할 수 있습니다.
+                값이 없으면 기본색을 가지며 ,(콤마)로 복수 등록이 가능합니다.
+
+                보조 배경색 : 타이틀, 목록1, 목록2, 댓글1, 댓글2 (ex: transparent,red,pink,blue,gray)
+                보조 글자색 : 총글, 댓글, 엮인글, 페이지, 추천 수 (ex: purple,orange,green,white,yellow)
+                </description>
+                <description xml:lang="es">
+                스킨에 사용될 보조 색상을 지정할 수 있습니다.
+                값이 없으면 기본색을 가지며 ,(콤마)로 복수 등록이 가능합니다.
+
+                보조 배경색 : 타이틀, 목록1, 목록2, 댓글1, 댓글2 (ex: transparent,red,pink,blue,gray)
+                보조 글자색 : 총글, 댓글, 엮인글, 페이지, 추천 수 (ex: purple,orange,green,white,yellow)
+                </description>
+                <description xml:lang="zh-CN">
+                可以指定使用在皮肤的补助颜色.
+                如果没有值就显示基本颜色 ,可以用(逗号)重复注册.
+
+                补助背景色：题目，目录1，目录2，目录3，贴子1，贴子2 (ex: transparent,red,pink,blue,gray)
+                补助背景色：总文，贴子，应用通告，页面，推荐数 (ex: purple,orange,green,white,yellow)
+                </description>
+                <description xml:lang="zh-TW">
+                可以指定使用在皮膚的補助顏色.
+                如果沒有值就顯示基本顏色 ,可以用(逗號)重復注冊.
+
+                補助背景色：題目，目錄1，目錄2，目錄3，貼子1，貼子2 (ex: transparent,red,pink,blue,gray)
+                補助背景色：總文，貼子，應用通告，頁面，推薦數 (ex: purple,orange,green,white,yellow)
+                </description>
+            </var>
+            <var name="login_nickname_color" type="text">
+                <title xml:lang="ko">닉네임 강조</title>
+                <title xml:lang="jp">ニックネーム強調</title>
+                <title xml:lang="en">닉네임 강조</title>
+                <title xml:lang="es">닉네임 강조</title>
+                <title xml:lang="zh-CN">닉네임 강조</title>
+                <title xml:lang="zh-TW">닉네임 강조</title>
+                <description xml:lang="ko">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+                <description xml:lang="jp">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+                <description xml:lang="en">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+                <description xml:lang="es">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+                <description xml:lang="zh-CN">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+                <description xml:lang="zh-TW">
+                    글과 댓글의 닉네임을 해당 색상을 입혀 강조해 보여줍니다.
+                    닉네임 색상 : 로그인 유저, 일반 유저 (ex: blue,skyblue)
+                </description>
+            </var>
+            <var name="star_color" type="select" default="R">
+                <title xml:lang="ko">별점 색상</title>
+                <title xml:lang="jp">星点色相</title>
+                <title xml:lang="en">별점 색상</title>
+                <title xml:lang="es">별점 색상</title>
+                <title xml:lang="zh-CN">星点颜色</title>
+                <title xml:lang="zh-TW">星點顏色</title>
+                <options value="R">
+                    <title xml:lang="ko">붉은색</title>
+                    <title xml:lang="jp">赤色</title>
+                    <title xml:lang="en">붉은색</title>
+                    <title xml:lang="es">붉은색</title>
+                    <title xml:lang="zh-CN">红色</title>
+                    <title xml:lang="zh-TW">紅色</title>
+                </options>
+                <options value="G">
+                    <title xml:lang="ko">초록색</title>
+                    <title xml:lang="jp">緑色</title>
+                    <title xml:lang="en">초록색</title>
+                    <title xml:lang="es">초록색</title>
+                    <title xml:lang="zh-CN">绿色</title>
+                    <title xml:lang="zh-TW">綠色</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">노랑색</title>
+                    <title xml:lang="jp">イエロー色</title>
+                    <title xml:lang="en">노랑색</title>
+                    <title xml:lang="es">노랑색</title>
+                    <title xml:lang="zh-CN">黄色</title>
+                    <title xml:lang="zh-TW">黃色</title>
+                </options>
+                <description xml:lang="ko">추천 방식이 별점일때 별 색상을 지정할 수 있습니다.</description>
+                <description xml:lang="jp">推薦方式が星点し星の色を指定することができます.</description>
+                <description xml:lang="en">추천 방식이 별점일때 별 색상을 지정할 수 있습니다.</description>
+                <description xml:lang="es">추천 방식이 별점일때 별 색상을 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">当推荐方式星点的时可以指定星颜色.</description>
+                <description xml:lang="zh-TW">當推薦方式星點的時可以指定星顏色.</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">형태 (%EXTRA_(CCL 표시 추가.↗)_(help/displayccl)%) (%EXTRA_(등록자 평가 추가.↗)_(help/extra)%)</title>
+            <title xml:lang="jp">形態 (%EXTRA_(CCL 表示追加.↗)_(help/displayccl)%) (%EXTRA_(登録者評価追加.↗)_(help/extra)%)</title>
+            <title xml:lang="en">형태 (%EXTRA_(CCL 표시 추가.↗)_(help/displayccl)%) (%EXTRA_(등록자 평가 추가.↗)_(help/extra)%)</title>
+            <title xml:lang="es">형태 (%EXTRA_(CCL 표시 추가.↗)_(help/displayccl)%) (%EXTRA_(등록자 평가 추가.↗)_(help/extra)%)</title>
+            <title xml:lang="zh-CN">形态 (%EXTRA_(CCL 표시 추가.↗)_(help/displayccl)%) (%EXTRA_(追加登録者评价.↗)_(help/extra)%)</title>
+            <title xml:lang="zh-CN">形態 (%EXTRA_(CCL 표시 추가.↗)_(help/displayccl)%) (%EXTRA_(追加登録者評價.↗)_(help/extra)%)</title>
+            <var name="default_style" type="select" default="list">
+                <title xml:lang="ko">기본 형태</title>
+                <title xml:lang="jp">基本形態</title>
+                <title xml:lang="en">Default Form</title>
+                <title xml:lang="es">Formulario por defecto</title>
+                <title xml:lang="zh-CN">默认样式</title>
+                <title xml:lang="zh-TW">默認樣式</title>
+                <options value="list">
+                    <title xml:lang="ko">목록</title>
+                    <title xml:lang="jp">リスト型</title>
+                    <title xml:lang="en">list</title>
+                    <title xml:lang="es">list</title>
+                    <title xml:lang="zh-CN">目录型</title>
+                    <title xml:lang="zh-TW">目錄型</title>
+                </options>
+                <options value="webzine">
+                    <title xml:lang="ko">웹진</title>
+                    <title xml:lang="jp">ウェブジン(webzine)型</title>
+                    <title xml:lang="en">webzine</title>
+                    <title xml:lang="es">webzine</title>
+                    <title xml:lang="zh-CN">新闻型</title>
+                    <title xml:lang="zh-TW">新聞型</title>
+                </options>
+                <options value="gallery">
+                    <title xml:lang="ko">갤러리</title>
+                    <title xml:lang="jp">ギャラリー型</title>
+                    <title xml:lang="en">gallery</title>
+                    <title xml:lang="es">gallery</title>
+                    <title xml:lang="zh-CN">相册型</title>
+                    <title xml:lang="zh-TW">相冊型</title>
+                </options>
+                <options value="review">
+                    <title xml:lang="ko">리뷰</title>
+                    <title xml:lang="jp">レビュー</title>
+                    <title xml:lang="en">review</title>
+                    <title xml:lang="es">리뷰</title>
+                    <title xml:lang="zh-CN">评论</title>
+                    <title xml:lang="zh-TW">評論</title>
+                </options>
+                <options value="download">
+                    <title xml:lang="ko">자료실</title>
+                    <title xml:lang="jp">資料室</title>
+                    <title xml:lang="en">download</title>
+                    <title xml:lang="es">자료실</title>
+                    <title xml:lang="zh-CN">资料库</title>
+                    <title xml:lang="zh-TW">資料庫</title>
+                </options>
+                <options value="memo">
+                    <title xml:lang="ko">메모장</title>
+                    <title xml:lang="jp">メモ帳</title>
+                    <title xml:lang="en">memo</title>
+                    <title xml:lang="es">memo</title>
+                    <title xml:lang="zh-CN">记录</title>
+                    <title xml:lang="zh-TW">記錄</title>
+                </options>
+                <options value="blog">
+                    <title xml:lang="ko">블로그</title>
+                    <title xml:lang="jp">ブログ型</title>
+                    <title xml:lang="en">blog</title>
+                    <title xml:lang="es">blog</title>
+                    <title xml:lang="zh-CN">博客型</title>
+                    <title xml:lang="zh-TW">博客型</title>
+                </options>
+                <description xml:lang="ko">
+                목록, 웹진, 갤러리, 리뷰, 자료실, 메모장, 블로그 스타일을 지정할 수 있습니다.
+                (%POPUP_(기본 형태의 스타일 미리 보기.↗)_(help/listpreview)%)
+                </description>
+                <description xml:lang="jp">
+                リスト,ウェブジン,ギャラリー,レビュー,資料室,メモ帳,ブログスタイルを指定することができます.
+                (%POPUP_(基本形態のスタイルを見る.↗)_(help/listpreview)%)
+                </description>
+                <description xml:lang="en">
+                목록, 웹진, 갤러리, 리뷰, 자료실, 메모장, 블로그 스타일을 지정할 수 있습니다.
+                (%POPUP_(기본 형태의 스타일 미리 보기.↗)_(help/listpreview)%)
+                </description>
+                <description xml:lang="es">
+                목록, 웹진, 갤러리, 리뷰, 자료실, 메모장, 블로그 스타일을 지정할 수 있습니다.
+                (%POPUP_(기본 형태의 스타일 미리 보기.↗)_(help/listpreview)%)
+                </description>
+                <description xml:lang="zh-CN">
+                可以指定目录,网络新闻,画廊,审查,资料库,纪事本,博客等格式.
+                (%POPUP_(可预览基本形态的格式.↗)_(help/listpreview)%)
+                </description>
+                <description xml:lang="zh-TW">
+                可以指定目錄,網絡新聞,畫廊,審查,資料庫,紀事本,博客等格式.
+                (%POPUP_(可預覽基本形態的格式.↗)_(help/listpreview)%)
+                </description>
+            </var>
+            <var name="display_search_position" type="select" default="L">
+                <title xml:lang="ko">검색바 위치</title>
+                <title xml:lang="jp">検索バー位置</title>
+                <title xml:lang="en">검색바 위치</title>
+                <title xml:lang="es">검색바 위치</title>
+                <title xml:lang="zh-CN">검색바 위치</title>
+                <title xml:lang="zh-TW">검색바 위치</title>
+                <options value="L">
+                    <title xml:lang="ko">왼쪽</title>
+                    <title xml:lang="jp">左側</title>
+                    <title xml:lang="en">왼쪽</title>
+                    <title xml:lang="es">왼쪽</title>
+                    <title xml:lang="zh-CN">왼쪽</title>
+                    <title xml:lang="zh-TW">왼쪽</title>
+                </options>
+                <options value="R">
+                    <title xml:lang="ko">오른쪽</title>
+                    <title xml:lang="jp">右側</title>
+                    <title xml:lang="en">오른쪽</title>
+                    <title xml:lang="es">오른쪽</title>
+                    <title xml:lang="zh-CN">오른쪽</title>
+                    <title xml:lang="zh-TW">오른쪽</title>
+                </options>
+                <options value="H">
+                    <title xml:lang="ko">감추기</title>
+                    <title xml:lang="jp">감추기</title>
+                    <title xml:lang="en">감추기</title>
+                    <title xml:lang="es">감추기</title>
+                    <title xml:lang="zh-CN">감추기</title>
+                    <title xml:lang="zh-TW">감추기</title>
+                </options>
+                <description xml:lang="ko">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+                <description xml:lang="jp">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+                <description xml:lang="en">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+                <description xml:lang="es">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+                <description xml:lang="zh-CN">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+                <description xml:lang="zh-TW">목록 하단에 검색바의 위치를 지정하거나 감출수 있습니다.</description>
+            </var>
+            <!--default= "notReq::" - 필수(require)값이 아니기에 업데이트시엔 체크하지 않습니다-->
+            <var name="category_width" type="text" default="notReq::150px">
+                <title xml:lang="ko">분류 넓이</title>
+                <title xml:lang="jp">分類広さ</title>
+                <title xml:lang="en">분류 넓이</title>
+                <title xml:lang="es">분류 넓이</title>
+                <title xml:lang="zh-CN">分类宽度</title>
+                <title xml:lang="zh-TW">分類寬度</title>
+                <description xml:lang="ko">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+                <description xml:lang="jp">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+                <description xml:lang="en">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+                <description xml:lang="es">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+                <description xml:lang="zh-CN">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+                <description xml:lang="zh-TW">
+                    표시할 메뉴와 목록의 분류의 넓이를 지정합니다. 없으면 사용하지 않습니다.
+                    분류의 넓이 : 메뉴 넓이, 목록 넓이  (ex: 150px,100px)
+                </description>
+            </var>
+            <!--default= "getLang::" - 언어 파일에서 문자를 가져옵니다-->
+            <!--default= "::notReq" - 필수(require)값이 아니기에 업데이트시엔 체크하지 않습니다-->
+            <var name="category_total_caption" type="text" default="getLang::category::notReq">
+                <title xml:lang="ko">분류 전체 제목</title>
+                <title xml:lang="jp">分類全体題目</title>
+                <title xml:lang="en">분류 전체 제목</title>
+                <title xml:lang="es">분류 전체 제목</title>
+                <title xml:lang="zh-CN">分类所有题目</title>
+                <title xml:lang="zh-TW">分類所有題目</title>
+                <description xml:lang="ko">분류의 전체 보기 제목을 지정합니다. 없으면 표시하지 않습니다. (콤보박스 형태는 제외)</description>
+                <description xml:lang="jp">分類全体表示題目を指定します. なければ表示しない.  (コンボボックス形態は除外)</description>
+                <description xml:lang="en">분류의 전체 보기 제목을 지정합니다. 없으면 표시하지 않습니다. (콤보박스 형태는 제외)</description>
+                <description xml:lang="es">분류의 전체 보기 제목을 지정합니다. 없으면 표시하지 않습니다. (콤보박스 형태는 제외)</description>
+                <description xml:lang="zh-CN">指定查看分类所有题目. 如果没有则不标识. (豆号箱格式除外)</description>
+                <description xml:lang="zh-TW">指定查看分類所有題目. 如果沒有則不標識. (豆號箱格式除外)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">옵션 (목록)</title>
+            <title xml:lang="jp">オプション(リスト)</title>
+            <title xml:lang="en">옵션 (목록)</title>
+            <title xml:lang="es">옵션 (목록)</title>
+            <title xml:lang="zh-CN">选项(目录)</title>
+            <title xml:lang="zh-TW">選項(目錄)</title>
+            <var name="display_list_head" type="select" default="Y">
+                <title xml:lang="ko">목록 헤더 표시</title>
+                <title xml:lang="jp">リストヘッダー表示</title>
+                <title xml:lang="en">목록 헤더 표시</title>
+                <title xml:lang="es">목록 헤더 표시</title>
+                <title xml:lang="zh-CN">目录标题</title>
+                <title xml:lang="zh-TW">目錄標題</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">목록 상단에 컬럼 표시를 위한 헤더를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">リスト上端にコラム表示のためのヘッダーを表示又は非表示することができます.</description>
+                <description xml:lang="en">목록 상단에 컬럼 표시를 위한 헤더를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">목록 상단에 컬럼 표시를 위한 헤더를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">可以显示或隐藏目录上方访谈标题.</description>
+                <description xml:lang="zh-TW">可以顯示或隱藏目錄上方訪談標題.</description>
+            </var>
+            <var name="display_notice_category" type="select" default="N">
+                <title xml:lang="ko">공지및 베스트 분류</title>
+                <title xml:lang="jp">公知及びベスト分類</title>
+                <title xml:lang="en">공지및 베스트 분류</title>
+                <title xml:lang="es">공지및 베스트 분류</title>
+                <title xml:lang="zh-CN">공지및 베스트 분류</title>
+                <title xml:lang="zh-TW">공지및 베스트 분류</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <description xml:lang="ko">목록 상단에 공지나 베스트 글의 분류를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">リスト上端に公知やベスト文書の分類を表示非表示できます.</description>
+                <description xml:lang="en">목록 상단에 공지나 베스트 글의 분류를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">목록 상단에 공지나 베스트 글의 분류를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">목록 상단에 공지나 베스트 글의 분류를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">목록 상단에 공지나 베스트 글의 분류를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_secret_extravalue" type="select" default="Y">
+                <title xml:lang="ko">비밀글 정보 숨김</title>
+                <title xml:lang="jp">비밀글 정보 숨김</title>
+                <title xml:lang="en">비밀글 정보 숨김</title>
+                <title xml:lang="es">비밀글 정보 숨김</title>
+                <title xml:lang="zh-CN">비밀글 정보 숨김</title>
+                <title xml:lang="zh-TW">비밀글 정보 숨김</title>
+                <options value="Y">
+                    <title xml:lang="ko">모두 출력</title>
+                    <title xml:lang="jp">모두 출력</title>
+                    <title xml:lang="en">모두 출력</title>
+                    <title xml:lang="es">모두 출력</title>
+                    <title xml:lang="zh-CN">모두 출력</title>
+                    <title xml:lang="zh-TW">모두 출력</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                    <title xml:lang="jp">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                    <title xml:lang="en">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                    <title xml:lang="es">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                    <title xml:lang="zh-CN">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                    <title xml:lang="zh-TW">썸네일, 요약, 확장변수를 출력하지 않음</title>
+                </options>
+                <description xml:lang="ko">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+                <description xml:lang="jp">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+                <description xml:lang="en">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+                <description xml:lang="es">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">비밀글일때 썸네일, 요약, 확장변수를 목록에서 숨길 수 있습니다.</description>
+            </var>
+            <var name="use_hot_track" type="text" default="">
+                <title xml:lang="ko">핫 트랙 색상</title>
+                <title xml:lang="jp">ホットトラック色相</title>
+                <title xml:lang="en">핫 트랙 색상</title>
+                <title xml:lang="es">핫 트랙 색상</title>
+                <title xml:lang="zh-CN">핫 트랙 색상</title>
+                <title xml:lang="zh-TW">핫 트랙 색상</title>
+                <description xml:lang="ko">
+                    마우스를 가져가면 해당 행이 선택되어 보기 쉽고 클릭하기 쉽게 도와줍니다.
+                    비워주시면 사용하지 않습니다. (ex: black)
+                </description>
+                <description xml:lang="jp">
+                    マウスを当てると該当の行が選択されて見やすくクリックしやすくなります.
+                    空白の時不使用. (ex: black)
+                </description>
+                <description xml:lang="en">
+                    마우스를 가져가면 해당 행이 선택되어 보기 쉽고 클릭하기 쉽게 도와줍니다.
+                    비워주시면 사용하지 않습니다. (ex: black)
+                </description>
+                <description xml:lang="es">
+                    마우스를 가져가면 해당 행이 선택되어 보기 쉽고 클릭하기 쉽게 도와줍니다.
+                    비워주시면 사용하지 않습니다. (ex: black)
+                </description>
+                <description xml:lang="zh-CN">
+                    마우스를 가져가면 해당 행이 선택되어 보기 쉽고 클릭하기 쉽게 도와줍니다.
+                    비워주시면 사용하지 않습니다. (ex: black)
+                </description>
+                <description xml:lang="zh-TW">
+                    마우스를 가져가면 해당 행이 선택되어 보기 쉽고 클릭하기 쉽게 도와줍니다.
+                    비워주시면 사용하지 않습니다. (ex: black)
+                </description>
+            </var>
+            <var name="subject_cut_size" type="text" default="0::notReq">
+                <title xml:lang="ko">제목 글자수</title>
+                <title xml:lang="jp">タイトルの文字数</title>
+                <title xml:lang="en">Length of Subject</title>
+                <title xml:lang="es">Length of Subject</title>
+                <title xml:lang="zh-CN">标题字数</title>
+                <title xml:lang="zh-TW">標題字數</title>
+                <description xml:lang="ko">제목 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="jp">タイトルの文字数を設定します（「0」または空欄の場合は、文字数を制限しません）。</description>
+                <description xml:lang="en">You may set length of title. (0 or blank value will not restrict the length)</description>
+                <description xml:lang="es">You may set length of title. (0 or blank value will not restrict the length)</description>
+                <description xml:lang="zh-CN">可以指定标题字数(若0或留空白则不切断)。</description>
+                <description xml:lang="zh-TW">可以指定標題字數(若0或留空白則不切斷)。</description>
+            </var>
+            <var name="content_cut_size" type="text" default="250::notReq">
+                <title xml:lang="ko">미리보기 글자수</title>
+                <title xml:lang="jp">内容の文字数</title>
+                <title xml:lang="en">Length of Content</title>
+                <title xml:lang="es">Número de letras del Contenidos</title>
+                <title xml:lang="zh-CN">内容字数</title>
+                <title xml:lang="zh-TW">內容字數</title>
+                <description xml:lang="ko">요약 사용시 내용 미리보기의 글자수를 지정할 수 있습니다. (ex: 250)</description>
+                <description xml:lang="jp">要約使用の時 内容プレビューの字数を指定することができます. (ex: 250)</description>
+                <description xml:lang="en">요약 사용시 내용 미리보기의 글자수를 지정할 수 있습니다. (ex: 250)</description>
+                <description xml:lang="es">요약 사용시 내용 미리보기의 글자수를 지정할 수 있습니다. (ex: 250)</description>
+                <description xml:lang="zh-CN">简要使用时 可以指定预先查看内容的文字数量. (ex: 250)</description>
+                <description xml:lang="zh-TW">簡要使用時 可以指定預先查看內容的文字數量. (ex: 250)</description>
+            </var>
+            <var name="content_extravalue_size" type="text" default="0::notReq">
+                <title xml:lang="ko">확장변수 글자수</title>
+                <title xml:lang="jp">拡張変数文字数</title>
+                <title xml:lang="en">확장변수 글자수</title>
+                <title xml:lang="es">확장변수 글자수</title>
+                <title xml:lang="zh-CN">확장변수 글자수</title>
+                <title xml:lang="zh-TW">확장변수 글자수</title>
+                <description xml:lang="ko">확장변수의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="jp">拡張変数の文字数を指定することができます.(0または空欄の場合は、文字数を制限しません)</description>
+                <description xml:lang="en">확장변수의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="es">확장변수의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="zh-CN">可以指定扩张变数数量. (0或留空不会剪掉)</description>
+                <description xml:lang="zh-TW">可以指定擴張變數數量. (0或留空不會剪掉)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">옵션 (본문)</title>
+            <title xml:lang="jp">オプション(本文)</title>
+            <title xml:lang="en">옵션 (본문)</title>
+            <title xml:lang="es">옵션 (본문)</title>
+            <title xml:lang="zh-CN">选项(本文)</title>
+            <title xml:lang="zh-TW">選項(本文)</title>
+            <var name="display_sign" type="select" default="Y">
+                <title xml:lang="ko">서명 표시</title>
+                <title xml:lang="jp">署名表示</title>
+                <title xml:lang="en">서명 표시</title>
+                <title xml:lang="es">서명 표시</title>
+                <title xml:lang="zh-CN">显示签名</title>
+                <title xml:lang="zh-TW">顯示簽名</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="S">
+                    <title xml:lang="ko">프로필 사진은 제외</title>
+                    <title xml:lang="jp">プロフィール写真は除外</title>
+                    <title xml:lang="en">프로필 사진은 제외</title>
+                    <title xml:lang="es">프로필 사진은 제외</title>
+                    <title xml:lang="zh-CN">个人资料图片除外</title>
+                    <title xml:lang="zh-TW">個人資料圖片除外</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">글 작성자의 서명과 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">本文作成者の署名とプロフィルイメージの表示を設定します.</description>
+                <description xml:lang="en">글 작성자의 서명과 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">글 작성자의 서명과 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">可以设置主题发布者的个人签名及个性头像显示与否。</description>
+                <description xml:lang="zh-TW">可以設置主題發布者的個人簽名及個性頭像顯示與否。</description>
+            </var>
+            <var name="display_ip_address" type="select" default="Y">
+                <title xml:lang="ko">아이피 주소 표시</title>
+                <title xml:lang="jp">IPアドレス表示</title>
+                <title xml:lang="en">Display ip address</title>
+                <title xml:lang="es">Display ip address</title>
+                <title xml:lang="zh-CN">显示IP地址</title>
+                <title xml:lang="zh-TW">顯示IP地址</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="en">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_review_style" type="select" default="N">
+                <title xml:lang="ko">본문 보기 형태</title>
+                <title xml:lang="jp">本文表示形態</title>
+                <title xml:lang="en">본문 보기 형태</title>
+                <title xml:lang="es">본문 보기 형태</title>
+                <title xml:lang="zh-CN">本文显示形态</title>
+                <title xml:lang="zh-TW">本文顯示形態</title>
+                <options value="N">
+                    <title xml:lang="ko">일반적인 형태</title>
+                    <title xml:lang="jp">一般的な形態</title>
+                    <title xml:lang="en">일반적인 형태</title>
+                    <title xml:lang="es">일반적인 형태</title>
+                    <title xml:lang="zh-CN">一般形态</title>
+                    <title xml:lang="zh-TW">一般形態</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">리뷰 형태</title>
+                    <title xml:lang="jp">レビュー形態</title>
+                    <title xml:lang="en">리뷰 형태</title>
+                    <title xml:lang="es">리뷰 형태</title>
+                    <title xml:lang="zh-CN">评论形态</title>
+                    <title xml:lang="zh-TW">評論形態</title>
+                </options>
+                <description xml:lang="ko">본문 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다. (리뷰, 자료실은 리뷰 형태)</description>
+                <description xml:lang="jp">本文表示の時レビュースタイルで指定することができます. (レビュー,資料室はレビュー形態)</description>
+                <description xml:lang="en">본문 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다. (리뷰, 자료실은 리뷰 형태)</description>
+                <description xml:lang="es">본문 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다. (리뷰, 자료실은 리뷰 형태)</description>
+                <description xml:lang="zh-CN">查看本文时可指定是否用资料的形态显示(若是评论,资料室评论形态)</description>
+                <description xml:lang="zh-TW">查看本文時可指定是否用資料的形態顯示(若是評論,資料室評論形態)</description>
+            </var>
+            <var name="display_foot_list" type="select" default="Y">
+                <title xml:lang="ko">하단 목록 표시</title>
+                <title xml:lang="jp">下端リスト表示</title>
+                <title xml:lang="en">하단 목록 표시</title>
+                <title xml:lang="es">하단 목록 표시</title>
+                <title xml:lang="zh-CN">下段目录显示</title>
+                <title xml:lang="zh-TW">下段目錄顯示</title>
+                <options value="Y">
+                    <title xml:lang="ko">목록 출력</title>
+                    <title xml:lang="jp">リスト表示</title>
+                    <title xml:lang="en">목록 출력</title>
+                    <title xml:lang="es">목록 출력</title>
+                    <title xml:lang="zh-CN">目录 显示</title>
+                    <title xml:lang="zh-TW">目錄 顯示</title>
+                </options>
+                <options value="S">
+                    <title xml:lang="ko">이전/다음 출력</title>
+                    <title xml:lang="jp">以前/次 表示</title>
+                    <title xml:lang="en">이전/다음 출력</title>
+                    <title xml:lang="es">이전/다음 출력</title>
+                    <title xml:lang="zh-CN">上一个/下一个 显示</title>
+                    <title xml:lang="zh-TW">上一個/下一個 顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">본문 보기시 하단에 목록 또는 버튼(이전/다음)을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">本文表示の時下端にリストまたは ボタン(以前/次)を表示,非表示できます.</description>
+                <description xml:lang="en">본문 보기시 하단에 목록 또는 버튼(이전/다음)을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">본문 보기시 하단에 목록 또는 버튼(이전/다음)을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">查看本文时在下段可显示或隐藏目录或键(上一个/下一个).</description>
+                <description xml:lang="zh-TW">查看本文時在下段可顯示或隱藏目錄或鍵(上一個/下一個).</description>
+            </var>
+            <var name="display_foot_list_ex" type="select" default="N">
+                <title xml:lang="ko">공지및 베스트 표시</title>
+                <title xml:lang="jp">公知及びベスト表示</title>
+                <title xml:lang="en">공지및 베스트 표시</title>
+                <title xml:lang="es">공지및 베스트 표시</title>
+                <title xml:lang="zh-CN">공지및 베스트 표시</title>
+                <title xml:lang="zh-TW">공지및 베스트 표시</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <description xml:lang="ko">본문 하단에 목록을 출력 할 경우 공지및 베스트 글을 같이 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">本文下端にリストを出力する場合公知及びベスト文を一緒に出力することができます.</description>
+                <description xml:lang="en">본문 하단에 목록을 출력 할 경우 공지및 베스트 글을 같이 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="es">본문 하단에 목록을 출력 할 경우 공지및 베스트 글을 같이 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">본문 하단에 목록을 출력 할 경우 공지및 베스트 글을 같이 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-TW">본문 하단에 목록을 출력 할 경우 공지및 베스트 글을 같이 보여줄지 지정할 수 있습니다.</description>
+            </var>
+            <var name="display_comment_box" type="select" default="A">
+                <title xml:lang="ko">댓글, 트랙백 보기</title>
+                <title xml:lang="jp">コメント,トラックバック表示</title>
+                <title xml:lang="en">댓글, 트랙백 보기</title>
+                <title xml:lang="es">댓글, 트랙백 보기</title>
+                <title xml:lang="zh-CN">查看发贴引用通告</title>
+                <title xml:lang="zh-TW">查看發貼引用通告</title>
+                <options value="A">
+                    <title xml:lang="ko">모두 보기</title>
+                    <title xml:lang="jp">すべて表示</title>
+                    <title xml:lang="en">모두 보기</title>
+                    <title xml:lang="es">모두 보기</title>
+                    <title xml:lang="zh-CN">全部查看</title>
+                    <title xml:lang="zh-TW">全部查看</title>
+                </options>
+                <options value="C">
+                    <title xml:lang="ko">댓글만 보기</title>
+                    <title xml:lang="jp">コメントだけ表示</title>
+                    <title xml:lang="en">댓글만 보기</title>
+                    <title xml:lang="es">댓글만 보기</title>
+                    <title xml:lang="zh-CN">只查看发贴</title>
+                    <title xml:lang="zh-TW">只查看發貼</title>
+                </options>
+                <options value="T">
+                    <title xml:lang="ko">트랙백만 보기</title>
+                    <title xml:lang="jp">トラックバックだけ表示</title>
+                    <title xml:lang="en">트랙백만 보기</title>
+                    <title xml:lang="es">트랙백만 보기</title>
+                    <title xml:lang="zh-CN">查看引用通告</title>
+                    <title xml:lang="zh-TW">查看引用通告</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">모두 보이지 않기</title>
+                    <title xml:lang="jp">すべて非表示</title>
+                    <title xml:lang="en">모두 보이지 않기</title>
+                    <title xml:lang="es">모두 보이지 않기</title>
+                    <title xml:lang="zh-CN">不查看所有的</title>
+                    <title xml:lang="zh-TW">不查看所有的</title>
+                </options>
+                <description xml:lang="ko">댓글과 트랙백이 자동으로 펼쳐 보일지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">コメントとトラックバックが自動で広げることを指定することができます.</description>
+                <description xml:lang="en">댓글과 트랙백이 자동으로 펼쳐 보일지 지정할 수 있습니다.</description>
+                <description xml:lang="es">댓글과 트랙백이 자동으로 펼쳐 보일지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">当查看本文或博客格式时可以指定是否自动打开显示发贴和引用通告.</description>
+                <description xml:lang="zh-TW">當查看本文或博客格式時可以指定是否自動打開顯示發貼和引用通告.</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">옵션 (댓글)</title>
+            <title xml:lang="jp">オプション(댓글)</title>
+            <title xml:lang="en">옵션 (댓글)</title>
+            <title xml:lang="es">옵션 (댓글)</title>
+            <title xml:lang="zh-CN">选项(댓글)</title>
+            <title xml:lang="zh-TW">選項(댓글)</title>
+            <var name="display_sign_comment" type="select" default="Y">
+                <title xml:lang="ko">프로필 이미지 표시</title>
+                <title xml:lang="jp">프로필 이미지 표시</title>
+                <title xml:lang="en">프로필 이미지 표시</title>
+                <title xml:lang="es">프로필 이미지 표시</title>
+                <title xml:lang="zh-CN">프로필 이미지 표시</title>
+                <title xml:lang="zh-TW">프로필 이미지 표시</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="en">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">댓글 작성자의 프로필 이미지를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_doc_address_comment" type="select" default="N">
+                <title xml:lang="ko">댓글 주소 표시</title>
+                <title xml:lang="jp">댓글 주소 표시</title>
+                <title xml:lang="en">댓글 주소 표시</title>
+                <title xml:lang="es">댓글 주소 표시</title>
+                <title xml:lang="zh-CN">댓글 주소 표시</title>
+                <title xml:lang="zh-TW">댓글 주소 표시</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <description xml:lang="ko">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="en">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">댓글의 주소를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_ip_address_comment" type="select" default="Y">
+                <title xml:lang="ko">아이피 주소 표시</title>
+                <title xml:lang="jp">IPアドレス表示</title>
+                <title xml:lang="en">Display ip address</title>
+                <title xml:lang="es">Display ip address</title>
+                <title xml:lang="zh-CN">显示IP地址</title>
+                <title xml:lang="zh-TW">顯示IP地址</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="en">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">댓글 작성자의 아이피 주소를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_voted_state" type="select" default="Y">
+                <title xml:lang="ko">투표 상태 표시</title>
+                <title xml:lang="jp">投票状態表示</title>
+                <title xml:lang="en">투표 상태 표시</title>
+                <title xml:lang="es">투표 상태 표시</title>
+                <title xml:lang="zh-CN">显示投票状态</title>
+                <title xml:lang="zh-TW">顯示投票狀態</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">댓글 작성자의 투표(추천) 상태를 닉네임 옆에 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">コメント作成者の投票(推薦)状態をニックネームの横に表示又は非表示することができます.</description>
+                <description xml:lang="en">댓글 작성자의 투표(추천) 상태를 닉네임 옆에 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">댓글 작성자의 투표(추천) 상태를 닉네임 옆에 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">可以显示或隐藏发贴者的投票(推荐)状态和用户名.</description>
+                <description xml:lang="zh-TW">可以顯示或隱藏發貼者的投票(推荐)狀態和用戶名.</description>
+            </var>
+            <var name="display_review_comment" type="select" default="N">
+                <title xml:lang="ko">댓글 보기 형태</title>
+                <title xml:lang="jp">コメント表示形態</title>
+                <title xml:lang="en">댓글 보기 형태</title>
+                <title xml:lang="es">댓글 보기 형태</title>
+                <title xml:lang="zh-CN">댓글 보기 형태</title>
+                <title xml:lang="zh-TW">댓글 보기 형태</title>
+                <options value="N">
+                    <title xml:lang="ko">일반적인 형태</title>
+                    <title xml:lang="jp">一般的な形態</title>
+                    <title xml:lang="en">일반적인 형태</title>
+                    <title xml:lang="es">일반적인 형태</title>
+                    <title xml:lang="zh-CN">一般形态</title>
+                    <title xml:lang="zh-TW">一般形態</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">리뷰 형태</title>
+                    <title xml:lang="jp">レビュー形態</title>
+                    <title xml:lang="en">리뷰 형태</title>
+                    <title xml:lang="es">리뷰 형태</title>
+                    <title xml:lang="zh-CN">评论形态</title>
+                    <title xml:lang="zh-TW">評論形態</title>
+                </options>
+                <description xml:lang="ko">댓글 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다.
+                (리뷰 스타일 사용시 "관리 > 게시판 정보 > 추천 사용"을 "추천:필수사용" 으로 선택해 주세요)</description>
+                <description xml:lang="jp">コメント表示の時レビュースタイルで指定することができます.
+                (レビュースタイル使用の時 "管理 > 掲示板情報 > 推薦使用を推薦: 必須使用に選択してください)</description>
+                <description xml:lang="en">댓글 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다.
+                (리뷰 스타일 사용시 "관리 > 게시판 정보 > 추천 사용"을 "추천:필수사용" 으로 선택해 주세요)</description>
+                <description xml:lang="es">댓글 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다.
+                (리뷰 스타일 사용시 "관리 > 게시판 정보 > 추천 사용"을 "추천:필수사용" 으로 선택해 주세요)</description>
+                <description xml:lang="zh-CN">댓글 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다.
+                (리뷰 스타일 사용시 "관리 > 게시판 정보 > 추천 사용"을 "추천:필수사용" 으로 선택해 주세요)</description>
+                <description xml:lang="zh-TW">댓글 보기시 리뷰 스타일로 보여줄지 지정할 수 있습니다.
+                (리뷰 스타일 사용시 "관리 > 게시판 정보 > 추천 사용"을 "추천:필수사용" 으로 선택해 주세요)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">옵션 (쓰기)</title>
+            <title xml:lang="jp">オプション(書き込み)</title>
+            <title xml:lang="en">옵션 (쓰기)</title>
+            <title xml:lang="es">옵션 (쓰기)</title>
+            <title xml:lang="zh-CN">选项(写)</title>
+            <title xml:lang="zh-TW">選項(寫)</title>
+            <var name="display_tag_input" type="select" default="Y">
+                <title xml:lang="ko">태그 입력기 표시</title>
+                <title xml:lang="jp">タグ入力機表示</title>
+                <title xml:lang="en">태그 입력기 표시</title>
+                <title xml:lang="es">태그 입력기 표시</title>
+                <title xml:lang="zh-CN">显示标签输入</title>
+                <title xml:lang="zh-TW">顯示標簽輸入</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+            </var>
+            <var name="display_link_input" type="select" default="Y">
+                <title xml:lang="ko">외부 파일 입력기 표시</title>
+                <title xml:lang="jp">外部ファイル入力機表示</title>
+                <title xml:lang="en">외부 파일 입력기 표시</title>
+                <title xml:lang="es">외부 파일 입력기 표시</title>
+                <title xml:lang="zh-CN">显示外部文件输入</title>
+                <title xml:lang="zh-TW">顯示外部文件輸入</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">외부의 파일이나 링크를 추가할 수 있게 해줍니다.</description>
+                <description xml:lang="jp">外部のファイルやリンクを追加することができます.</description>
+                <description xml:lang="en">외부의 파일이나 링크를 추가할 수 있게 해줍니다.</description>
+                <description xml:lang="es">외부의 파일이나 링크를 추가할 수 있게 해줍니다.</description>
+                <description xml:lang="zh-CN">可让追加外部文件或连接.</description>
+                <description xml:lang="zh-TW">可讓追加外部文件或連接.</description>
+            </var>
+            <var name="display_title_writer" type="select" default="Y">
+                <title xml:lang="ko">글 제목 입력기 표시</title>
+                <title xml:lang="jp">글 제목 입력기 표시</title>
+                <title xml:lang="en">글 제목 입력기 표시</title>
+                <title xml:lang="es">글 제목 입력기 표시</title>
+                <title xml:lang="zh-CN">글 제목 입력기 표시</title>
+                <title xml:lang="zh-TW">글 제목 입력기 표시</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+            </var>
+            <var name="display_content_writer" type="select" default="Y">
+                <title xml:lang="ko">글 내용 입력기 표시</title>
+                <title xml:lang="jp">文書内容入力エディタを表示</title>
+                <title xml:lang="en">글 내용 입력기 표시</title>
+                <title xml:lang="es">글 내용 입력기 표시</title>
+                <title xml:lang="zh-CN">显示语言输入器</title>
+                <title xml:lang="zh-TW">顯示語言輸入器</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="en">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-TW">글 작성때 제목 또는 내용을 입력하는 에디터를 표시하거나 숨길 수 있습니다.</description>
+            </var>
+            <var name="display_simple_writer" type="select" default="N">
+                <title xml:lang="ko">간단한 글쓰기 사용</title>
+                <title xml:lang="jp">簡単な書き込み使用</title>
+                <title xml:lang="en">간단한 글쓰기 사용</title>
+                <title xml:lang="es">간단한 글쓰기 사용</title>
+                <title xml:lang="zh-CN">使用于简单的语言输入</title>
+                <title xml:lang="zh-TW">使用于簡單的語言輸入</title>
+                <options value="N">
+                    <title xml:lang="ko">사용안함</title>
+                    <title xml:lang="jp">使用しない</title>
+                    <title xml:lang="en">사용안함</title>
+                    <title xml:lang="es">사용안함</title>
+                    <title xml:lang="zh-CN">不使用</title>
+                    <title xml:lang="zh-TW">不使用</title>
+                </options>
+                <options value="H">
+                    <title xml:lang="ko">목록 상단에 표시</title>
+                    <title xml:lang="jp">リスト上端に表示</title>
+                    <title xml:lang="en">목록 상단에 표시</title>
+                    <title xml:lang="es">목록 상단에 표시</title>
+                    <title xml:lang="zh-CN">显示在目录上方</title>
+                    <title xml:lang="zh-TW">顯示在目錄上方</title>
+                </options>
+                <options value="F">
+                    <title xml:lang="ko">목록 하단에 표시</title>
+                    <title xml:lang="jp">リスト下端に表示</title>
+                    <title xml:lang="en">목록 하단에 표시</title>
+                    <title xml:lang="es">목록 하단에 표시</title>
+                    <title xml:lang="zh-CN">显示在目录下方</title>
+                    <title xml:lang="zh-TW">顯示在目錄下方</title>
+                </options>
+                <options value="S">
+                    <title xml:lang="ko">목록 감추고 표시</title>
+                    <title xml:lang="jp">リスト隠して表示</title>
+                    <title xml:lang="en">목록 감추고 표시</title>
+                    <title xml:lang="es">목록 감추고 표시</title>
+                    <title xml:lang="zh-CN">隐藏目录后显示</title>
+                    <title xml:lang="zh-TW">隱藏目錄后顯示</title>
+                </options>
+                <description xml:lang="ko">
+                목록 상단 또는 하단에 간단한 글쓰기 입력폼을 표시할 수 있습니다.
+                목록 감추고 표시 : 일반 회원은 입력폼이 게시판 관리자는 목록이 보입니다.
+                </description>
+                <description xml:lang="jp">
+                リスト上端または下端に簡単な書き込みのエディタを表示することができます.
+                リスト隠して表示 : 一般会員は書き込みのエディタを掲示板管理者にはリストを表示します.
+                </description>
+                <description xml:lang="en">
+                목록 상단 또는 하단에 간단한 글쓰기 입력폼을 표시할 수 있습니다.
+                목록 감추고 표시 : 일반 회원은 입력폼이 게시판 관리자는 목록이 보입니다.
+                </description>
+                <description xml:lang="es">
+                목록 상단 또는 하단에 간단한 글쓰기 입력폼을 표시할 수 있습니다.
+                목록 감추고 표시 : 일반 회원은 입력폼이 게시판 관리자는 목록이 보입니다.
+                </description>
+                <description xml:lang="zh-CN">
+                在目录的上方或下方可以显示简单语言输入的输入窗.
+                隐藏目录后显示:普通会员可看到输入窗管理者可看到目录.
+                </description>
+                <description xml:lang="zh-TW">
+                在目錄的上方或下方可以顯示簡單語言輸入的輸入窗.
+                隱藏目錄后顯示:普通會員可看到輸入窗管理者可看到目錄.
+                </description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">옵션 (기타)</title>
+            <title xml:lang="jp">オプション(その他)</title>
+            <title xml:lang="en">옵션 (기타)</title>
+            <title xml:lang="es">옵션 (기타)</title>
+            <title xml:lang="zh-CN">选项(其它)</title>
+            <title xml:lang="zh-TW">選項(其它)</title>
+            <var name="display_vote_button" type="select" default="N">
+                <title xml:lang="ko">추천 버튼 표시</title>
+                <title xml:lang="jp">推薦ボタン表示</title>
+                <title xml:lang="en">추천 버튼 표시</title>
+                <title xml:lang="es">추천 버튼 표시</title>
+                <title xml:lang="zh-CN">추천 버튼 표시</title>
+                <title xml:lang="zh-TW">추천 버튼 표시</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="A">
+                    <title xml:lang="ko">모두 출력</title>
+                    <title xml:lang="jp">全体出力</title>
+                    <title xml:lang="en">모두 출력</title>
+                    <title xml:lang="es">모두 출력</title>
+                    <title xml:lang="zh-CN">모두 출력</title>
+                    <title xml:lang="zh-TW">모두 출력</title>
+                </options>
+                <options value="D">
+                    <title xml:lang="ko">본문에 출력</title>
+                    <title xml:lang="jp">本文に出力</title>
+                    <title xml:lang="en">본문에 출력</title>
+                    <title xml:lang="es">본문에 출력</title>
+                    <title xml:lang="zh-CN">본문에 출력</title>
+                    <title xml:lang="zh-TW">본문에 출력</title>
+                </options>
+                <options value="C">
+                    <title xml:lang="ko">댓글에 출력</title>
+                    <title xml:lang="jp">コメントに出力</title>
+                    <title xml:lang="en">댓글에 출력</title>
+                    <title xml:lang="es">댓글에 출력</title>
+                    <title xml:lang="zh-CN">댓글에 출력</title>
+                    <title xml:lang="zh-TW">댓글에 출력</title>
+                </options>
+                <description xml:lang="ko">본문이나 댓글 하단에 투표 버튼을 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">本文やコメント下端に投票ボタンの出力可否を指定することができます.</description>
+                <description xml:lang="en">본문이나 댓글 하단에 투표 버튼을 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="es">본문이나 댓글 하단에 투표 버튼을 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">본문이나 댓글 하단에 투표 버튼을 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-TW">본문이나 댓글 하단에 투표 버튼을 보여줄지 지정할 수 있습니다.</description>
+            </var>
+            <var name="gallery_info_layer" type="select" default="Y">
+                <title xml:lang="ko">갤러리 정보 출력</title>
+                <title xml:lang="jp">갤러리 정보 출력</title>
+                <title xml:lang="en">갤러리 정보 출력</title>
+                <title xml:lang="es">갤러리 정보 출력</title>
+                <title xml:lang="zh-CN">갤러리 정보 출력</title>
+                <title xml:lang="zh-TW">갤러리 정보 출력</title>
+                <options value="Y">
+                    <title xml:lang="ko">레이어 사용</title>
+                    <title xml:lang="jp">레이어 사용</title>
+                    <title xml:lang="en">레이어 사용</title>
+                    <title xml:lang="es">레이어 사용</title>
+                    <title xml:lang="zh-CN">레이어 사용</title>
+                    <title xml:lang="zh-TW">레이어 사용</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">일반적인 형태</title>
+                    <title xml:lang="jp">일반적인 형태</title>
+                    <title xml:lang="en">일반적인 형태</title>
+                    <title xml:lang="es">일반적인 형태</title>
+                    <title xml:lang="zh-CN">일반적인 형태</title>
+                    <title xml:lang="zh-TW">일반적인 형태</title>
+                </options>
+                <description xml:lang="ko">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+                <description xml:lang="jp">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+                <description xml:lang="en">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+                <description xml:lang="es">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+                <description xml:lang="zh-CN">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+                <description xml:lang="zh-TW">갤러리 형식일때 문서 정보를 썸네일 위에 레이어를 사용하여 출력할지 지정합니다.</description>
+            </var>
+            <var name="duration_new" type="text" default="12">
+                <title xml:lang="ko">new 표시 시간</title>
+                <title xml:lang="jp">New の表示時間</title>
+                <title xml:lang="en">Duration of indication for new item</title>
+                <title xml:lang="es">Duration of indication for new item</title>
+                <title xml:lang="zh-CN">new 图标显示时间</title>
+                <title xml:lang="zh-TW">new 圖標顯示時間</title>
+                <description xml:lang="ko">새로 등록된 게시물에 new를 표시할 시간을 정할 수 있습니다. (ex: 12)</description>
+                <description xml:lang="jp">新しく登録された書き込みに対して「New」の表示時間を設定します。 (ex: 12)</description>
+                <description xml:lang="en">You may set the duration of indication for fresh item. (ex: 12)</description>
+                <description xml:lang="es">You may set the duration of indication for fresh item. (ex: 12)</description>
+                <description xml:lang="zh-CN">可以设置最新更新主题的new图标显示时间。(ex: 12)</description>
+                <description xml:lang="zh-TW">可以設置最新更新主題的new圖標顯示時間。(ex: 12)</description>
+            </var>
+            <var name="nick_name_cut_size" type="text" default="0::notReq">
+                <title xml:lang="ko">닉네임 글자수</title>
+                <title xml:lang="jp">닉네임 글자수</title>
+                <title xml:lang="en">닉네임 글자수</title>
+                <title xml:lang="es">닉네임 글자수</title>
+                <title xml:lang="zh-CN">닉네임 글자수</title>
+                <title xml:lang="zh-TW">닉네임 글자수</title>
+                <description xml:lang="ko">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="jp">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="en">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="es">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="zh-CN">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+                <description xml:lang="zh-TW">닉네임의 글자수를 지정할 수 있습니다. (0또는 비워주시면 자르지 않습니다)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">첨부파일</title>
+            <title xml:lang="jp">添付ファイル</title>
+            <title xml:lang="en">첨부파일</title>
+            <title xml:lang="es">첨부파일</title>
+            <title xml:lang="zh-CN">附件文档</title>
+            <title xml:lang="zh-TW">附件文檔</title>
+            <var name="display_file_list" type="select" default="A">
+                <title xml:lang="ko">첨부 파일 표시</title>
+                <title xml:lang="jp">添付ファイル表示</title>
+                <title xml:lang="en">첨부 파일 표시</title>
+                <title xml:lang="es">첨부 파일 표시</title>
+                <title xml:lang="zh-CN">标识附件文档</title>
+                <title xml:lang="zh-TW">標識附件文檔</title>
+                <options value="A">
+                    <title xml:lang="ko">모두 출력</title>
+                    <title xml:lang="jp">すべて表示</title>
+                    <title xml:lang="en">모두 출력</title>
+                    <title xml:lang="es">모두 출력</title>
+                    <title xml:lang="zh-CN">全部显示</title>
+                    <title xml:lang="zh-TW">全部顯示</title>
+                </options>
+                <options value="B">
+                    <title xml:lang="ko">바이너리 파일 출력</title>
+                    <title xml:lang="jp">バイナリーファイル出力</title>
+                    <title xml:lang="en">바이너리 파일 출력</title>
+                    <title xml:lang="es">바이너리 파일 출력</title>
+                    <title xml:lang="zh-CN">显示执行文档</title>
+                    <title xml:lang="zh-TW">顯示執行文檔</title>
+                </options>
+                <options value="M">
+                    <title xml:lang="ko">미디어 파일 출력</title>
+                    <title xml:lang="jp">メディアファイル出力</title>
+                    <title xml:lang="en">미디어 파일 출력</title>
+                    <title xml:lang="es">미디어 파일 출력</title>
+                    <title xml:lang="zh-CN">显示多媒体文档</title>
+                    <title xml:lang="zh-TW">顯示多媒體文檔</title>
+                </options>
+                <options value="I">
+                    <title xml:lang="ko">이미지 파일 출력</title>
+                    <title xml:lang="jp">イメージファイル出力</title>
+                    <title xml:lang="en">이미지 파일 출력</title>
+                    <title xml:lang="es">이미지 파일 출력</title>
+                    <title xml:lang="zh-CN">显示图像文档</title>
+                    <title xml:lang="zh-TW">顯示圖像文檔</title>
+                </options>
+                <options value="BM">
+                    <title xml:lang="ko">바이너리, 미디어 파일 출력</title>
+                    <title xml:lang="jp">バイナリー,メディアファイル出力</title>
+                    <title xml:lang="en">바이너리, 미디어 파일 출력</title>
+                    <title xml:lang="es">바이너리, 미디어 파일 출력</title>
+                    <title xml:lang="zh-CN">显示执行与多媒体文档</title>
+                    <title xml:lang="zh-TW">顯示執行與多媒體文檔</title>
+                </options>
+                <options value="BI">
+                    <title xml:lang="ko">바이너리, 이미지 파일 출력</title>
+                    <title xml:lang="jp">バイナリー,イメージファイル出力</title>
+                    <title xml:lang="en">바이너리, 이미지 파일 출력</title>
+                    <title xml:lang="es">바이너리, 이미지 파일 출력</title>
+                    <title xml:lang="zh-CN">显示执行与图像文档</title>
+                    <title xml:lang="zh-TW">顯示執行與圖像文檔</title>
+                </options>
+                <options value="MI">
+                    <title xml:lang="ko">미디어, 이미지 파일 출력</title>
+                    <title xml:lang="jp">メディア,イメージファイル出力</title>
+                    <title xml:lang="en">미디어, 이미지 파일 출력</title>
+                    <title xml:lang="es">미디어, 이미지 파일 출력</title>
+                    <title xml:lang="zh-CN">显示多媒体与图像文档</title>
+                    <title xml:lang="zh-TW">顯示多媒體與圖像文檔</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">모두 출력하지 않음</title>
+                    <title xml:lang="jp">すべて非表示</title>
+                    <title xml:lang="en">모두 출력하지 않음</title>
+                    <title xml:lang="es">모두 출력하지 않음</title>
+                    <title xml:lang="zh-CN">显示所有的</title>
+                    <title xml:lang="zh-TW">顯示所有的</title>
+                </options>
+                <description xml:lang="ko">첨부파일 목록에서 특정 파일을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="jp">添付ファイルリストで特定ファイルを表示又は非表示することができます.</description>
+                <description xml:lang="en">첨부파일 목록에서 특정 파일을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="es">첨부파일 목록에서 특정 파일을 표시하거나 숨길 수 있습니다.</description>
+                <description xml:lang="zh-CN">在附件文档目录中可以显示或隐藏特定文档.</description>
+                <description xml:lang="zh-TW">在附件文檔目錄中可以顯示或隱藏特定文檔.</description>
+            </var>
+            <var name="use_media_player" type="select" default="N">
+                <title xml:lang="ko">미디어 파일 재생</title>
+                <title xml:lang="jp">メディアファイル再生</title>
+                <title xml:lang="en">미디어 파일 재생</title>
+                <title xml:lang="es">미디어 파일 재생</title>
+                <title xml:lang="zh-CN">播放多媒体文件</title>
+                <title xml:lang="zh-TW">播放多媒體文件</title>
+                <options value="N">
+                    <title xml:lang="ko">사용안함</title>
+                    <title xml:lang="jp">使用しない</title>
+                    <title xml:lang="en">사용안함</title>
+                    <title xml:lang="es">사용안함</title>
+                    <title xml:lang="zh-CN">不使用</title>
+                    <title xml:lang="zh-TW">不使用</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">사용</title>
+                    <title xml:lang="jp">使用</title>
+                    <title xml:lang="en">사용</title>
+                    <title xml:lang="es">사용</title>
+                    <title xml:lang="zh-CN">使用</title>
+                    <title xml:lang="zh-TW">使用</title>
+                </options>
+                <description xml:lang="ko">미디어 파일의 경우 플레이어로 재생할지 지정할 수 있습니다. (리뷰일 경우엔 재생)</description>
+                <description xml:lang="jp">メディアファイルの場合プレーヤーに再生することができます. (レビューの場合再生)</description>
+                <description xml:lang="en">미디어 파일의 경우 플레이어로 재생할지 지정할 수 있습니다. (리뷰일 경우엔 재생)</description>
+                <description xml:lang="es">미디어 파일의 경우 플레이어로 재생할지 지정할 수 있습니다. (리뷰일 경우엔 재생)</description>
+                <description xml:lang="zh-CN">如果是多媒体文件可以指定是否用播放器播放(如果是回放可以播放)</description>
+                <description xml:lang="zh-TW">如果是多媒體文件可以指定是否用播放器播放(如果是回放可以播放)</description>
+            </var>
+            <var name="display_download_button" type="select" default="Y">
+                <title xml:lang="ko">첨부 파일 버튼 표시</title>
+                <title xml:lang="jp">添付ファイルボタン表示</title>
+                <title xml:lang="en">첨부 파일 버튼 표시</title>
+                <title xml:lang="es">첨부 파일 버튼 표시</title>
+                <title xml:lang="zh-CN">显示附件文档键</title>
+                <title xml:lang="zh-TW">顯示附件文檔鍵</title>
+                <options value="Y">
+                    <title xml:lang="ko">모두 출력</title>
+                    <title xml:lang="jp">全て出力</title>
+                    <title xml:lang="en">모두 출력</title>
+                    <title xml:lang="es">모두 출력</title>
+                    <title xml:lang="zh-CN">全部输出</title>
+                    <title xml:lang="zh-TW">全部輸出</title>
+                </options>
+                <options value="L">
+                    <title xml:lang="ko">목록일때만 출력</title>
+                    <title xml:lang="jp">リスト時だけ出力</title>
+                    <title xml:lang="en">목록일때만 출력</title>
+                    <title xml:lang="es">목록일때만 출력</title>
+                    <title xml:lang="zh-CN">只有目录时输出</title>
+                    <title xml:lang="zh-TW">只有目錄時輸出</title>
+                </options>
+                <options value="V">
+                    <title xml:lang="ko">본문일때만 출력</title>
+                    <title xml:lang="jp">本文時だけ出力</title>
+                    <title xml:lang="en">본문일때만 출력</title>
+                    <title xml:lang="es">본문일때만 출력</title>
+                    <title xml:lang="zh-CN">只有本文时输出</title>
+                    <title xml:lang="zh-TW">只有本文時輸出</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">모두 출력 안함</title>
+                    <title xml:lang="jp">出力しない</title>
+                    <title xml:lang="en">모두 출력 안함</title>
+                    <title xml:lang="es">모두 출력 안함</title>
+                    <title xml:lang="zh-CN">全部不输出</title>
+                    <title xml:lang="zh-TW">全部不輸出</title>
+                </options>
+                <description xml:lang="ko">첨부 파일 다운로드 버튼을 표시하거나 숨길 수 있습니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="jp">添付ファイルダウンロードボタンを表示することができます. (レビュー,資料室だけ該当)</description>
+                <description xml:lang="en">첨부 파일 다운로드 버튼을 표시하거나 숨길 수 있습니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="es">첨부 파일 다운로드 버튼을 표시하거나 숨길 수 있습니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="zh-CN">可以显示或隐藏下载附件文档键(仅限于回放资料室)</description>
+                <description xml:lang="zh-TW">可以顯示或隱藏下載附件文檔鍵(僅限于回放資料室)</description>
+            </var>
+            <var name="download_button_caption" type="text" default="getLang::cmd_view_filelist">
+                <title xml:lang="ko">첨부 파일 버튼 이름</title>
+                <title xml:lang="jp">リストファイルボタン名前</title>
+                <title xml:lang="en">첨부 파일 버튼 이름</title>
+                <title xml:lang="es">첨부 파일 버튼 이름</title>
+                <title xml:lang="zh-CN">附件文档键名字</title>
+                <title xml:lang="zh-TW">附件文檔鍵名字</title>
+                <description xml:lang="ko">목록, 본문에 첨부 파일 보기의 버튼 이름을 지정합니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="jp">リスト,本文に添付ファイル表示のボタン名前を指定します. (レビュー,資料室だけ該当)</description>
+                <description xml:lang="en">목록, 본문에 첨부 파일 보기의 버튼 이름을 지정합니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="es">목록, 본문에 첨부 파일 보기의 버튼 이름을 지정합니다. (리뷰, 자료실만 해당)</description>
+                <description xml:lang="zh-CN">在目录本文可以指定附件文档显示键(仅限于回放资料室)</description>
+                <description xml:lang="zh-TW">在目錄本文可以指定附件文檔顯示鍵(僅限于回放資料室)</description>
+            </var>
+            <var name="download_point_confirm" type="select" default="N">
+                <title xml:lang="ko">다운로드 메세지</title>
+                <title xml:lang="jp">ダウンロードメッセージ</title>
+                <title xml:lang="en">다운로드 메세지</title>
+                <title xml:lang="es">다운로드 메세지</title>
+                <title xml:lang="zh-CN">下载留言</title>
+                <title xml:lang="zh-TW">下載留言</title>
+                <options value="N">
+                    <title xml:lang="ko">사용안함</title>
+                    <title xml:lang="jp">使用しない</title>
+                    <title xml:lang="en">사용안함</title>
+                    <title xml:lang="es">사용안함</title>
+                    <title xml:lang="zh-CN">不使用</title>
+                    <title xml:lang="zh-TW">不使用</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">사용</title>
+                    <title xml:lang="jp">使用</title>
+                    <title xml:lang="en">사용</title>
+                    <title xml:lang="es">사용</title>
+                    <title xml:lang="zh-CN">使用</title>
+                    <title xml:lang="zh-TW">使用</title>
+                </options>
+                <description xml:lang="ko">첨부 파일을 다운로드 할때 포인트가 사용중이면 메세지를 출력해 알려줄지 지정합니다.</description>
+                <description xml:lang="jp">添付ファイルをダウンロードする時ポイントを使用中ならメッセージを表示する事を指定します.</description>
+                <description xml:lang="en">첨부 파일을 다운로드 할때 포인트가 사용중이면 메세지를 출력해 알려줄지 지정합니다.</description>
+                <description xml:lang="es">첨부 파일을 다운로드 할때 포인트가 사용중이면 메세지를 출력해 알려줄지 지정합니다.</description>
+                <description xml:lang="zh-CN">当下载附件文档时如果积分是正在使用中需指定是否显示提示语言.</description>
+                <description xml:lang="zh-TW">當下載附件文檔時如果積分是正在使用中需指定是否顯示提示語言.</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">썸네일</title>
+            <title xml:lang="jp">サムネール</title>
+            <title xml:lang="en">썸네일</title>
+            <title xml:lang="es">썸네일</title>
+            <title xml:lang="zh-CN">缩略图</title>
+            <title xml:lang="zh-TW">縮略圖</title>
+            <var name="thumbnail_type" type="select" default="crop">
+                <title xml:lang="ko">썸네일 생성 방법</title>
+                <title xml:lang="jp">サムネール生成方法</title>
+                <title xml:lang="en">Type of Thumbnail</title>
+                <title xml:lang="es">Type of Thumbnail</title>
+                <title xml:lang="zh-CN">缩略图生成方式</title>
+                <title xml:lang="zh-TW">縮略圖生成方式</title>
+                <options value="crop">
+                    <title xml:lang="ko">꽉 채우기</title>
+                    <title xml:lang="jp">刈り込み</title>
+                    <title xml:lang="en">crop</title>
+                    <title xml:lang="es">crop</title>
+                    <title xml:lang="zh-CN">裁减</title>
+                    <title xml:lang="zh-TW">裁減</title>
+                </options>
+                <options value="ratio">
+                    <title xml:lang="ko">비율 맞추기</title>
+                    <title xml:lang="jp">比率</title>
+                    <title xml:lang="en">ratio</title>
+                    <title xml:lang="es">ratio</title>
+                    <title xml:lang="zh-CN">比例</title>
+                    <title xml:lang="zh-TW">比例</title>
+                </options>
+                <description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+                <description xml:lang="jp">サムネールの生成方法を選択します。</description>
+                <description xml:lang="en">Choose the type to create the thumbnail.</description>
+                <description xml:lang="es">Choose the type to create the thumbnail.</description>
+                <description xml:lang="zh-CN">可以选择缩略图生成方式。</description>
+                <description xml:lang="zh-TW">可以選擇縮略圖生成方式。</description>
+            </var>
+            <var name="thumbnail_position" type="select" default="L">
+                <title xml:lang="ko">썸네일 출력 위치</title>
+                <title xml:lang="jp">サムネール出力位置</title>
+                <title xml:lang="en">썸네일 출력 위치</title>
+                <title xml:lang="es">썸네일 출력 위치</title>
+                <title xml:lang="zh-CN">缩略图显示位置</title>
+                <title xml:lang="zh-TW">縮略圖顯示位置</title>
+                <options value="L">
+                    <title xml:lang="ko">왼쪽</title>
+                    <title xml:lang="jp">左側</title>
+                    <title xml:lang="en">왼쪽</title>
+                    <title xml:lang="es">왼쪽</title>
+                    <title xml:lang="zh-CN">左边</title>
+                    <title xml:lang="zh-TW">左邊</title>
+                </options>
+                <options value="R">
+                    <title xml:lang="ko">오른쪽</title>
+                    <title xml:lang="jp">右側</title>
+                    <title xml:lang="en">오른쪽</title>
+                    <title xml:lang="es">오른쪽</title>
+                    <title xml:lang="zh-CN">右边</title>
+                    <title xml:lang="zh-TW">右邊</title>
+                </options>
+                <description xml:lang="ko">썸네일 출력 위치를 정할 수 있습니다.</description>
+                <description xml:lang="jp">サムネール出力位置を決めることができます.</description>
+                <description xml:lang="en">썸네일 출력 위치를 정할 수 있습니다.</description>
+                <description xml:lang="es">썸네일 출력 위치를 정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">可以定缩略图的输出位置.</description>
+                <description xml:lang="zh-TW">可以定縮略圖的輸出位置.</description>
+            </var>
+            <var name="thumbnail_width" type="text" default="100px">
+                <title xml:lang="ko">썸네일 가로크기</title>
+                <title xml:lang="jp">サムネールの横サイズ</title>
+                <title xml:lang="en">Width of Thumbnail</title>
+                <title xml:lang="es">Width of Thumbnail</title>
+                <title xml:lang="zh-CN">缩略图宽度</title>
+                <title xml:lang="zh-TW">縮略圖寬度</title>
+            </var>
+            <var name="thumbnail_height" type="text" default="100px">
+                <title xml:lang="ko">썸네일 세로크기</title>
+                <title xml:lang="jp">サムネールの縦サイズ</title>
+                <title xml:lang="en">Height of Thumbnail</title>
+                <title xml:lang="es">Height of Thumbnail</title>
+                <title xml:lang="zh-CN">缩略图高度</title>
+                <title xml:lang="zh-TW">縮略圖高度</title>
+                <description xml:lang="ko">썸네일의 가로, 세로 크기를 지정할 수 있습니다. (ex: 100px)</description>
+                <description xml:lang="jp">サムネールの横,縦サイズを指定します(デフォルト 100px)</description>
+                <description xml:lang="en">Set the width, height of thumbnail. Default is 100px.</description>
+                <description xml:lang="es">Set the width, height of thumbnail. Default is 100px.</description>
+                <description xml:lang="zh-CN">可以指定缩略图宽度,高度(默认为 100px)</description>
+                <description xml:lang="zh-TW">可指定縮圖宽度,高度(預設是 100px)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">관리</title>
+            <title xml:lang="jp">관리</title>
+            <title xml:lang="en">관리</title>
+            <title xml:lang="es">관리</title>
+            <title xml:lang="zh-CN">관리</title>
+            <title xml:lang="zh-TW">관리</title>
+            <var name="display_setup_button" type="select" default="Y">
+                <title xml:lang="ko">관리 버튼 표시</title>
+                <title xml:lang="jp">管理ボタン表示</title>
+                <title xml:lang="en">Display Setup</title>
+                <title xml:lang="es">관리 버튼 표시</title>
+                <title xml:lang="zh-CN">显示管理键</title>
+                <title xml:lang="zh-TW">顯示管理鍵</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+            </var>
+            <var name="display_login_info" type="select" default="Y">
+                <title xml:lang="ko">로그인 정보 출력</title>
+                <title xml:lang="jp">ログイン情報表示</title>
+                <title xml:lang="en">Display Login Info</title>
+                <title xml:lang="es">Muestra la información de la conección</title>
+                <title xml:lang="zh-CN">显示会员信息组</title>
+                <title xml:lang="zh-TW">顯示會員信息組</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">게시판 상단에 유저 정보 보기 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">掲示板上端にユーザー情報表示ボタンを表示することができます.</description>
+                <description xml:lang="en">게시판 상단에 유저 정보 보기 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="es">게시판 상단에 유저 정보 보기 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">在留言板上方可以指定是否显示查看使用者信息键.</description>
+                <description xml:lang="zh-TW">在留言板上方可以指定是否顯示查看使用者信息鍵.</description>
+            </var>
+            <var name="display_point_configs" type="select" default="N">
+                <title xml:lang="ko">포인트 설정 표시</title>
+                <title xml:lang="jp">ポイント設定表示</title>
+                <title xml:lang="en">포인트 설정 표시</title>
+                <title xml:lang="es">포인트 설정 표시</title>
+                <title xml:lang="zh-CN">显示积分设定</title>
+                <title xml:lang="zh-TW">顯示積分設定</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <description xml:lang="ko">게시판 상단에 포인트 사용 설정값을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">掲示板上端にポイント使用設定値を表示することができます.</description>
+                <description xml:lang="en">게시판 상단에 포인트 사용 설정값을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="es">게시판 상단에 포인트 사용 설정값을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">你可以在留言板上段上指定是否要显示积分使用设定值.</description>
+                <description xml:lang="zh-TW">你可以在留言板上段上指定是否要顯示積分使用設定值.</description>
+            </var>
+            <var name="display_quick_type_button" type="select" default="Y">
+                <title xml:lang="ko">빠른 전환 버튼 표시</title>
+                <title xml:lang="jp">クィック転換ボタン表示</title>
+                <title xml:lang="en">빠른 전환 버튼 표시</title>
+                <title xml:lang="es">빠른 전환 버튼 표시</title>
+                <title xml:lang="zh-CN">显示快速转换键</title>
+                <title xml:lang="zh-TW">顯示快速轉換鍵</title>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <description xml:lang="ko">게시판 상단에 빠른 형태 전환 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">掲示板上端にクィック形態転換ボタンを表示することを指定できます.</description>
+                <description xml:lang="en">게시판 상단에 빠른 형태 전환 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="es">게시판 상단에 빠른 형태 전환 버튼을 표시할지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">在留言板上方可以指定是否显示快速转换键.</description>
+                <description xml:lang="zh-TW">在留言板上方可以指定是否顯示快速轉換鍵.</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">연동</title>
+            <title xml:lang="jp">連動</title>
+            <title xml:lang="en">연동</title>
+            <title xml:lang="es">연동</title>
+            <title xml:lang="zh-CN">연동</title>
+            <title xml:lang="zh-TW">연동</title>
+            <var name="display_pang_point" type="select" default="N">
+                <title xml:lang="ko">포인트 팡팡!</title>
+                <title xml:lang="jp">ポイントパンパン!</title>
+                <title xml:lang="en">포인트 팡팡!</title>
+                <title xml:lang="es">포인트 팡팡!</title>
+                <title xml:lang="zh-CN">포인트 팡팡!</title>
+                <title xml:lang="zh-TW">포인트 팡팡!</title>
+                <options value="N">
+                    <title xml:lang="ko">출력하지 않음</title>
+                    <title xml:lang="jp">非表示</title>
+                    <title xml:lang="en">not display</title>
+                    <title xml:lang="es">not display</title>
+                    <title xml:lang="zh-CN">不显示</title>
+                    <title xml:lang="zh-TW">不顯示</title>
+                </options>
+                <options value="Y">
+                    <title xml:lang="ko">출력</title>
+                    <title xml:lang="jp">表示</title>
+                    <title xml:lang="en">display</title>
+                    <title xml:lang="es">display</title>
+                    <title xml:lang="zh-CN">显示</title>
+                    <title xml:lang="zh-TW">顯示</title>
+                </options>
+                <description xml:lang="ko">(%POPUP_(포인트 팡팡!↗)_(help/pangpang)%) 에드온 사용시 팡팡에 당첨되면 제목옆에 출력해 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="jp">(%POPUP_(ポイントパンパン!↗)_(help/pangpang)%) エドオン使用の時パンパンに当たれば題目に出力を指定することができます.</description>
+                <description xml:lang="en">(%POPUP_(포인트 팡팡!↗)_(help/pangpang)%) 에드온 사용시 팡팡에 당첨되면 제목옆에 출력해 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="es">(%POPUP_(포인트 팡팡!↗)_(help/pangpang)%) 에드온 사용시 팡팡에 당첨되면 제목옆에 출력해 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">(%POPUP_(포인트 팡팡!↗)_(help/pangpang)%) 에드온 사용시 팡팡에 당첨되면 제목옆에 출력해 보여줄지 지정할 수 있습니다.</description>
+                <description xml:lang="zh-TW">(%POPUP_(포인트 팡팡!↗)_(help/pangpang)%) 에드온 사용시 팡팡에 당첨되면 제목옆에 출력해 보여줄지 지정할 수 있습니다.</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">내용</title>
+            <title xml:lang="jp">内容</title>
+            <title xml:lang="en">내용</title>
+            <title xml:lang="es">내용</title>
+            <title xml:lang="zh-CN">内容</title>
+            <title xml:lang="zh-TW">內容</title>
+            <var name="document_default_title" type="text">
+                <title xml:lang="ko">문서의 기본 제목</title>
+                <title xml:lang="jp">文書の基本題目</title>
+                <title xml:lang="en">문서의 기본 제목</title>
+                <title xml:lang="es">문서의 기본 제목</title>
+                <title xml:lang="zh-CN">文稿的基本题目</title>
+                <title xml:lang="zh-TW">文稿的基本題目</title>
+            </var>
+            <var name="document_default_text" type="textarea">
+                <title xml:lang="ko">문서의 기본 내용</title>
+                <title xml:lang="jp">文書の基本内容</title>
+                <title xml:lang="en">문서의 기본 내용</title>
+                <title xml:lang="es">문서의 기본 내용</title>
+                <title xml:lang="zh-CN">文书的基本内容</title>
+                <title xml:lang="zh-TW">文書的基本內容</title>
+                <description xml:lang="ko">문서 작성시 제목, 내용에 기본값을 입력할 수 있습니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="jp">文書作成の時題,内容に基本値を入力することができます. (HTML タグ可能) (%POPUP_(置き換えを表示.↗)_(help/substitution)%)</description>
+                <description xml:lang="en">문서 작성시 제목, 내용에 기본값을 입력할 수 있습니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="es">문서 작성시 제목, 내용에 기본값을 입력할 수 있습니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-CN">写文书的时可以把基本值输入到其内容. (HTML标签) (%POPUP_(查看置换值.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-TW">寫文書的時可以把基本值輸入到其內容. (HTML標簽) (%POPUP_(查看置換值.↗)_(help/substitution)%)</description>
+            </var>
+            <var name="document_top_text" type="textarea">
+                <title xml:lang="ko">본문 상단 내용</title>
+                <title xml:lang="jp">本文上端内容</title>
+                <title xml:lang="en">본문 상단 내용</title>
+                <title xml:lang="es">본문 상단 내용</title>
+                <title xml:lang="zh-CN">本文上方内容</title>
+                <title xml:lang="zh-TW">本文上方內容</title>
+            </var>
+            <var name="document_bottom_text" type="textarea">
+                <title xml:lang="ko">본문 하단 내용</title>
+                <title xml:lang="jp">本文下端内容</title>
+                <title xml:lang="en">본문 하단 내용</title>
+                <title xml:lang="es">본문 하단 내용</title>
+                <title xml:lang="zh-CN">本文下方内容</title>
+                <title xml:lang="zh-TW">本文下方內容</title>
+                <description xml:lang="ko">본문 상, 하단에 표시되는 내용입니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="jp">本文上,下端に表示される内容です. (HTML タグ可能) (%POPUP_(置き換えを表示.↗)_(help/substitution)%)</description>
+                <description xml:lang="en">본문 상, 하단에 표시되는 내용입니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="es">본문 상, 하단에 표시되는 내용입니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-CN">本文上,下方所显示的内容. (HTML标签) (%POPUP_(查看置换值.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-TW">本文上,下方所顯示的內容. (HTML標簽) (%POPUP_(查看置換值.↗)_(help/substitution)%)</description>
+            </var>
+        </group>
+        <group>
+            <title xml:lang="ko">기타</title>
+            <title xml:lang="jp">その他</title>
+            <title xml:lang="en">기타</title>
+            <title xml:lang="es">기타</title>
+            <title xml:lang="zh-CN">其它</title>
+            <title xml:lang="zh-TW">其它</title>
+            <var name="title" type="text">
+                <title xml:lang="ko">게시판 제목</title>
+                <title xml:lang="jp">掲示板タイトル</title>
+                <title xml:lang="en">Title of Board</title>
+                <title xml:lang="es">Title of Board</title>
+                <title xml:lang="zh-CN">留言板标题</title>
+                <title xml:lang="zh-TW">留言板標題</title>
+                <description xml:lang="ko">게시판의 제목을 적어주세요.</description>
+                <description xml:lang="jp">掲示板タイトルを入力して下さい。</description>
+                <description xml:lang="en">Plase input the title of board.</description>
+                <description xml:lang="es">Plase input the title of board.</description>
+                <description xml:lang="zh-CN">请输入留言板标题(留空为不显示)。</description>
+                <description xml:lang="zh-TW">請輸入留言板標題(留空為不顯示)。</description>
+            </var>
+            <var name="sub_title" type="text">
+                <title xml:lang="ko">게시판 부제목</title>
+                <title xml:lang="jp">掲示板サブタイトル</title>
+                <title xml:lang="en">Subtitle of Board</title>
+                <title xml:lang="es">Subtitle of Board</title>
+                <title xml:lang="zh-CN">留言板副标题</title>
+                <title xml:lang="zh-TW">留言板副標題</title>
+                <description xml:lang="ko">게시판 제목 옆에 나타날 부제목을 적어주세요.</description>
+                <description xml:lang="jp">掲示板タイトルの隣りに表示されるサブタイトルを入力して下さい。</description>
+                <description xml:lang="en">Please input the subtitle of board which will be displayed beside of board title.</description>
+                <description xml:lang="es">Please input the subtitle of board which will be displayed beside of board title.</description>
+                <description xml:lang="zh-CN">请输入留言板副标题(留空为不显示)。</description>
+                <description xml:lang="zh-TW">請輸入留言板副標題(留空為不顯示)。</description>
+            </var>
+            <var name="comment" type="textarea">
+                <title xml:lang="ko">게시판 상세 설명</title>
+                <title xml:lang="jp">掲示板の詳細</title>
+                <title xml:lang="en">Description of Board</title>
+                <title xml:lang="es">Description of Board</title>
+                <title xml:lang="zh-CN">留言板详细说明</title>
+                <title xml:lang="zh-TW">留言板詳細說明</title>
+                <description xml:lang="ko">게시판 제목 아래 표시될 설명을 입력하실 수 있습니다. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="jp">掲示板タイトルの下に表示される説明文を入力して下さい。 (HTML タグ可能) (%POPUP_(置き換えを表示.↗)_(help/substitution)%)</description>
+                <description xml:lang="en">You may input description which will be displayed under the board title. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="es">You may input description which will be displayed under the board title. (HTML 태그 가능) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-CN">请输入留言板说明(留空为不显示)。 (HTML标签) (%POPUP_(查看置换值.↗)_(help/substitution)%)</description>
+                <description xml:lang="zh-TW">請輸入留言板說明(留空為不顯示)。 (HTML標簽) (%POPUP_(치환자 보기.↗)_(help/substitution)%)</description>
+            </var>
+            <var name="document_custom_css" type="textarea">
+                <title xml:lang="ko">사용자 정의 CSS</title>
+                <title xml:lang="jp">使用者定義 CSS</title>
+                <title xml:lang="en">사용자 정의 CSS</title>
+                <title xml:lang="es">사용자 정의 CSS</title>
+                <title xml:lang="zh-CN">使用者定义 CSS</title>
+                <title xml:lang="zh-TW">使用者定義 CSS</title>
+                <description xml:lang="ko">게시판 스타일을 Cascading Style Sheet 코드를 사용해서 사용자가 직접 수정할 수 있습니다.</description>
+                <description xml:lang="jp">掲示板スタイルを Cascading Style Sheet コードを使って使用者が直接修正することができます.</description>
+                <description xml:lang="en">게시판 스타일을 Cascading Style Sheet 코드를 사용해서 사용자가 직접 수정할 수 있습니다.</description>
+                <description xml:lang="es">게시판 스타일을 Cascading Style Sheet 코드를 사용해서 사용자가 직접 수정할 수 있습니다.</description>
+                <description xml:lang="zh-CN">通过使用板式的Cascading Style Sheet代码使用者可以直接修改.</description>
+                <description xml:lang="zh-TW">通過使用板式的Cascading Style Sheet代碼使用者可以直接修改.</description>
+            </var>
+        </group>
+    </extra_vars>
+</skin>

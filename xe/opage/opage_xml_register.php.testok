@@ -1,0 +1,79 @@
+<?PHP
+	header("Content-Type: text/xml; charset=utf-8");
+
+	define('__ZBXE__', true);
+	require('../config/config.inc.php');
+	$oContext = &Context::getInstance();
+	$oContext->init();
+
+	if($_GET['act'])
+	{
+		$act = $_GET['act'];
+	}
+
+	$is_logged = Context::get('is_logged');
+// <-- testing
+/*
+	$result['error'] = 'success';
+	$result['message'] = 'this is test message';
+*/	
+// testing -->
+//------
+
+	$oMemberController = &getController('member');
+
+	$output = $oMemberController->procMemberInsertApp();
+
+	if(strcmp($output->message,'success') == 0){
+		$result['error'] = 'success';
+		//$result['message'] = '회원등록이 완료되었습니다.';
+		$result['message'] = 'register success!';
+	}
+	else if(strcmp($output->message,'msg_exists_user_id') == 0){
+		$result['error'] = 'error';
+        //$result['message'] = '회원아이디가 중복되어, 회원등록이 실패하였습니다.';
+        $result['message'] = 'msg_exists_user_id';
+	}
+	else if(strcmp($output->message,'msg_exists_nick_name') == 0){
+		$result['error'] = 'error';
+		//$result['message'] = '별명(닉네임)이 중복되어, 회원등록이 실패하였습니다.';
+		$result['message'] = 'msg_exists_nick_name';
+    }
+	else if(strcmp($output->message,'msg_exists_email_address') == 0){
+		$result['error'] = 'error';
+		//$result['message'] = '이메일주소가 중복되어, 회원등록이 실패하였습니다.';
+		$result['message'] = 'msg_exists_email_address';
+    }
+	else {
+		$result['error'] = 'error';
+		//$result['message'] = '회원등록이 실패하였습니다.('.$output->message.')';
+		$result['message'] = 'register failed.('.$output->message.')';
+	}
+
+	//$result['error'] = $output->message; // success or others...
+
+	
+	//$result['message'] = $output->message;
+	//$result['object_id'] = $output;
+
+//======
+	foreach($result as $key => $val)
+	{
+		$xml_data = $xml_data.'<'.$key.'><![CDATA['.$val.']]></'.$key.'>';
+	}
+
+	$xmls = '
+	<items>
+		<item>
+			'.$xml_data.'
+		</item>
+	</items>';
+
+
+
+	echo '<?xml version="1.0" encoding="utf-8"?>';
+
+	echo $xmls;
+
+	$oContext->close();
+?>

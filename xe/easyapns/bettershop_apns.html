@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"> 
+    <meta name="apple-mobile-web-app-capable" content="yes"/> 
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h1> 신개념 메신져 </h1>
+        <form id="message_form" action="./bettershop_apns.php" method="post">
+                <select id="st1" name="whom">
+                        <option value="" >보낼사람 선택</option>
+                <option value="1" >1:김진용</option>
+                <option value="2" >2:</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+                <option value="5" >5:</option>
+                <option value="6" >6:</option>
+                <option value="7" >7</option>
+                <option value="8" >8:</option>
+                <option value="9" >9</option>
+                <option value="10" >10</option>
+        </select>
+                <p>메시지: <input type="text" name="send_message" />(140BYTES이내)</p>
+                <select id="st2" name="send_option">
+                        <option value="" >보낼시점 선택</option>
+                <option value="1" >즉시보내기</option>
+                <option value="2" >발송시각예약</option>
+        </select>
+         <p>대상email: <input type="text" name="email" />(kjy1973ss@hanmail.net)</p>
+        <p>발송시각: <input type="text" name="send_time" />(필요시 입력 예:2010-01-01 00:00:00)</p>
+                <p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+        </form>
+</body>
+</html>

@@ -1,0 +1,185 @@
+
+<!--// 삭제폼 필터및 소스 설정 -->
+
+    <!--%import("../../tpl/filter/insert.xml")-->
+    <!--%import("../../tpl/filter/delete_document.xml")-->
+
+
+<script type="text/javascript">//<![CDATA[
+    var exJsDeleteForm_source = '<div class="exCtrDelFrm">\
+            <form action="./" method="post" onsubmit="return _exJsControllerFilter(this, delete_document);">\
+            <input type="hidden" name="mid" value="{$mid}" />\
+            <input type="hidden" name="page" value="{$page}" />\
+            <input type="hidden" name="document_srl" value="" />\
+                <div class="exIPas">\
+                    <a href="#" onclick="_exJsControllerInitializatione(); return false;" class="button {$btn_class}">\
+                        <span>{$lang->cmd_cancel}</span>\
+                    </a>\
+                    <span class="button {$btn_class}">\
+                        <input type="submit" value="{$lang->cmd_delete}" accesskey="s" />\
+                    </span>\
+                    <input type="password" name="password" id="cpw" value="" class="userPw exISt" />\
+                </div>\
+            </form>\
+        </div>';
+//]]></script>
+
+<!--// 목록 출력 -->
+<table border="1" cellspacing="0" class="exList">
+    <thead>
+        <tr name="_col_sc_1">
+            <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+            <th cond="$grant->manager" scope="col" class="checkbox"><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></th>
+
+            <th scope="col" colspan="4" class="title">
+                <div class="exWriteMoFrm">
+                    <div>
+                        <!--@if($grant->write_document)-->
+                            <form action="./" method="post" onsubmit="return procFilter(this, insert)" id="fo_write">
+                                <input type="hidden" name="mid" value="{$mid}" />
+                                <input cond="$module_info->use_secret=='R'" type="hidden" name="is_secret" value="Y" />
+                                <block cond="!$is_logged">
+                                    <input class="userName exISt" type="text" name="nick_name" value="" id="userName" maxlength="50"/>
+                                    <input class="userPass exISt" type="password" name="password" value="" id="userPw" maxlength="50" />
+                                </block>
+                                <!--// 카테고리 사용시 카테고리 선택 표시 -->
+                                <select cond="$module_info->use_category != 'N'" name="category_srl" class="exISt">
+                                    <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                                    <option loop="$category_list=>$cat_val" value="{$cat_val->category_srl}" selected="selected"|cond="$category==$cat_val->category_srl">{str_repeat("&nbsp;&nbsp;",$cat_val->depth)}&nbsp;{$cat_val->title.($cat_val->document_count?'&nbsp;('.$cat_val->document_count.')':'')}</option>
+                                </select>
+                                <input class="userText exISt" type="text" name="title" maxlength="{$module_info->subject_cut_size>0?$module_info->subject_cut_size:250}">
+                                <span class="button {$btn_class}"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+                            </form>
+                        <!--@else-->
+                            <!--@if($is_logged)-->
+                                <a href="#" onclick="return false" class="button {$btn_class}"><span>{sprintf($lang->msg_act_not_permitted,$lang->cmd_write)}</span></a>
+                            <!--@else-->
+                                <a href="{getUrl('','mid',$mid,'act','dispMemberLoginForm')}" class="button {$btn_class}"><span>{$lang->msg_please_login}</span></a>
+                            <!--@endif-->
+                        <!--@endif-->
+                    </div>
+                </div>
+                <span>&nbsp;</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <!--// 게시물이 없으면 등록된 글이 없음을 표시 -->
+    <!--@if(!$document_list && !$notice_list)-->
+        <tr class="exBg0 tCenter">
+            <td colspan="{$grant->manager?count($list_config)+1:count($list_config)}" class="title">{$lang->no_documents}</td>
+        </tr>
+    <!--@else-->
+        <!--// 공지사항 출력 -->
+        <block cond="!$is_view_document || ($is_view_document && $module_info->display_foot_list_ex == 'Y')">
+            <block loop="$notice_list=>$no,$document">
+                {@
+                    $document = $oBodex->getWith($document, array('category_srl','member_srl','is_notice'));
+                    $document->permanentUrl=getUrl('mid','','document_srl',$document->document_srl);
+                    $is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
+                    $doc_logged = $logged_info && (abs($logged_info->member_srl) == abs($document->member_srl));
+                }
+                <tr class="notice exBg1">
+                    <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+                    <td class="<!--@if(!$grant->manager)-->no<!--@endif-->checkbox">
+                        <!--@if($grant->manager)-->
+                            <input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+                        <!--@else-->
+                            <img src="./images/common/{($document_srl == $document->document_srl)?'arrowNextB2.gif" alt="Selected"':($document->is_notice == 'Y'?'notice.gif" title="Notice" alt="Notice"':'iconBest.gif" title="Best" alt="Best"')} border="0" />
+                        <!--@endif-->
+                    </td>
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <td class="title">
+                        <div class="exJsOriginalContent" rel="{$document->document_srl}" style="display:block">
+                            <span cond="$module_info->display_notice_category == 'Y' && $module_info->use_category != 'N' && $document->category_srl" class="category" style="color:{$category_list[$document->category_srl]->color};"|cond="$category_list[$document->category_srl]->color != 'transparent'">{$category_list[$document->category_srl]->title}</span>
+
+                            <a href="{$document->permanentUrl}">{$document->getTitle($module_info->subject_cut_size)}</a>
+                            {$oBodex->printExtraImages($document->getExtraImages($module_info->duration_new))}
+                            {@
+                                $r_count=$document->getCommentCount();
+                                $t_count=$document->getTrackbackCount();
+                            }
+                            <span cond="$r_count || $t_count" class="repAtbc">
+                                <!--@if($is_grant)-->
+                                    <a cond="$r_count" href="{$document->permanentUrl}#comment"><span class="replies" title="Replies">[{$r_count}]</span></a>
+                                    <a cond="$t_count" href="{$document->permanentUrl}#trackback"><span class="trackbacks" title="Trackbacks">({$t_count})</span></a>
+                                <!--@else-->
+                                    <span cond="$r_count" class="replies" title="Replies">[{$r_count}]</span>
+                                    <span cond="$t_count" class="trackbacks" title="Trackbacks">({$t_count})</span>
+                                <!--@endif-->
+                            </span>
+                        </div>
+                        <div class="exJsControllerContent" rel="{$document->document_srl}" style="display:none"></div>
+                    </td>
+                    <td class="nick_name">
+                        {@
+                            $nick_name = $oBodex->cutStrEx($document->getNickName(), $module_info->nick_name_cut_size);
+                            $nick_name = ($nick_name=='anonymous'?$lang->anonymous:$nick_name);
+                            $document->member_srl = (!$grant->manager && $document->member_srl && $document->get('user_id')=='anonymous')?0:$document->member_srl;
+                        }
+                        <div class="{($document->member_srl?'member_'.$document->member_srl:'bodex_0'.$document->document_srl).(($document->member_srl)?($doc_logged?' logged':''):' anonym')}">{$nick_name}</div>
+                    </td>
+                    <td class="regdate">{$document->getRegdate('Y-m-d H:i')}
+                    <a href="#" onclick="<!--@if($document->isGranted() || !$document->member_srl)-->_exJsControllerDeleteSimpleForm('document_srl',{$document->document_srl},{$document->isGranted()?'1':'0'});<!--@endif--> return false;"><img src="./images/common/buttonDelete<!--@if($document->isGranted() || !$document->member_srl)-->X<!--@else-->Xx<!--@endif-->.gif" height="12" width="12" border="0" alt="{$lang->cmd_delete}" /></a>
+                    </td>
+                </tr>
+            </block>
+        </block>
+
+        <!--// 일반 글 출력 -->
+        <block loop="$document_list=>$no,$document">
+                {@
+                    $document = $oBodex->getWith($document, array('category_srl','member_srl'));
+                    $is_blind = (((int)$module_info->declare_blind_document > 0)?((int)$module_info->declare_blind_document<=$oBodex->getDocumentDeclaredCount($document->document_srl)):false);
+                    $is_grant = !$is_blind && $grant->view && (!$document->isSecret() || $document->isGranted());
+                    $doc_logged = $logged_info && (abs($logged_info->member_srl) == abs($document->member_srl));
+                }
+                <tr class="docList exBg0">
+
+                    <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+                    <td class="<!--@if(!$grant->manager)-->no<!--@endif-->checkbox">
+                        <!--@if($grant->manager)-->
+                            <input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" />
+                        <!--@else-->
+                            <img src="./images/common/icon2Check.gif"  border="0" alt="" />
+                        <!--@endif-->
+                    </td>
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <td class="title">
+                        <div class="exJsOriginalContent" rel="{$document->document_srl}" style="display:block">
+                            <span cond="$module_info->use_category != 'N' && $document->category_srl" class="category" style="color:{$category_list[$document->category_srl]->color};"|cond="$category_list[$document->category_srl]->color != 'transparent'">{$category_list[$document->category_srl]->title}</span>
+                            <!--@if($is_grant)-->
+                                {$document->getTitle($module_info->subject_cut_size)}
+                                <block cond="$module_info->display_pang_point == 'Y' || $module_info->use_mobile_express == 'Y'">
+                                    {@ $arr_extra=unserialize($document->get('extra_vars'))}
+                                    <block cond="$module_info->display_pang_point == 'Y' && $arr_extra && $arr_extra->ppang->d->p > 0">
+                                        {@$pangpang_point = sprintf($lang->pang_pang, $arr_extra->ppang->d->p)}
+                                        <img src="./images/{$module_info->colorset}/coin.gif" title="{$pangpang_point}" alt="{$pangpang_point}" />
+                                    </block>
+                                    <img src="./images/common/mobile.gif" cond="$module_info->use_mobile_express == 'Y' && $arr_extra && $arr_extra->bodex->d->mp" title="{$lang->mobile}" alt="{$lang->mobile}" />
+                                </block>
+                                {$oBodex->printExtraImages($document->getExtraImages($module_info->duration_new))}
+                            <!--@else-->
+                                {$is_blind?$lang->msg_is_blind:sprintf($lang->msg_act_not_permitted,$lang->col_read)}
+                            <!--@endif-->
+                        </div>
+                        <div class="exJsControllerContent" rel="{$document->document_srl}" style="display:none"></div>
+                    </td>
+                    <td class="nick_name">
+                        {@
+                            $nick_name = $oBodex->cutStrEx($document->getNickName(), $module_info->nick_name_cut_size);
+                            $nick_name = ($nick_name=='anonymous'?$lang->anonymous:$nick_name);
+                            $document->member_srl = (!$grant->manager && $document->member_srl && $document->get('user_id')=='anonymous')?0:$document->member_srl;
+                        }
+                        <div class="{($document->member_srl?'member_'.$document->member_srl:'bodex_0'.$document->document_srl).(($document->member_srl)?($doc_logged?' logged':''):' anonym')}">{$nick_name}</div>
+                    </td>
+                    <td class="regdate">{$document->getRegdate('Y-m-d H:i')}
+                    <a href="#" onclick="<!--@if($document->isGranted() || !$document->member_srl)-->_exJsControllerDeleteSimpleForm('document_srl',{$document->document_srl},{$document->isGranted()?'1':'0'});<!--@endif--> return false;"><img src="./images/common/buttonDelete<!--@if($document->isGranted() || !$document->member_srl)-->X<!--@else-->Xx<!--@endif-->.gif" height="12" width="12" border="0" alt="{$lang->cmd_delete}" /></a>
+                    </td>
+                </tr>
+        </block>
+    <!--@endif-->
+
+    </tbody>
+</table>

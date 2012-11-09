@@ -1,0 +1,71 @@
+<!--// 기본설정 셋팅, 항상 제일 처음에 위치해야함 -->
+<include target="___setting.html" />
+
+<block cond="!$iframe_include">
+    <!--// 상단 텍스트 출력 -->
+    {$module_info->header_text}
+
+    <!--// 스킨의 제목/간단한 설명 출력 -->
+    <div cond="$module_info->title" name="_had_sc_1" class="exHad">
+        <div><h3><a href="{getFullUrl('','mid',$mid,'custom_layout_path',$custom_layout_path,'custom_layout_file',$custom_layout_file)}">{$module_info->title}</a></h3></div>
+        <h4>{$module_info->sub_title?$module_info->sub_title:'&nbsp;'}</h4>
+    </div>
+
+    <!--// 스킨의 상세 설명 -->
+    <div cond="$module_info->comment || $module_info->display_point_configs == 'Y'" class="exDes">
+        <div cond="$module_info->display_point_configs == 'Y' && ($point_configs = $oBodex->getPointConfig())" class="exDPCfg">
+            <ul>
+                <li><div>Post<br />{$point_configs['insert_document']}</div></li>
+                <li><div>Reply<br />{$point_configs['insert_comment']}</div></li>
+                <li><div>Read<br />{$point_configs['read_document']}</div></li>
+                <li><div>Up<br />{$point_configs['upload_file']}</div></li>
+                <li><div>Down<br /><block cond="$module_info->use_reward != 'N' && $module_info->use_allow_down == 'P'">?</block>{$point_configs['download_file']}</div></li>
+            </ul>
+        </div>
+        <div cond="$module_info->comment">{preg_replace(array('/%MID%/','/%LOGIN%/','/%URL%/'),array($mid,($logged_info?$logged_info->nick_name:$lang->visitor),getFullUrl('','mid',$mid)),$module_info->comment)}</div>
+    </div>
+
+    <!--// 게시판 정보 -->
+    <div cond="$module_info->display_login_info != 'N' || $module_info->display_setup_button != 'N' || $module_info->display_quick_type_button != 'N'" class="exIfo">
+
+        <!--// 게시물 수 -->
+        <span cond="$total_count" class="exANum">{$lang->document_count}&nbsp;<strong>{number_format($total_count)}</strong></span>
+
+        <!--// 로그인 정보 -->
+        <ul class="exANav">
+            <!--@if($is_logged)-->
+                <!--// 관리자이면 설정 버튼 출력 -->
+                <block cond="($logged_info->is_admin == 'Y' || $grant->manager) && $module_info->display_setup_button != 'N'">
+                    {@ $module_title = ucfirst($module_info->module)}
+                    <li cond="$grant->manager" class="setup"><a href="{getUrl('mid',$mid,'act','disp'.$module_title.'AdminBoardInfo')}">{$lang->cmd_setup}</a></li>
+                    <li cond="$logged_info->is_admin == 'Y'" class="exLgin"><a href="{getUrl('','module','admin','act','disp'.$module_title.'AdminContent')}" onclick="window.open(this.href); return false;">{$lang->cmd_management}</a></li>
+                </block>
+                <!--// 회원정보 버튼 출력 -->
+                <block cond="$module_info->display_login_info != 'N'">
+                    <li class="exJoin"><a href="{getUrl('act','dispMemberInfo')}">{$lang->member_info}</a></li>
+                    <li class="exLgin"><a href="{getUrl('act','dispMemberLogout')}">{$lang->cmd_logout}</a></li>
+                </block>
+
+            <!--// 로그인 되어 있지 않고 회원정보 버튼 출력하도록 되어있으면 -->
+            <!--@elseif(!$is_logged && $module_info->display_login_info != 'N')-->
+                <li class="exJoin"><a href="{getUrl('act','dispMemberSignUpForm')}">{$lang->cmd_signup}</a></li>
+                <li class="exLgin"><a href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a></li>
+            <!--@endif-->
+
+            <li cond="$rss_url" class="exTIco exRss"><a href="{$rss_url}" title="RSS"><img src="./images/common/blank.gif" alt="RSS" /><span>RSS</span></a></li>
+
+            <!--// 목록형태 (메모형/ 블로그형이 기본으로 되어 있을 경우 다른 형태를 지정 못하게 함) -->
+            <block cond="$module_info->display_quick_type_button != 'N' && !in_array($module_info->default_style,array('memo','blog'))">
+                <li cond="!$rss_url" style="width:0px">&nbsp;</li>
+
+                <!--@if($module_info->default_style=='download' || $module_info->default_style=='review')-->
+                    <li class="exLTZin{$default_style=='download'?'A':''} exTIco"><a href="{getUrl('mid',$mid,'listStyle',$module_info->default_style)}" title="Review Style"><span>Review Style</span></a></li>
+                <!--@else-->
+                    <li class="exLTCls{$default_style=='list'?'A':''} exTIco"><a href="{getUrl('mid',$mid,'listStyle','list')}" title="Classic Style"><span>Classic Style</span></a></li>
+                    <li class="exLTZin{$default_style=='webzine'?'A':''} exTIco"><a href="{getUrl('mid',$mid,'listStyle','webzine')}" title="Zine Style"><span>Zine Style</span></a></li>
+                <!--@endif-->
+                <li class="exLTGal{$default_style=='gallery'?'A':''} exTIco"><a href="{getUrl('mid',$mid,'listStyle','gallery')}" title="Gallery Style"><span>Gallery Style</span></a></li>
+            </block>
+        </ul>
+    </div>
+</block>

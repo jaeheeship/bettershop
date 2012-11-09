@@ -1,0 +1,39 @@
+<query id="getImageList" action="select">
+    <tables>
+        <table name="files" />
+        <table name="documents" />
+        <!--
+        <table name="document_declared" alias="declared">
+            <conditions>
+                <group>
+                    <condition operation="notequal" column="declared.document_srl" var="documents.document_srl" />
+                </group>
+                <group pipe="or">
+                    <condition operation="equal" column="declared.document_srl" var="documents.document_srl" />
+                    <condition operation="below" column="declared.declared_count" var="3" />
+                </group>
+            </conditions>
+        </table>
+        -->
+    </tables>
+    <columns>
+        <column name="files.*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="files.module_srl" var="module_srl" filter="number" />
+        <condition operation="equal" column="files.direct_download" var="Y" pipe="and" />
+        <condition operation="equal" column="files.isvalid" var="Y" pipe="and" />
+        <condition operation="equal" column="documents.document_srl" var="files.upload_target_srl" pipe="and" />
+        <condition operation="equal" column="documents.is_secret" var="is_secret" pipe="and" />
+        <condition operation="equal" column="documents.category_srl" var="category_srl" pipe="and" />
+        <group pipe="and">
+            <condition operation="like" column="files.source_filename" var=".jpg" />
+            <condition operation="like" column="files.source_filename" var=".png" pipe="or" />
+            <condition operation="like" column="files.source_filename" var=".gif" pipe="or" />
+        </group>
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="files.source_filename" order="order_type" />
+        <list_count var="list_count" default="20" />
+    </navigation>
+</query>

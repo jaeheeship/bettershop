@@ -1,0 +1,78 @@
+<block cond="$arr_sub_colorset1[0]=='transparent'">
+.exList th, .exHad, .exCatTab li a {background:none}
+.exHad {border-style:solid} .exHad h3 {border:0}
+</block>
+<block cond="$arr_sub_colorset1[1]">
+.exBg0, .exSPFrm span.exBg0 {
+    background-color:{$arr_sub_colorset1[1]};
+}
+</block>
+<block cond="$arr_sub_colorset1[2]">
+.exBg1, .exSPFrm span.exBg1 {
+    background-color:{$arr_sub_colorset1[2]};
+}
+</block>
+<block cond="$arr_sub_colorset1[3]">
+.exRepBox .repBg0, .exSPFrm span.repBg0 {
+    background-color:{$arr_sub_colorset1[3]};
+}
+</block>
+<block cond="$arr_sub_colorset1[4]">
+.exRepBox .repBg1, .exSPFrm span.repBg1, .exTbcBox .tbcItm {
+    background-color:{$arr_sub_colorset1[4]};
+}
+</block>
+<block cond="$arr_sub_colorset2[0]">
+.exANum strong {
+    color:{$arr_sub_colorset2[0]};
+}
+</block>
+<block cond="$arr_sub_colorset2[1]">
+.repAtbc span.replies {
+    color:{$arr_sub_colorset2[1]};
+}
+</block>
+<block cond="$arr_sub_colorset2[2]">
+.repAtbc span.trackbacks {
+    color:{$arr_sub_colorset2[2]};
+}
+</block>
+<block cond="$arr_sub_colorset2[3]">
+.exPagNav strong {
+    color:{$arr_sub_colorset2[3]};
+}
+</block>
+<block cond="$arr_sub_colorset2[4]">
+.votedCount strong, .exRepBox .voted strong {
+    color:{$arr_sub_colorset2[4]};
+}
+</block>
+<block cond="$arr_login_nickname_color[0]">
+.nick_name .logged, .exRepBox .nick_name .logged {
+    color:{$arr_login_nickname_color[0]};
+}
+</block>
+<block cond="$arr_login_nickname_color[1]">
+.nick_name span, .nick_name div, .nick_name .anonym, .exRepBox .nick_name span, .exRepBox .nick_name .anonym {
+    color:{$arr_login_nickname_color[1]};
+}
+</block>
+<block cond="$arr_category_width[1]">
+.exDocNav span.cat, .exList td span.category {
+    width:{$arr_category_width[1]};
+}
+</block>
+<block cond="$module_info->use_hot_track">
+    <!--@if($default_style=='webzine')-->
+    tr.hot_track_css td {
+        cursor: pointer; border-top: 1px solid;
+        border-color: {$module_info->use_hot_track} !important;
+    }
+    tr.category td, tr.hot_track_css td.summary {border-top: 0}
+    <!--@else-->
+    tr.hot_track_css td, div.hot_track_css {
+        cursor: pointer; border-top: 1px solid; border-bottom: 1px solid;
+        border-color: {$module_info->use_hot_track} !important;
+    }
+    <!--@endif-->
+</block>

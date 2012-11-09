@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+/* bodexList webzine */
+
+.exList th.title div.category {float:left}
+.exList th.title span.extravalue {margin:0 0 0 5px}
+.exList th.title span.extravalue a {font-weight:bold}
+.exList th.title {text-align:right}
+
+.exList tr.docList td {border-bottom:1px solid}
+.exList tr.docList .title,
+.exList tr.docList table.extTblBox td {border-bottom:0}
+
+.exList tr.category td {height:1.25em; padding-top:0; padding-bottom:0}
+.exList tr.category td.cat {text-align:left; white-space: normal; width:100%}
+
+.exList tr.docList td.title {font-weight:bold; height:1.25em; padding-bottom:3px}
+
+.exList td.summary,
+.exList td.summary a,
+.exList td.thumb {font-weight:normal; vertical-align:top}
+.exList td.thumb img {border:1px solid; padding:2px; margin:0}
+
+.exList td.summary {text-align:left; white-space: normal}
+.exList div.summary {margin-top:5px; vertical-align:top;line-height:1.25em;word-break:break-all}
+.exList div.summary a {text-decoration:none}
+
+.exList .extTblBox,
+.exList .extTblBox th,
+.exList .extTblBox td {border:0;margin:0;padding:0;text-align:left;background:none}
+.exList .extTblBox th {padding-right:5px}
+.exList .extTblBox td {overflow:hidden; white-space:normal; word-break:break-all}
+

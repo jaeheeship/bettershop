@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+    <grants>
+        <grant name="list" default="guest">
+            <title xml:lang="ko">목록</title>
+            <title xml:lang="zh-CN">目录</title>
+            <title xml:lang="jp">リスト</title>
+            <title xml:lang="en">list</title>
+            <title xml:lang="es">Lista</title>
+            <title xml:lang="zh-TW">列表</title>
+        </grant>
+        <grant name="view" default="guest">
+            <title xml:lang="ko">열람</title>
+            <title xml:lang="zh-CN">查看</title>
+            <title xml:lang="jp">閲覧</title>
+            <title xml:lang="en">view</title>
+            <title xml:lang="es">Opinión</title>
+            <title xml:lang="zh-TW">檢視</title>
+        </grant>
+        <grant name="write_document" default="guest">
+            <title xml:lang="ko">글 작성</title>
+            <title xml:lang="zh-CN">发表新主题</title>
+            <title xml:lang="jp">書き込み作成</title>
+            <title xml:lang="en">write document</title>
+            <title xml:lang="es">Escribir el documento</title>
+            <title xml:lang="zh-TW">發表主題</title>
+        </grant>
+        <grant name="write_comment" default="guest">
+            <title xml:lang="ko">댓글 작성</title>
+            <title xml:lang="zh-CN">发表评论</title>
+            <title xml:lang="jp">コメント作成</title>
+            <title xml:lang="en">write comment</title>
+            <title xml:lang="es">Escribir comentario</title>
+            <title xml:lang="zh-TW">發表評論</title>
+        </grant>
+    </grants>
+    <permissions>
+        <permission action="dispBodexAdminBoardList" target="root" />
+        <permission action="dispBodexAdminInsertBoard" target="root" />
+        <permission action="dispBodexAdminDeleteBoard" target="root" />
+
+        <permission action="dispBodexAdminExtraVars" target="manager" />
+        <permission action="dispBodexAdminBoardInfo" target="manager" />
+        <permission action="dispBodexAdminSkinInfo" target="manager" />
+        <permission action="dispBodexAdminListSetup" target="manager" />
+        <permission action="dispBodexAdminSearchSetup" target="manager" />
+        <permission action="dispBodexAdminGrantInfo" target="manager" />
+        <permission action="dispBodexAdminCategoryInfo" target="manager" />
+        <permission action="dispBodexAdminBoardAdditionSetup" target="manager" />
+        <permission action="dispBodexAdminSimpleExtra" target="manager" />
+
+        <permission action="procBodexAdminInsertBoard" target="manager" />
+        <permission action="procBodexAdminDeleteBoard" target="root" />
+        <permission action="procBodexAdminInsertListConfig" target="manager" />
+        <permission action="procBodexAdminInsertSearchConfig" target="manager" />
+        <permission action="procBodexAdminRecountVoted" target="manager" />
+    </permissions>
+    <actions>
+        <action name="dispBodexAdminContent" type="view" admin_index="true" />
+        <action name="dispBodexAdminBoardList" type="view" />
+        <action name="dispBodexAdminInsertBoard" type="view" setup_index="true" />
+        <action name="dispBodexAdminDeleteBoard" type="view" />
+        <action name="dispBodexAdminBoardInfo" type="view" />
+        <action name="dispBodexAdminExtraVars" type="view" />
+        <action name="dispBodexAdminSkinInfo" type="view" />
+        <action name="dispBodexAdminListSetup" type="view" />
+        <action name="dispBodexAdminSearchSetup" type="view" />
+        <action name="dispBodexAdminGrantInfo" type="view" />
+        <action name="dispBodexAdminCategoryInfo" type="view" />
+        <action name="dispBodexAdminBoardAdditionSetup" type="view" />
+        <action name="dispBodexAdminSimpleExtra" type="view" />
+
+        <action name="procBodexAdminInsertBoard" type="controller" />
+        <action name="procBodexAdminDeleteBoard" type="controller" />
+        <action name="procBodexAdminInsertListConfig" type="controller" />
+        <action name="procBodexAdminInsertSearchConfig" type="controller" />
+        <action name="procBodexAdminRecountVoted" type="controller" />
+
+        <action name="getBodexMenu" type="model" standalone="true" />
+
+        <action name="procBoardHistoryRestore" type="controller" />
+        <action name="procBoardHistoryDelete" type="controller" />
+        <action name="procBoardInsertFileLink" type="controller" />
+
+        <action name="dispBoardMediaPlayer" type="view" />
+        <action name="dispBoardHistoryList" type="view"  />
+        <action name="dispBoardImageList" type="view" />
+
+        <action name="procBoardChangeState" type="controller" standalone="true" />
+        <action name="procBoardVoteEmpty" type="controller" standalone="true" />
+        <action name="procBoardVoteRegister" type="controller" standalone="true" />
+        <action name="procBoardAdoptComment" type="controller" standalone="true" />
+        <action name="procBoardAllowView" type="controller" standalone="true" />
+
+        <!-- 기본 게시판과 호환을 위해 같은 함수명 사용  -->
+        <action name="dispBoardContent" type="view" index="true" />
+        <action name="dispBoardContentList" type="view" />
+        <action name="dispBoardContentView" type="view" />
+        <action name="dispBoardContentCommentList" type="view" />
+        <action name="dispBoardContentFileList" type="view" />
+        <action name="dispBoardNoticeList" type="view" />
+        <action name="dispBoardCatogoryList" type="view" />
+
+        <action name="dispBoardTagList" type="view" />
+        <action name="dispBoardWrite" type="view" />
+        <action name="dispBoardDelete" type="view" />
+        <action name="dispBoardWriteComment" type="view" />
+        <action name="dispBoardReplyComment" type="view" />
+        <action name="dispBoardModifyComment" type="view" />
+        <action name="dispBoardDeleteComment" type="view" />
+        <action name="dispBoardDeleteTrackback" type="view" />
+        <action name="dispBoardMessage" type="view" />
+
+        <action name="procBoardInsertDocument" type="controller" />
+        <action name="procBoardDeleteDocument" type="controller" />
+        <action name="procBoardInsertComment" type="controller" />
+        <action name="procBoardDeleteComment" type="controller" />
+        <action name="procBoardDeleteTrackback" type="controller" />
+        <action name="procBoardVerificationPassword" type="controller" />
+        <action name="procBoardDeleteFile" type="controller" />
+        <action name="procBoardUploadFile" type="controller" />
+        <action name="procBoardDownloadFile" type="controller" />
+
+        <action name="dispBoardCategory" type="mobile" />
+        <action name="getBoardCommentPage" type="mobile" />
+    </actions>
+</module>

@@ -1,0 +1,168 @@
+<!--// 목록 출력 -->
+
+{@
+    $grant->manager ? $col_count = 3 : $col_count = 2;
+    $arr_display_var  = array();
+    $extra_key_list = array();
+}
+
+<table cond="$module_info->display_list_head == 'Y' || $notice_list" border="1" cellspacing="0" class="exList">
+    <!--@if($module_info->display_list_head == 'Y')-->
+    <thead>
+        <tr name="_col_sc_1">
+            <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+            <th cond="$grant->manager" scope="col" class="checkbox"><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></th>
+
+            <th scope="col" colspan="2" class="title">
+                <!--// 카테고리 사용시 카테고리 선택 표시 -->
+                <div cond="$module_info->use_category == 'Y'" class="category">
+                    <select name="category" id="board_category" onchange="_exJcChangeCategory(); return false;" class="exISt" style="width:{$arr_category_width[0]};">
+                        <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                        <option loop="$category_list=>$cat_val" value="{$cat_val->category_srl}" selected="selected"|cond="$category==$cat_val->category_srl">{str_repeat("&nbsp;&nbsp;",$cat_val->depth)}&nbsp;{$cat_val->title.($cat_val->document_count?'&nbsp;('.$cat_val->document_count.')':'')}</option>
+                    </select>
+                </div>
+                &nbsp;
+            </th>
+
+            <!--// 목록 설정으로 table theader 생성 -->
+            <block loop="$list_config=>$key,$val">
+                <!--// 기본 컨텐츠일 경우 -->
+                <!--@if($val->idx == -1)-->
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <block cond="in_array($val->type,array('thumbnail','summary','category','nick_name','regdate','last_update','last_updater','readed_count','voted_count','blamed_count'))">
+                        {@$arr_display_var[$val->type] = 'Y'}
+                        <block cond="$val->sort=='Y'">
+                            <!--@
+                                if(in_array($val->type,array('thumbnail','summary','category'))) continue;
+                                elseif($val->type=='voted_count') $t_lang = ($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')?$lang->col_star:$lang->voted_count;
+                                elseif($val->type=='blamed_count' && ($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')) continue;
+                                else $t_lang = Context::getLang($val->type);
+                            -->
+                                {@ $col_count++}
+                                <th scope="col" class="{$val->type} {$val->sort=='Y'?'sort':''}">
+                                    <!--@if($val->sort=='Y')-->
+                                        <a class="{($sort_index==$val->type)?$order_type:''}" href="{getUrl('sort_index',$val->type,'order_type',$order_type)}">{$t_lang}</a>
+                                    <!--@else-->
+                                        {$t_lang}
+                                    <!--@endif-->
+                                </th>
+                            <!--@endif-->
+                        </block>
+                    </block>
+                <!--@else-->
+                    <!--// 일반 문서 출력때 루프를 줄이기위해 미리 키값 저장 -->
+                    {@ $extra_key_list[] = $key}
+                    <th cond="$val->sort=='Y'" scope="col" class="extravalue {$val->sort=='Y'?'sort':''}">
+                        {@$col_count++}
+                        <a class="{($sort_index==$val->type)?$order_type:''}" href="{getUrl('sort_index','extra_vars'.$val->idx,'order_type',$order_type)}">{$val->name}</a>
+                    </th>
+                <!--@endif-->
+            </block>
+        </tr>
+    </thead>
+    <!--@else-->
+        <block loop="$list_config=>$key,$val">
+            <!--@if($val->idx == -1)-->
+                {@$arr_display_var[$val->type] = 'Y'}
+            <!--@else-->
+                {@$extra_key_list[] = $key}
+            <!--@endif-->
+        </block>
+    <!--@endif-->
+    <tbody>
+
+    <!--// 게시물이 없으면 등록된 글이 없음을 표시 -->
+    <!--@if(!$document_list && !$notice_list)-->
+        <tr class="exBg0 tCenter">
+            <td class="title" colspan="{$col_count}">{$lang->no_documents}</td>
+        </tr>
+    <!--@else-->
+
+        <!--// 공지사항 출력 -->
+        <block cond="!$is_view_document || ($is_view_document && $module_info->display_foot_list_ex == 'Y')">
+            <block loop="$notice_list=>$no,$document">
+                {@
+                    $document = $oBodex->getWith($document, array('category_srl','last_update','readed_count','voted_count','blamed_count','member_srl','reward_srl','reward_point','is_notice'));
+                    $document->reward_point=round($document->reward_point/2);
+                    $document->permanentUrl=getUrl('mid','','document_srl',$document->document_srl);
+                    $is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
+                }
+                <tr class="notice exBg1">
+                    <!--// 관리자일 경우 게시글 선택 checkbox 표시 -->
+                    <td cond="$grant->manager" class="checkbox"><input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></td>
+
+                    <!--// 컨텐츠 종류에 따라서 출력 -->
+                    <td class="notice"><img src="./images/common/{($document_srl == $document->document_srl)?'arrowNextB2.gif" alt="Selected"':($document->is_notice == 'Y'?'notice.gif" title="Notice" alt="Notice"':'iconBest.gif" title="Best" alt="Best"')} border="0" /></td>
+
+                        <td class="title">
+                            <span cond="$module_info->display_notice_category == 'Y' && $arr_display_var['category']=='Y' && $module_info->use_category != 'N' && $document->category_srl" class="category" style="color:{$category_list[$document->category_srl]->color};"|cond="$category_list[$document->category_srl]->color != 'transparent'">{$category_list[$document->category_srl]->title}</span>
+
+                            <span cond="$module_info->use_reward && $module_info->use_reward != 'N' && $document->reward_point > 0" class="rePoint {($document->reward_srl > 0 || $document->reward_point === 0)?'reAdopt':''}" title="{($document->reward_srl > 0 || $document->reward_point === 0)?$lang->adopted:$lang->not_adopted}">{$document->reward_point}</span>
+
+                            <a href="{$document->permanentUrl}">{$document->getTitle($module_info->subject_cut_size)}</a>
+                            {$oBodex->printExtraImages($document->getExtraImages($module_info->duration_new))}
+                            {@
+                                $r_count=$document->getCommentCount();
+                                $t_count=$document->getTrackbackCount();
+                            }
+                            <span cond="$r_count || $t_count" class="repAtbc">
+                                <!--@if($is_grant)-->
+                                    <a cond="$r_count" href="{$document->permanentUrl}#comment"><span class="replies" title="Replies">[{$r_count}]</span></a>
+                                    <a cond="$t_count" href="{$document->permanentUrl}#trackback"><span class="trackbacks" title="Trackbacks">({$t_count})</span></a>
+                                <!--@else-->
+                                    <span cond="$r_count" class="replies" title="Replies">[{$r_count}]</span>
+                                    <span cond="$t_count" class="trackbacks" title="Trackbacks">({$t_count})</span>
+                                <!--@endif-->
+                            </span>
+                    </td>
+
+                    <!--// 목록 설정으로 table theader 생성 -->
+                    <block loop="$list_config=>$key,$val">
+                        <block cond="$val->sort=='Y'">
+                            <!--@if($val->idx == -1)-->
+                                <block cond="in_array($val->type,array('nick_name','regdate','last_update','last_updater','readed_count','voted_count','blamed_count'))">
+                                    <!--@
+                                        if($val->type == 'nick_name'){
+                                            $l_value=$oBodex->cutStrEx($document->getNickName(), $module_info->nick_name_cut_size);
+                                            $document->member_srl = (!$grant->manager && $document->member_srl && $document->get('user_id')=='anonymous')?0:$document->member_srl;
+                                            $l_value='<div class="'.($document->member_srl?'member_'.$document->member_srl:'bodex_0'.$document->document_srl).(($document->member_srl)?'':' anonym').'">'.($l_value=='anonymous'?$lang->anonymous:$l_value).'</div>';
+                                        }elseif($val->type == 'regdate')
+                                            $l_value=$document->getRegdate('Y-m-d');
+                                        elseif($val->type == 'last_update')
+                                            $l_value=zdate($document->last_update,'Y-m-d H:i');
+                                        elseif($val->type == 'readed_count')
+                                            $l_value=$document->readed_count>0?$document->readed_count:'&nbsp;';
+                                        elseif($val->type == 'voted_count'){
+                                            if($module_info->use_vote == 'S' || $module_info->use_vote == 'Z')
+                                                $l_value=(abs($document->blamed_count)>0?number_format($document->voted_count / abs($document->blamed_count),1):'0').'/'.abs($document->blamed_count);
+                                            else $l_value=$document->voted_count>0?$document->voted_count:'&nbsp;';
+                                        }elseif($val->type == 'blamed_count'){
+                                            if($module_info->use_vote == 'S' || $module_info->use_vote == 'Z') continue;
+                                            $l_value=$document->blamed_count<0?$document->blamed_count:'&nbsp;';
+                                        }else $l_value= $document->get($val->type);
+                                    -->
+                                        <td class="{$val->type}">{$l_value}</td>
+                                    <!--@endif-->
+                                </block>
+                            <!--@else-->
+                                <!--// 사용자 선언 확장변수일 경우 -->
+                                <td class="extravalue"><!--@if(!$is_grant && $module_info->display_secret_extravalue=='N')-->{$lang->secret}<!--@else-->{$oBodex->cutStrEx($document->getExtraValueHTML($val->idx), $module_info->content_extravalue_size)}<!--@endif--></td>
+                            <!--@endif-->
+                        </block>
+                    </block>
+                </tr>
+            </block>
+        </block>
+    <!--@endif-->
+    </tbody>
+</table>
+
+
+<!--// 일반글 -->
+<block loop="$document_list=>$oDocument">
+    {@ $blog_style_doc_no = $oDocument->document_srl}
+    <div class="blogView">
+        <include target="_view.document.html" />
+    </div>
+</block>
+

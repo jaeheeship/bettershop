@@ -1,0 +1,233 @@
+@charset "utf-8";
+
+a {text-decoration:none}
+a:hover {text-decoration: underline}
+
+select.exISt,
+textarea.exISt,
+input.exISt {padding:2px;vertical-align:middle;border:1px solid; font-size:1.1em}
+
+select.exISt {padding:0;height:23px}
+textarea.exISt {height:100px}
+input.exISt {height:17px}
+
+.exDHide {display:none}
+.exDShow {display:block}
+
+/* bodex Title */
+.exHad {border:0; border-bottom:3px; vertical-align:bottom; overflow:hidden; *zoom:1}
+.exHad h3,
+.exHad h4 {border-bottom:3px solid; margin:0; float:left; padding:10px 13px 5px 10px; font-size:1.4em}
+.exHad h4 {border:0; padding-top:13px; font-size:1.2em; padding-top:11px\9}
+
+/* bodex Description */
+.exDes {border:1px solid; overflow:hidden; padding:10px; margin: 5px 0; *zoom:1}
+.exDes:after { content:""; clear:both; display:block}
+
+.exDPCfg {float:right; margin:0; padding:0}
+.exDPCfg ul {margin:0 0 0 8px; padding:0}
+.exDPCfg li {float:left; margin-left:2px;list-style:none; height:32px; width:32px; background:url(../images/common/balloonText.gif) no-repeat}
+.exDPCfg li div {font:9px Tahoma; line-height:10px; text-align:center; padding:3px 0 0 0}
+
+/* bodex Information */
+.exIfo {margin:6px 0 3px 0; overflow:hidden; *zoom:1}
+
+/* document count */
+.exANum {float:left; padding:0 0 0 16px; font-size:12px; line-height:13px}
+
+/* account Navigation */
+.exANav {margin:0; padding:0; float:right}
+.exANav li {float:left; font-size:12px; line-height:14px; margin-left:5px; list-style:none}
+.exANav li.exLgin a {padding-left:5px}
+.exANav li.exJoin a {padding-left:5px}
+
+.exANav li.exTIco a{display:block; float:left; width:13px; height:13px; overflow:hidden; background-repeat:no-repeat}
+.exANav li.exTIco a span{display:none}
+.exANav li.exRss a {margin-left:5px}
+
+.exANav li.exLTCls a{background-position:0 0}
+.exANav li.exLTClsA a{background-position:0 -13px}
+.exANav li.exLTZin a{background-position:-13px 0}
+.exANav li.exLTZinA a{background-position:-13px -13px}
+.exANav li.exLTGal a{background-position:-26px 0}
+.exANav li.exLTGalA a{background-position:-26px -13px}
+
+/* category Navigation */
+.exCatTab ul {margin:0 0 2px 0; padding:0; overflow:hidden}
+.exCatTab li {position:relative; list-style:none; float:left; white-space:nowrap; margin:0 2px 0 0; padding:0; *margin-bottom:2px}
+.exCatTab li a {text-decoration:none; border:1px solid; float:left; padding:5px 10px 2px 10px; height:18px}
+.exCatTab li a span {font-size:.8em}
+.exCatTab li.on {font-weight:bold;margin-bottom:-1px}
+.exCatTab li.on a {height:19px; background:none}
+
+.exCatMnu {border:0px; width:100%}
+.exCatMnu td {white-space:nowrap; overflow:hidden; vertical-align:top}
+.exCatMnu td .exCatNav {border:1px solid; margin:0; padding:0 0 10px 0}
+.exCatMnu td .exCatNav div {white-space:nowrap; font-size:1em;padding:10px 13px 0 13px}
+.exCatMnu td .exCatNav div.on a {font-weight:bold}
+.exCatMnu td .exCatNav div a span {font-size:.8em}
+.exCatMnu td .exCatNav div.total {padding:9px 0 5px 13px; border-top:1px solid; border-bottom:1px solid}
+
+/* bodex Bottom, list button */
+.exPage {margin-top:3px}
+.exBtom {margin-top:5px; *zoom:1}
+.exBtom:after { content:""; clear:both; display:block}
+.exWBBox {float:right;padding-top:1px}
+
+/* bodexSearch */
+.exSchBox *{margin:0; padding:0; line-height:normal}
+.exSchBox {float:left}
+.exSchBox select{height:23px}
+.exSchBox input.exISt {width:140px}
+.exSchBox .exDSch {margin:0 4px;padding-top:1px}
+.exSchBox .exTSch {display:block; float:left; width:25px; height:25px; overflow:hidden; background:url(../images/common/btnSearch.gif) repeat-x top}
+.exSchBox .exTSch span{display:none}
+
+.exJsSchExBox {border:3px double; margin:3px 0; padding:5px}
+.exJsSchExBox label {display: inline-block;padding:5px}
+
+/* Page */
+.exPagNav {padding:5px 0 0; margin:0; text-align:center; *zoom:1}
+.exPagNav:after { content:""; clear:both; display:block}
+.exPagNav *{margin:0; padding:0}
+.exPagNav img{border:0}
+.exPagNav a,
+.exPagNav strong{border:none; position:relative; display:inline-block; line-height:normal; font-family:Tahoma, Sans-serif}
+.exPagNav a{font-weight:normal !important}
+.exPagNav a.prev,
+.exPagNav a.prevEnd,
+.exPagNav a.next,
+.exPagNav a.nextEnd{font-weight:normal !important; white-space:nowrap}
+
+/* Pagination A1 */
+.exPagNav.a1 a,
+.exPagNav.a1 strong{margin-left:-5px; padding:1px 8px 1px 8px; border-left:1px solid; border-right:1px solid; font-weight:bold; font-size:1em;line-height:.9em;*line-height:1em}
+.exPagNav.a1 strong {font-size:1.2em}
+.exPagNav.a1 a.prev{padding-left:10px; background: url(../images/common/arrowPrevA1.gif) no-repeat left center}
+.exPagNav.a1 a.prevEnd{border-left:0;padding-left:15px; background: url(../images/common/arrowPrevEndA1.gif) no-repeat left center}
+.exPagNav.a1 a.next{padding-right:10px; background: url(../images/common/arrowNextA1.gif) no-repeat right center}
+.exPagNav.a1 a.nextEnd{border-right:0;padding-right:15px; background: url(../images/common/arrowNextEndA1.gif) no-repeat right center}
+
+/* Previous,Next Navigation */
+.exDocNav {padding:2px 0}
+.exDocNav div * {vertical-align:middle}
+.exDocNav div {margin:2px 0}
+.exDocNav div img {margin-right:2px}
+.exDocNav a,
+.exDocNav span.cat {margin:0 3px 0 0; font-size:1.1em}
+.exDocNav span.cat {margin:0; padding-right:5px; display: inline-block}
+.exDocNav span.rep,
+.exDocNav span.tbc {margin-left:-3px; font-size:.8em}
+
+/* message box */
+.exJsSMBox {border:1px solid; width:280px; margin: 30px auto 30px auto; padding-bottom:10px}
+.exJsSMBox h3 {border-bottom:3px solid; margin:0; font-size:1.2em; padding:.8em 2em .6em 1.2em}
+.exJsSMBox .exIPas {text-align:center;border:none; padding:2em 2em 1.5em 2em}
+.exJsSMBox .exIPas input {width:5em}
+.exJsSMBox .exIPas input.userPw {margin-right:5px;width:7em}
+.exJsSMBox .exMsgBox {padding:10px}
+
+.exIfmInc {margin:0; border:0;width:100%}
+
+/* multimedia box */
+.exJsMidBox {margin:auto; padding:10px}
+.exJsMidBox h3 {border-bottom:3px solid}
+
+/* xpress-editor */
+.xpress-editor .fileUploader {padding-left:10px}
+
+/* star */
+.exSPFrm {overflow:hidden; width:75px; height:14px; background:url(../images/common/starOff.png) no-repeat left top}
+.exSPFrm span {float:left; text-indent: -9999px; display:block; overflow:hidden;height:14px;font-size:0; line-height:0}
+.exSPFrm span.exSColR {background:url(../images/common/starOnR.png) no-repeat left top}
+.exSPFrm span.exSColG {background:url(../images/common/starOnG.png) no-repeat left top}
+.exSPFrm span.exSColY {background:url(../images/common/starOnY.png) no-repeat left top}
+
+.exSPFrm.small {width:40px; height:8px; background-image:url(../images/common/star_Off.png)}
+.exSPFrm.small span {height:8px}
+.exSPFrm.small span.exSColR {background-image:url(../images/common/star_OnR.png)}
+.exSPFrm.small span.exSColG {background-image:url(../images/common/star_OnG.png)}
+.exSPFrm.small span.exSColY {background-image:url(../images/common/star_OnY.png)}
+
+.exSPFrm i {display:none;height:0;font-size:1px}
+
+/* Bodex Write */
+.exWrite {border:1px solid}
+.exWrite fieldset {border:none}
+
+.exWrite .exWtIfo {margin:5px 10px 0 10px}
+.exWrite .exWtIfo input {margin-right:10px}
+.exWrite .exWtIfo input.userName,
+.exWrite .exWtIfo input.userPw {width:60px}
+.exWrite .exWtIfo input.emailAddress,
+.exWrite .exWtIfo input.homePage {width:90px}
+
+.exWrite dl {padding:0; margin:0}
+.exWrite dl dd {padding:0; margin:0}
+.exWrite dl.option {margin:5px 0 0 10px; padding:0}
+.exWrite dl.option dd {display:inline;margin:0 5px 0 0}
+.exWrite dl.option dd input {margin:0}
+.exWrite dl.option dd * {vertical-align:middle}
+
+/* tag List */
+.exTagBox {border:1px solid; padding:10px; overflow:hidden}
+.exTagBox h4 {margin:0; padding:2px}
+.exTagBox .tags div {float:left; padding:2px; margin-right:10px; overflow:hidden; white-space:nowrap; height:15px}
+.exTagBox .tags div a {line-height:150%}
+.exTagBox .tags .tagTypA a {font-weight:bold; font-size:12pt; margin:0}
+.exTagBox .tags .tagTypB a {font-size:11pt; margin:0}
+.exTagBox .tags .tagTypC a {font-weight:bold; font-size:11pt; margin:0}
+.exTagBox .tags .tagTypD a {font-weight:bold; margin:0}
+.exTagBox .tags .tagTypE a {font-weight:normal; margin:0}
+
+.exTagBox .images img {margin:2px;padding:2px;border:1px solid}
+
+/* list */
+.exList {width:100%; border-style:solid; border-width:1px 0}
+
+.exList th,
+.exList td {font-size:1em; font-weight:normal; border:0; padding:7px 5px; vertical-align:middle; text-align:center; overflow:hidden; white-space:nowrap}
+
+.exList thead th {border-bottom:1px solid; border-top:1px solid; height:1.2em}
+.exList tr.notice td {border-bottom:1px solid}
+
+.exList th.sort a {font-weight:bold; padding-right:5px}
+/* ie6~7 */.exList th.sort a.asc,
+.exList th.sort a[rel=asc] {background:transparent url(../images/common/buttonAscending.gif) no-repeat right center}
+/* ie6~7 */.exList th.sort a.desc,
+.exList th.sort a[rel=desc] {background:transparent url(../images/common/buttonDescending.gif) no-repeat right center}
+
+.exList th.title {width:100%}
+.exList td.title {width:100%; white-space:normal}
+
+.exList td.title,
+.exList td.nick_name {text-align:left}
+.exList td.nick_name div {cursor:pointer}
+.exList td.nick_name .anonym {font-style:italic}
+
+.exList td.no,
+.exList td.regdate,
+.exList td.ipaddress,
+.exList td.last_update,
+.exList td.readed_count,
+.exList td.voted_count,
+.exList td.blamed_count {font:.8em Tahoma}
+
+.exList td span.rePoint {font:bold .8em Tahoma; border:1px solid; padding: 0 1px}
+.exList td span.category {padding-right:.8em; margin-right:.3em; display: inline-block}
+
+.exList th.title div.category  {position:relative; left:0; top:0; text-align:left}
+.exList th.title div.category select {float:left;position:absolute; left:0; top:-5px; margin:0; padding:0}
+
+.exList th.checkbox,
+.exList td.checkbox {font-size:1px; text-align:left; margin:0; padding:0}
+
+.exList .replies,
+.exList .trackbacks {font:.8em Tahoma;margin-left:-3px}
+.exList .repAtbc {margin-left:3px}
+
+div.ccl {font:7px Tahoma; height:15px; line-height:15px}
+
+/* historyList */
+.exList.exhislst th.title {text-align:right;padding-right:5px}
+.exList.exhislst td.restore .delBtn {text-decoration:line-through}

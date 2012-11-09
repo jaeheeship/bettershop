@@ -1,0 +1,48 @@
+{@ $is_poped = Context::get('is_poped')}
+<!--@if($is_poped)-->
+    <!--// CSS 파일 로드 (컬러셋에 따라서) -->
+    <!--%import("css/common.css")-->
+
+    <!--@if($module_info->colorset == "black")-->
+        <!--%import("css/black.css")-->
+        {@ $btn_class = "black" }
+    <!--@else-->
+        <!--%import("css/white.css")-->
+    <!--@endif-->
+
+<!--@else-->
+    <include target="__header.html" />
+<!--@endif-->
+
+<div class="exTagBox">
+    <h4><img src="./images/common/iconTag.gif" alt="{$lang->tag}" width="27" height="11" class="tagIcon" /> {$lang->image} ({count($image_list)})</h4>
+
+    <div cond="$module_info->use_category != 'N'" class="category">
+            <select name="category_srl" onchange="_exJcPopImageList(null,null,this.value,true); return false;" class="category exISt">
+                <option cond="$module_info->category_total_caption" value="">{$module_info->category_total_caption}</option>
+                <option loop="$category_list=>$val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="($val->grant&&$val->selected)">
+                    {str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+                </option>
+            </select>
+    <div>&nbsp;</div>
+    </div>
+    <div class="images">
+        <block loop="$image_list=>$val">
+            <!--@if($is_poped)-->
+                {@ $is_file = './files/cache/thumbnails/'.$val->upload_target_srl.'/'.((int)$module_info->thumbnail_width).'x'.((int)$module_info->thumbnail_height).'.crop.jpg'}
+                <a onclick="_exJcSelectImage('{$val->uploaded_filename}');return false;" href="#">
+                    <img src="{file_exists($is_file)?$is_file:$val->uploaded_filename}" alt="{htmlspecialchars($val->source_filename)}" width="{$module_info->thumbnail_width}" height="{$module_info->thumbnail_height}" />
+                </a>
+            <!--@else-->
+                <img src="{$val->uploaded_filename}" alt="{htmlspecialchars($val->source_filename)}" width="{$module_info->thumbnail_width}" height="{$module_info->thumbnail_height}" />
+            <!--@endif-->
+        </block>
+    </div>
+</div>
+
+<block cond="!$is_poped">
+    <div class="fr gap1">
+        <a href="{getUrl('act','','pop_list_count','')}" class="button {$btn_class}"><span>{$lang->cmd_back}</span></a>
+    </div>
+    <include target="__footer.html" />
+</block>

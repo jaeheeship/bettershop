@@ -1,0 +1,26 @@
+<!--@if($module_info->use_category == "T")-->
+    <!--// 탭 메뉴 -->
+    <ul>
+        <li cond="$module_info->category_total_caption" {(!$category)?'class="on"':'name="_col_sc_1"'}><a href="{getUrl('','mid',$mid)}">{$module_info->category_total_caption}</a></li>
+        <li loop="$category_list=>$cat_val" {($category==$cat_val->category_srl)?'class="on"':'name="_col_sc_1"'}><a href="{getUrl('','mid',$mid,'category',$cat_val->category_srl)}">{str_repeat(".",$cat_val->depth).$cat_val->title.($cat_val->document_count?'<span>('.$cat_val->document_count.')</span>':'')}</a></li>
+    </ul>
+<!--@else-->
+    <!--// 좌,우 메뉴 -->
+    <div class="exCatNav">
+        <div cond="$module_info->category_total_caption" class="total {(!$category)?'on':''}"><img src="./images/common/icon1Check{(!$category)?'ed':''}.gif" alt="" /> <a href="{getUrl('','mid',$mid)}">{$module_info->category_total_caption}</a></div>
+        <!--// 선택된 분류가 있으면 상위 분류는 모두 펼침으로 -->
+        <block cond="$category">
+            {@ $category_parent = $category}
+            <!--@while($category_parent)-->
+                {@
+                    $category_list[$category_parent]->expand = true;
+                    $category_parent = $category_list[$category_parent]->parent_srl;
+                }
+            <!--@end-->
+        </block>
+        <div loop="$category_list=>$idx,$cat_val" cond="!$cat_val->parent_srl || ($category_list[$cat_val->parent_srl]->expand && $cat_val->child_count) || $category_list[$idx]->expand = ($cat_val->parent_srl && $category_list[$cat_val->parent_srl]->expand)" class="on"|cond="$category==$cat_val->category_srl">
+            {str_repeat('<img src="./images/common/arrowSubMenu.gif" border="0" />',$cat_val->depth)}
+            <img src="./images/common/icon1Check{($category==$cat_val->category_srl)?'ed':(!$category_list[$idx]->expand&&$cat_val->child_count?'pr':'')}.gif" alt="" /> <a href="{getUrl('','mid',$mid,'category',$cat_val->category_srl)}">{$cat_val->title.($cat_val->document_count?'<span>('.$cat_val->document_count.')</span>':'')}</a>
+        </div>
+    </div>
+<!--@endif-->

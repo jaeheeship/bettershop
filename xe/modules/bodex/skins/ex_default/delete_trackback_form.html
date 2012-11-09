@@ -1,0 +1,23 @@
+<block cond="!$form_include"><include target="__header.html" /></block>
+
+<div class="exJsSMBox">
+
+    <div class="exBoxHad">
+        <h3>{$lang->confirm_delete}</h3>
+    </div>
+
+    <form action="./" method="get" onsubmit="return procFilter(this, delete_trackback)">
+    <input type="hidden" name="mid" value="{$mid}" />
+    <input type="hidden" name="page" value="{$page}" />
+    <input type="hidden" name="document_srl" value="{$document_srl}" />
+    <input type="hidden" name="trackback_srl" value="{$trackback_srl}" />
+
+        <div class="exIPas tCenter">
+            <span class="button {$btn_class}"><input type="submit" value="{$lang->cmd_delete}" accesskey="s" /></span>
+            <a href="{getUrl('act','')}" class="button {$btn_class}"><span>{$lang->cmd_cancel}</span></a>
+        </div>
+
+    </form>
+</div>
+
+<block cond="!$form_include"><include target="__footer.html" /></block>

@@ -1,0 +1,489 @@
+<!--%import("filter/insert_bodex.xml")-->
+<!--%import("js/bodex_admin.js")-->
+<!--#include("header.html")-->
+<!--%import("css/bodex.css")-->
+
+<form action="./" method="post" onsubmit="return procFilter(this, insert_bodex)" enctype="multipart/form-data">
+<input type="hidden" name="page" value="{$page}" />
+<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+    <!--@if($logged_info->is_admin!='Y')-->
+    <input type="hidden" name="mid" value="{$module_info->mid}" />
+    <input type="hidden" name="module_category_srl" value="{$module_info->module_category_srl}" />
+    <input type="hidden" name="layout_srl" value="{$module_info->layout_srl}" />
+    <!--@else-->
+    <h4 class="xeAdmin">{$lang->module}</h4>
+    <table cellspacing="0" class="rowTable">
+
+    <tr>
+        <th scope="row"><div>{$lang->mid}</div></th>
+        <td class="wide">
+            <input type="text" name="mid" value="{$module_info->mid}" class="inputTypeText w200" />
+            <p>{$lang->about_mid}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->module_category}</div></th>
+        <td class="wide">
+            <select name="module_category_srl">
+                <option value="0">{$lang->notuse}</option>
+                <!--@foreach($module_category as $key => $val)-->
+                <option value="{$key}" <!--@if($module_info->module_category_srl==$key)-->selected="selected"<!--@end-->>{$val->title}</option>
+                <!--@end-->
+            </select>
+            <p>{$lang->about_module_category}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_load_extra_vars}</div></th>
+        <td class="wide">
+            <select name="use_load_extra_vars">
+                <option value="Y" <!--@if($module_info->use_load_extra_vars == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_load_extra_vars != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_load_extra_vars}</p>
+        </td>
+    </tr>
+    </table>
+    <!--@end-->
+
+    <h4 class="xeAdmin">{$lang->skin}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->layout}</div></th>
+        <td class="wide">
+            <select name="layout_srl">
+            <option value="0">{$lang->notuse}</option>
+            <!--@foreach($layout_list as $key => $val)-->
+            <option value="{$val->layout_srl}" <!--@if($module_info->layout_srl==$val->layout_srl)-->selected="selected"<!--@end-->>{$val->title} ({$val->layout})</option>
+            <!--@end-->
+            </select>
+            <p>{$lang->about_layout}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->skin}</div></th>
+        <td class="wide">
+            <select name="skin">
+                {@$is_skin=false}
+                <!--@foreach($skin_list as $key=>$val)-->
+                <option value="{$key}" <!--@if($module_info->skin==$key)-->selected="selected" {@$is_skin=true}<!--@end-->>{$val->title}</option>
+                <!--@end-->
+                <!--@if(!$is_skin)--><option value="" selected="selected">{$lang->notuse}</option><!--@end-->
+            </select>
+            <p>{$lang->about_skin}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->browser_title}</div></th>
+        <td class="wide">
+            <input type="text" name="browser_title" value="{htmlspecialchars($module_info->browser_title)}"  class="inputTypeText w400" id="browser_title"/>
+            <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','browser_title')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
+            <p>{$lang->about_browser_title}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->count}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->list_count}</div></th>
+        <td class="wide">
+            <input type="text" name="list_count" value="{$module_info->list_count?$module_info->list_count:20}"  class="inputTypeText" />
+            <p>{$lang->about_list_count}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->search_list_count}</div></th>
+        <td class="wide">
+            <input type="text" name="search_list_count" value="{$module_info->search_list_count?$module_info->search_list_count:20}"  class="inputTypeText" />
+            <p>{$lang->about_search_list_count}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->page_count}</div></th>
+        <td class="wide">
+            <input type="text" name="page_count" value="{$module_info->page_count?$module_info->page_count:10}"  class="inputTypeText" />
+            <p>{$lang->about_page_count}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->sort}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->order_target}</div></th>
+        <td class="wide">
+            <select name="order_target">
+                <!--@foreach($order_target as $key => $val)-->
+                <option value="{$key}" <!--@if($module_info->order_target == $key)-->selected="selected"<!--@end-->>{$val}</option>
+                <!--@end-->
+            </select>
+
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->order_type}</div></th>
+        <td class="wide">
+            <select name="order_type">
+                <option value="asc" <!--@if($module_info->order_type != 'desc')-->selected="selected"<!--@end-->>{$lang->order_asc}</option>
+                <option value="desc" <!--@if($module_info->order_type == 'desc')-->selected="selected"<!--@end-->>{$lang->order_desc}</option>
+            </select>
+            <p>{$lang->about_order_target}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->display}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->except_notice}</div></th>
+        <td class="wide">
+            <select name="except_notice">
+                <option value="Y" <!--@if($module_info->except_notice != 'N')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->except_notice == 'N')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_except_notice}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_category}</div></th>
+        <td class="wide">
+            <select name="use_category">
+                <option value="N" <!--@if($module_info->use_category=='N')-->selected="selected"<!--@end-->>{$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_category=='Y')-->selected="selected"<!--@end-->>{$lang->use_cat_comb}</option>
+                <option value="T" <!--@if($module_info->use_category=='T')-->selected="selected"<!--@end-->>{$lang->use_cat_tab}</option>
+                <option value="L" <!--@if($module_info->use_category=='L')-->selected="selected"<!--@end-->>{$lang->use_cat_left}</option>
+                <option value="R" <!--@if($module_info->use_category=='R')-->selected="selected"<!--@end-->>{$lang->use_cat_right}</option>
+            </select>
+            <p>{$lang->about_use_category}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->display_extra_images}</div></th>
+        <td class="wide">
+            {@ $display_extra_images=array_flip(explode('|@|',$module_info->display_extra_images))}
+            <input type="hidden" name="display_extra_images[]" value="none" checked="checked" />
+            <label><input type="checkbox" name="display_extra_images[]" value="new" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['new'])-->checked="checked"<!--@end--> />{$lang->new}</label>
+            &nbsp;<label><input type="checkbox" name="display_extra_images[]" value="update" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['update'])-->checked="checked"<!--@end--> />{$lang->update}</label>
+            &nbsp;<label><input type="checkbox" name="display_extra_images[]" value="secret" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['secret'])-->checked="checked"<!--@end--> />{$lang->secret}</label>
+            &nbsp;<label><input type="checkbox" name="display_extra_images[]" value="image" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['image'])-->checked="checked"<!--@end--> />{$lang->image}</label>
+            &nbsp;<label><input type="checkbox" name="display_extra_images[]" value="movie" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['movie'])-->checked="checked"<!--@end--> />{$lang->media}</label>
+            &nbsp;<label><input type="checkbox" name="display_extra_images[]" value="file" <!--@if(!isset($display_extra_images['none']) || $display_extra_images['file'])-->checked="checked"<!--@end--> />{$lang->file}</label>
+            <p>{$lang->about_display_extra_images}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->best.' '.$lang->document}</div></th>
+        <td class="wide">
+            <select name="display_best_document">
+                <option value="Y" <!--@if($module_info->display_best_document == 'Y')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use}</option>
+                <option value="N" <!--@if($module_info->display_best_document != 'Y')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->notuse}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <select name="display_best_comment">
+                <option value="Y" <!--@if($module_info->display_best_comment == 'Y')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use}</option>
+                <option value="N" <!--@if($module_info->display_best_comment != 'Y')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->notuse}</option>
+            </select>
+            <div class="useValue">
+            <p>{$lang->order_target}:
+            <select name="best_sort_index">
+                <option value="voted_count" <!--@if($module_info->best_sort_index=='voted_count')-->selected="selected"<!--@end-->>{$lang->voted_count}</option>
+                <option value="readed_count" <!--@if($module_info->best_sort_index=='readed_count')-->selected="selected"<!--@end-->>{$lang->readed_count}</option>
+                <option value="comment_count" <!--@if($module_info->best_sort_index=='comment_count')-->selected="selected"<!--@end-->>{$lang->comment_count}</option>
+            </select>
+            &nbsp;<label>{$lang->date_range} (day):&nbsp;<input type="text" name="best_date_range" class="inputTypeText w60" value="{$module_info->best_date_range?$module_info->best_date_range:'7'}" /></label>
+            &nbsp;<label>{$lang->list_count}:&nbsp;<input type="text" name="best_list_count" class="inputTypeText w60" value="{$module_info->best_list_count?$module_info->best_list_count:'2'}" /></label>
+            </p>
+            </div>
+            <p>{$lang->about_best_document}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->use_allow}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->cmd_declare.' '.$lang->blind}</div></th>
+        <td class="wide">
+            <label>{$lang->document} : <input name="declare_blind_document" value="{$module_info->declare_blind_document}" class="inputTypeText w80" type="text"></label>
+            &nbsp;&nbsp;<label>{$lang->comment} : <input name="declare_blind_comment" value="{$module_info->declare_blind_comment}" class="inputTypeText w80" type="text"></label>
+            <p>{$lang->about_declare_blind}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_secret}</div></th>
+        <td class="wide">
+            <select name="use_secret">
+                <option value="N" <!--@if($module_info->use_secret=='N')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_secret=='Y')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_secret=='R')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_require}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <select name="use_secret_comment">
+                <option value="N" <!--@if($module_info->use_secret_comment=='N')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_secret_comment=='Y')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_secret_comment=='R')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_require}</option>
+            </select>
+            <p>{$lang->about_secret}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->comment.' '.$lang->use_allow}</div></th>
+        <td class="wide">
+            <select name="use_allow_comment">
+                <option value="N" <!--@if($module_info->use_allow_comment=='N')-->selected="selected"<!--@end-->>{$lang->comment}: {$lang->use_allow_none}</option>
+                <option value="Y" <!--@if($module_info->use_allow_comment!='N'&&$module_info->use_allow_comment!='R')-->selected="selected"<!--@end-->>{$lang->comment}: {$lang->use_allow_yes}</option>
+                <option value="R" <!--@if($module_info->use_allow_comment=='R')-->selected="selected"<!--@end-->>{$lang->comment}: {$lang->use_allow_require}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <select name="use_allow_trackback">
+                <option value="N" <!--@if($module_info->use_allow_trackback=='N')-->selected="selected"<!--@end-->>{$lang->trackback}: {$lang->use_allow_none}</option>
+                <option value="Y" <!--@if($module_info->use_allow_trackback!='N'&&$module_info->use_allow_trackback!='R')-->selected="selected"<!--@end-->>{$lang->trackback}: {$lang->use_allow_yes}</option>
+                <option value="R" <!--@if($module_info->use_allow_trackback=='R')-->selected="selected"<!--@end-->>{$lang->trackback}: {$lang->use_allow_require}</option>
+            </select>
+            <p>{$lang->about_allow_comment}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->document.' '.$lang->constraint}</div></th>
+        <td class="wide">
+            <select name="use_allow_view" onchange="var o = jQuery('div.use_allow_view_option');this.value=='P'?o.removeClass('hide'):o.addClass('hide');">
+                <option value="Y" <!--@if($module_info->use_allow_view == 'Y')-->selected="selected"<!--@end-->>{$lang->comment.' '.$lang->use}</option>
+                <option value="P" <!--@if($module_info->use_allow_view == 'P')-->selected="selected"<!--@end-->>{$lang->reward_point.' '.$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_allow_view != 'Y'&&$module_info->use_allow_view != 'P')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            &nbsp;<label>{$lang->char_count}:&nbsp;<input type="text" name="allow_view_cut_size" class="inputTypeText w60" value="{$module_info->allow_view_cut_size?$module_info->allow_view_cut_size:'500'}" /></label>
+            <div class="use_allow_view_option useValue <!--@if($module_info->use_allow_view != 'P')-->hide<!--@end-->">
+                <p>{$lang->about_point_view}</p>
+            </div>
+            <p>{$lang->about_constraint_document}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->download.' '.$lang->constraint}</div></th>
+        <td class="wide">
+            <select name="use_allow_down" onchange="var o = jQuery('div.use_allow_down_option');this.value=='P'?o.removeClass('hide'):o.addClass('hide');">
+                <option value="Y" <!--@if($module_info->use_allow_down == 'Y')-->selected="selected"<!--@end-->>{$lang->comment.' '.$lang->use}</option>
+                <option value="P" <!--@if($module_info->use_allow_down == 'P')-->selected="selected"<!--@end-->>{$lang->reward_point.' '.$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_allow_down != 'Y'&&$module_info->use_allow_down != 'P')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <div class="use_allow_down_option useValue <!--@if($module_info->use_allow_down != 'P')-->hide<!--@end-->">
+            <p><label><input type="checkbox" name="use_down_point_medias" value="Y" <!--@if($module_info->use_down_point_medias!='N')-->checked="checked"<!--@end--> />{$lang->use_down_point_medias}</label>
+            &nbsp;<label><input type="checkbox" name="use_down_point_images" value="Y" <!--@if($module_info->use_down_point_images=='Y')-->checked="checked"<!--@end--> />{$lang->use_down_point_images}</label>
+            &nbsp;<label><input type="checkbox" name="use_down_point_always" value="Y" <!--@if($module_info->use_down_point_always=='Y')-->checked="checked"<!--@end--> />{$lang->use_down_point_always}</label>
+            </p><p>{$lang->about_point_download}{$point_config['download_file']?' ($'.$point_config['download_file'].')':''}</p>
+            </div>
+            <p>{$lang->about_constraint_download}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->option}</h4>
+    <table cellspacing="0" class="rowTable">
+     <tr>
+        <th scope="row"><div>{$lang->use_reward}</div></th>
+        <td class="wide">
+            <select name="use_reward">
+                <option value="N" <!--@if($module_info->use_reward=='N')-->selected="selected"<!--@end-->>{$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_reward=='Y')-->selected="selected"<!--@end-->>{$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_reward=='R')-->selected="selected"<!--@end-->>{$lang->use_require}</option>
+            </select>
+            <div class="useValue">
+            <p><input type="text" name="use_reward_value" value="{$module_info->use_reward_value?$module_info->use_reward_value:'20,40,60,80,100,200,400,600,800,1000'}"  class="inputTypeText w400" /></p>
+            <p>{$lang->about_use_reward_value}</p>
+            </div>
+            <p>{$lang->about_use_reward}</p>
+        </td>
+    </tr>
+     <tr>
+        <th scope="row"><div>{$lang->use_vote}</div></th>
+        <td class="wide">
+            <select name="use_vote">
+                <option value="N" <!--@if($module_info->use_vote=='N')-->selected="selected"<!--@end-->>{$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_vote=='Y')-->selected="selected"<!--@end-->>{$lang->cmd_vote.':'.$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_vote=='R')-->selected="selected"<!--@end-->>{$lang->cmd_vote.':'.$lang->use_require}</option>
+                <option value="S" <!--@if($module_info->use_vote=='S')-->selected="selected"<!--@end-->>{$lang->star_point.':'.$lang->use_yes}</option>
+                <option value="Z" <!--@if($module_info->use_vote=='Z')-->selected="selected"<!--@end-->>{$lang->star_point.':'.$lang->use_require}</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;<span class="button"><input type="button" value="{$lang->cmd_recount_voted}" onclick="doRecountVoted('{$module_info->module_srl}','{$module_info->use_vote}'); return false;" /></span>
+            <div class="useValue">
+            <p><label>{$lang->cmd_vote} : <!--@if($logged_info->is_admin!='Y')-->{$point_config['voted']} point<input type="hidden" name="point_voted" value="{$point_config['voted']}" /><!--@else--><input name="point_voted" value="{$point_config['voted']}" class="inputTypeText w80" type="text"><!--@end--></label>
+            &nbsp;&nbsp;<label>{$lang->cmd_vote_down} : <!--@if($logged_info->is_admin!='Y')-->{$point_config['blamed']} point<input type="hidden" name="point_blamed" value="{$point_config['blamed']}" /><!--@else--><input name="point_blamed" value="{$point_config['blamed']}" class="inputTypeText w80" type="text"><!--@end--></label></p>
+            <p><label><input type="checkbox" name="use_vote_bonus" value="Y" <!--@if($module_info->use_vote_bonus=='Y')-->checked="checked"<!--@end--> />{$lang->use_vote_bonus}</label>
+            <br /><label><input type="checkbox" name="use_vote_empty" value="Y" <!--@if($module_info->use_vote_empty=='Y')-->checked="checked"<!--@end--> />{$lang->use_vote_empty}</label>
+            <br /><label><input type="checkbox" name="use_vote_not_checkip" value="Y" <!--@if($module_info->use_vote_not_checkip=='Y')-->checked="checked"<!--@end--> />{$lang->use_vote_not_checkip}</label></p>
+            </div>
+            <p>{$lang->about_use_vote}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_doc_state}</div></th>
+        <td class="wide">
+            <select name="use_doc_state">
+                <option value="Y" <!--@if($module_info->use_doc_state == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_doc_state != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <div class="useValue">
+            <p><input type="text" name="use_doc_state_value" value="{htmlspecialchars($module_info->use_doc_state_value?$module_info->use_doc_state_value:$lang->use_doc_state_default_value)}"  class="inputTypeText w400" /></p>
+            <p>{$lang->about_use_doc_state_value}</p>
+            </div>
+            <p>{$lang->about_use_doc_state}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_anonymous}</div></th>
+        <td class="wide">
+            <select name="use_anonymous">
+                <option value="N" <!--@if($module_info->use_anonymous=='N')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_anonymous=='Y')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_anonymous=='R')-->selected="selected"<!--@end-->>{$lang->document.':'.$lang->use_require}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <select name="use_anonymous_comment">
+                <option value="N" <!--@if($module_info->use_anonymous_comment=='N')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_none}</option>
+                <option value="Y" <!--@if($module_info->use_anonymous_comment=='Y')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_yes}</option>
+                <option value="R" <!--@if($module_info->use_anonymous_comment=='R')-->selected="selected"<!--@end-->>{$lang->comment.':'.$lang->use_require}</option>
+            </select>
+            <div class="useValue">
+            <p>{$lang->anonymous_phase}: <label><input type="radio" <!--@if($module_info->use_anonymous_phase=='1')-->checked="checked"<!--@end--> name="use_anonymous_phase" value="1" />1&nbsp;</label>
+            <label><input type="radio" <!--@if(!$module_info->use_anonymous_phase || $module_info->use_anonymous_phase=='2')-->checked="checked"<!--@end--> name="use_anonymous_phase" value="2" />2&nbsp;</label>
+            <label><input type="radio" <!--@if($module_info->use_anonymous_phase=='3')-->checked="checked"<!--@end--> name="use_anonymous_phase" value="3" />3&nbsp;</label></p>
+            <p>{$lang->about_use_anonymous_phase}</p>
+            </div>
+            <p>{$lang->about_use_anonymous}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->consultation}</div></th>
+        <td class="wide">
+            <select name="consultation">
+                <option value="Y" <!--@if($module_info->consultation == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->consultation != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_consultation}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_ex_search}</div></th>
+        <td class="wide">
+            <select name="use_ex_search">
+                <option value="Y" <!--@if($module_info->use_ex_search == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_ex_search != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_use_ex_search}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->notify}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->notify_message_type}</div></th>
+        <td class="wide">
+            <select name="notify_message_type">
+                <option value="Y" <!--@if($module_info->notify_message_type=='Y')-->selected="selected"<!--@end-->>{$lang->send_notify}</option>
+                <option value="M" <!--@if($module_info->notify_message_type=='M')-->selected="selected"<!--@end-->>{$lang->send_mail}</option>
+                <option value="A" <!--@if($module_info->notify_message_type=='A')-->selected="selected"<!--@end-->>{$lang->send_notify} + {$lang->send_mail}</option>
+            </select>
+            <p>{$lang->about_notify_message_type}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->admin_mail}</div></th>
+        <td class="wide">
+            <label>{$lang->recent.' '.$lang->document}: <input type="text" name="admin_mail" value="{$module_info->admin_mail}"  class="inputTypeText w400" /></label>
+            <br />
+            <label>{$lang->recent.' '.$lang->comment}: <input type="text" name="admin_mail_reply" value="{$module_info->admin_mail_reply}"  class="inputTypeText w400" /></label>
+            <p>{$lang->about_admin_mail}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->auto_reply}</div></th>
+        <td class="wide">
+            <textarea name="auto_reply_text" class="inputTypeTextArea fullWidth">{htmlspecialchars($module_info->auto_reply_text)}</textarea>
+            <p>{$lang->about_auto_reply}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->mobile}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->use_mobile}</div></th>
+        <td class="wide">
+            <select name="use_mobile">
+                <option value="Y" <!--@if($module_info->use_mobile == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_mobile != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            {$lang->use_mobile_express}: <select name="use_mobile_express">
+                <option value="Y" <!--@if($module_info->use_mobile_express == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_mobile_express != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_use_mobile}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->mobile_layout}</div></th>
+        <td class="wide">
+            <select name="mlayout_srl">
+            <option value="0">{$lang->notuse}</option>
+            <!--@foreach($mlayout_list as $key => $val)-->
+            <option value="{$val->layout_srl}" <!--@if($module_info->mlayout_srl==$val->layout_srl)-->selected="selected"<!--@end-->>{$val->title} ({$val->layout})</option>
+            <!--@end-->
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->mobile_skin}</div></th>
+        <td class="wide">
+            <select name="mskin">
+                <!--@foreach($mskin_list as $key=>$val)-->
+                <option value="{$key}" <!--@if($module_info->mskin==$key ||(!$module_info->mskin && $key=='default'))-->selected="selected"<!--@end-->>{$val->title}</option>
+                <!--@end-->
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->use_mobile_doc_navigation}</div></th>
+        <td class="wide">
+            <select name="use_mobile_dnav">
+                <option value="Y" <!--@if($module_info->use_mobile_dnav == 'Y')-->selected="selected"<!--@end-->>{$lang->use}</option>
+                <option value="N" <!--@if($module_info->use_mobile_dnav != 'Y')-->selected="selected"<!--@end-->>{$lang->notuse}</option>
+            </select>
+            <p>{$lang->about_use_mobile_doc_navigation}</p>
+        </td>
+    </tr>
+    </table>
+
+    <h4 class="xeAdmin">{$lang->etcetera}</h4>
+    <table cellspacing="0" class="rowTable">
+    <tr>
+        <th scope="row"><div>{$lang->description}</div></th>
+        <td class="wide">
+            <textarea name="description" class="inputTypeTextArea fullWidth">{htmlspecialchars($module_info->description)}</textarea>
+            <p>{$lang->about_description}</p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->header_text}</div></th>
+        <td class="wide">
+            <textarea name="header_text" class="inputTypeTextArea fullWidth" id="header_text">{htmlspecialchars($module_info->header_text)}</textarea>
+            <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','header_text')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><div>{$lang->footer_text}</div></th>
+        <td class="wide">
+            <textarea name="footer_text" class="inputTypeTextArea fullWidth" id="footer_text">{htmlspecialchars($module_info->footer_text)}</textarea>
+            <a href="{getUrl('','module','module','act','dispModuleAdminLangcode','target','footer_text')}" onclick="popopen(this.href);return false;" class="buttonSet buttonSetting"><span>{$lang->cmd_find_langcode}</span></a>
+            <p>{$lang->about_module_text}</p>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2" class="button">
+            <span class="button black strong"><input type="submit" value="{$lang->cmd_registration}" accesskey="s" /></span>
+            <span class="button"><input type="button" value="{$lang->cmd_back}" onclick="history.back(); return false;" /></span>
+        </th>
+    </tr>
+    </table>
+
+</form>
+
+<!--#include("./footer.html")-->

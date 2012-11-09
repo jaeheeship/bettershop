@@ -1,0 +1,16 @@
+<filter name="insert_filelink" module="bodex" act="procBoardInsertFileLink">
+  <form>
+    <node target="filelink_url" minlength="5" required="true" />
+  </form>
+  <parameter>
+    <param name="mid" target="mid" />
+    <param name="document_srl" target="document_srl" />
+    <param name="filelink_url" target="filelink_url" />
+    <param name="editor_sequence_srl" target="editor_sequence_srl" />
+  </parameter>
+  <response callback_func="completeInsertFileLink">
+    <tag name="error" />
+    <tag name="message" />
+    <tag name="editor_sequence_srl" />
+  </response>
+</filter>
