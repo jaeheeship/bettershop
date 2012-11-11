@@ -96,6 +96,10 @@ Common.ListPanel = function(config){
         $el.appendTo($('#'+target_id)) ; 
         $body = $el.find('#_items_area') ; 
 
+        $('<div><a class="btn btn-block"> 더보기</a> </div>').appendTo($('#'+target_id)).click(function(){
+            req.next( ) ;   
+        }); 
+
 
         req.xhrCall( ) ;
     }; 

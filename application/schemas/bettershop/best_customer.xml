@@ -1,0 +1,9 @@
+<table name="bs_best_customer" > 
+    <column name="id" type="int" size="11" auto_increment="true" primary_key="true" />
+    <column name="member_srl" type="int" size="11" />
+    <column name="user_name" type="varchar" size="64" />
+    <column name="user_id" type="varchar" size="64" />
+    <column name="total_point" type="int" size="11" />
+    <column name="shop_code" type="int" size="11" />
+    <column name="regdate" type="int" size="11" />
+</table>

@@ -1,0 +1,11 @@
+<table name="bs_point_log" > 
+    <column name="time" type="datetime" primary_key="true" />
+    <column name="type" type="varchar" size="32"  />
+    <column name="point" type="int" size="32"  />
+    <column name="member_srl" type="int" size="11"  />
+    <column name="shop_code" type="int" size="11"  />
+    <column name="sales_time" type="datetime"  />
+    <column name="total_num" type="int" size="11"  />
+    <column name="coupon_srl" type="int" size="11"  />
+    <column name="user_name" type="varchar" size="80"  />
+</table>

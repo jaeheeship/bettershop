@@ -23,9 +23,9 @@
                 <a class="brand" >좋은 가게</a>
                 <ul class="nav"> 
                     <li <?php if($this->uri->segment(2)=='statistics'):?> class="active" <?php endif;?>> 
-                        <a href="<?=base_url()?>shopmgr/statistics">가계 통계</a>
+                        <a href="<?=base_url()?>shopmgr/statistics/info">가계 통계</a>
                     </li>
-                    <li class="dropdown"  <?php if($this->uri->segment(2)=='customer'):?> class="active" <?php endif;?>> 
+                    <li class="dropdown <?php if($this->uri->segment(2)=='customer'):?> active <?php endif;?>"> 
                         <a href="<?=base_url()?>shopmgr/customer/purchaseHistory" class="dropdown-toggle" data-toggle="dropdown">고객분석 
                             <b class="caret"></b> 
                         </a>
@@ -34,7 +34,7 @@
                             <li><a href="<?=base_url()?>shopmgr/customer/comment" >고객반응 알림</a> </li> 
                         </ul>
                     </li> 
-                    <li class="dropdown" <?php if($this->uri->segment(2)=='coupon'):?> class="active" <?php endif;?>> 
+                    <li class="dropdown <?php if($this->uri->segment(2)=='coupon'):?> active <?php endif;?>" > 
                         <a href="<?=base_url()?>shopmgr/coupon/couponHistory" class="dropdown-toggle"  data-toggle="dropdown">
                             쿠폰관리
                             <b class="caret"></b> 
@@ -44,7 +44,7 @@
                             <li><a href="<?=base_url()?>shopmgr/coupon/eventCouponHistory" >이벤트 알림</a> </li> 
                         </ul>
                     </li> 
-                    <li class="dropdown" <?php if($this->uri->segment(2)=='template'):?> class="active" <?php endif;?>> 
+                    <li class="dropdown <?php if($this->uri->segment(2)=='shop'):?> active <?php endif;?>"> 
                         <a href="<?=base_url()?>admin/template/showlist" class="dropdown-toggle"  data-toggle="dropdown">가게정보
                         
                             <b class="caret"></b> 
@@ -57,6 +57,10 @@
                     <li <?php if($this->uri->segment(2)=='filebox'):?> class="active" <?php endif;?>> 
                         <a href="<?=base_url()?>admin/filebox/uploadForm">점주 게시판</a>
                     </li> 
+                    <li>
+                        <a href="<?=base_url()?>shopmgr/bsmember/logoff"><i
+										class="icon-off"></i> Logout</a>
+                    </li>
                 </ul> 
             </div>
         </div>

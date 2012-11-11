@@ -47,8 +47,10 @@ class Customer extends CI_Controller {
                 $obj = new stdClass ; 
                 $obj->content = $row->getContent(false) ; 
                 $obj->username = $row->getUserName() ; 
-                $obj->thumbnail = $row->getThumbnail() ; 
+                $obj->profile = $row->get('homepage_link') ; 
+                $obj->thumbnail = $row->getThumbnail2(80,80) ; 
                 $items[] = $obj ; 
+
             }
         }
 

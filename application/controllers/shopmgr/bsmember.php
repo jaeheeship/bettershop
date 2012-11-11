@@ -61,7 +61,11 @@ class Bsmember extends CI_Controller {
 	{
 		$this->tank_auth->logout();
 
-		$this->_show_message($this->lang->line('auth_message_logged_out'));
+        $this->load->library('session') ; 
+        $this->session->sess_destroy() ; 
+        redirect('') ;
+
+		//$this->_show_message($this->lang->line('auth_message_logged_out'));
 	}
 
     public function login(){
@@ -74,34 +78,30 @@ class Bsmember extends CI_Controller {
     }
 
     public function do_login(){ 
-        /*if ($this->tank_auth->is_logged_in()) { // logged in
-			redirect(''); 
-		} elseif ($this->tank_auth->is_logged_in(FALSE)) { // logged in, not activated
-            $this->load->view('admin/member/activation') ; 
-		} */
-
-        if(!$this->_validation_check('login')){
-            redirect('shopmgr/bsmember/join') ; 
-        } 
-
         $login_id = $this->security->xss_clean($this->input->post('login_id'));
 
         $is_success = $this->_do_login($login_id) ;
 
         if($is_success){ 
-            //$oMemberController = $getController('member') ; 
-            //$output = $oMemberController->doLogin($login_id,$this->input->post('password')) ; 
-            redirect('shopmgr/bsmember/welcome') ; 
-        }else{// success 
+            $obj = new stdClass ; 
+            $obj->redirect = base_url().'shopmgr/bsmember/welcome' ; 
+            $response = array() ; 
+            $response['redirect'] = base_url().'shopmgr/bsmember/welcome' ; 
+            $response['success'] = true ; 
+            echo json_encode($response) ;  
+        }else{// not success 
             $errors = $this->tank_auth->get_error_message();
 			if (isset($errors['banned'])) {	// banned user
                 $this->_show_message($this->lang->line('auth_message_banned').' '.$errors['banned']);
 			} elseif (isset($errors['not_activated'])) {// not activated user
-			    redirect('/auth/send_again/');
 		    } else {// fail
 			    foreach ($errors as $k => $v)	$data['errors'][$k] = $this->lang->line($v);
 		    } 
-            redirect('admin/member/login') ; 
+
+            $response = array() ; 
+            $response['redirect'] = base_url().'shopmgr/bsmember/welcome' ; 
+            $response['success'] = false ; 
+            echo json_encode($response) ; 
         }
     }
 
@@ -347,7 +347,7 @@ class Bsmember extends CI_Controller {
         $login_by_username = ($this->config->item('login_by_username', 'tank_auth') AND $this->config->item('use_username', 'tank_auth')); 
         $login_by_email = $this->config->item('login_by_email', 'tank_auth');; 
 
-        $is_success = $this->bsxe->login($this->form_validation->set_value('login_id'),$this->form_validation->set_value('password'),FALSE ) ; 
+        $is_success = $this->bsxe->login($this->input->post('login_id'),$this->input->post('password'),FALSE ) ; 
 
         return $is_success ; 
     }

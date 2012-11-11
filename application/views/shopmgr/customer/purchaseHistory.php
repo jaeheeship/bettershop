@@ -1,3 +1,11 @@
+<div class="span12">
+    <ul class="breadcrumb">
+        <li><a href="#">Home</a> <span class="divider"> /</span> </li>
+        <li>고객분석<span class="divider"> /</span> </li>
+        <li class="active">구매기록</li>
+    </ul>
+</div>
+
 <div class="span8">
     <div id="purchaseHistory" >
 

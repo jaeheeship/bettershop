@@ -60,15 +60,13 @@ Common.Util.checkValidation = function($obj,filter){
     var filters = filter.split('|') ; 
     var length = filters.length ; 
 
-    console.log(value) ; 
-
     for(var i = 0 ; i < length ; i++){
         var str = filters[i] ; 
         if(str == 'email'){
             if(! Common.Util.is_email(value)){ 
                 $obj.parents('.control-group').addClass('error') ; 
-                $obj.val('올바른 email이 아닙니다.') ; 
 
+                $obj.val($obj.attr('alert')) ; 
                 return false ; 
             }
         }
@@ -76,8 +74,8 @@ Common.Util.checkValidation = function($obj,filter){
         if(str == 'alpha'){
             if(! Common.Util.is_alpha(value)){ 
                 $obj.parents('.control-group').addClass('error') ; 
-                $obj.val('올바른 값이 아닙니다.') ; 
 
+                $obj.val($obj.attr('alert')) ; 
                 return false ; 
             } 
         }
@@ -85,8 +83,8 @@ Common.Util.checkValidation = function($obj,filter){
         if(str == 'required'){
             if(! Common.Util.is_required(value)){ 
                 $obj.parents('.control-group').addClass('error') ; 
-                $obj.val('값을 채워주세요..') ; 
 
+                $obj.val($obj.attr('alert')) ; 
                 return false ; 
             }
         }

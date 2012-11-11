@@ -18,13 +18,18 @@
     <div class="content_wrapper">
     <div class="pull-right right_box">
         <div class="login_div inner_box" id="login_box">
-            <form method="post" class="form-horizontal" method="post" action="<?=base_url()?>shopmgr/bsmember/do_login">
+            <form id="login_form"  method="post" class="form-horizontal" method="post" action="<?=base_url()?>shopmgr/bsmember/do_login">
                 <div class="control-group"> 
-                        <input type="text" name="login_id" class="input-xlarge" placeholder="이메일 주소" /><span> </span>
+                        <input type="text" name="login_id" class="span4"  placeholder="이메일 주소"  filter="required|email" alert="email을 입력하세요" /><span> </span>
                 </div> 
                 <div class="control-group"> 
-                        <input type="password" placeholder="비밀번호"  class="input-xlarge" name="password"/>
+                        <input type="password" placeholder="비밀번호"  class="span4" name="password" filter="required" alert="" />
                 </div> 
+                <div id="login_alert" style="display:none;" >
+                    <div class="alert alert-danger input-xlarge">
+                    회원가입 되어 있지 않거나,<br/> <strong>비밀번호</strong>가 다릅니다.
+                    </div>
+                </div>
                 <div>
                     <!--<label><input type="checkbox"/>&nbsp;로그인 유지</label>-->&nbsp;<button type="submit" class="pull-right btn btn-primary"> 로그인 </button>
                 </div>
@@ -37,17 +42,17 @@
             <h6> '좋은가게'에 처음이세요 ? </h6>
             <form class="form-horizontal" method="post" action="join" id="join_form"> 
                 <div class="control-group"> 
-                        <input type="text" name="email" class="input-xlarge" placeholder="이메일 주소" filter="required|email" /><span></span>
+                        <input type="text" name="email" class="input-xlarge" placeholder="이메일 주소" filter="required|email" alert="email을 입력하세요." /><span></span>
                 </div> 
                 <div class="control-group"> 
-                        <input type="password" placeholder="비밀번호"  class="input-xlarge" name="password"/>
+                        <input type="password" placeholder="비밀번호"  class="input-xlarge" name="password" filter="required" alert=""/>
                 </div> 
                 <div class="control-group"> 
                         <input type="password" placeholder="비밀번호 확인" class="input-xlarge"  name="confirm_password" />
                 </div> 
                 <br/>
                 <div class="control-group"> 
-                        <input type="text" placeholder="본인 이름(실명)" name="username" class="input-xlarge" filter="required"  />
+                        <input type="text" placeholder="본인 이름(실명)" name="username" class="input-xlarge" filter="required"  alert="이름을 입력하세요." />
                 </div> 
                 <div class="control-group"> 
                         <input type="text" placeholder="xxx" name="phone1" class="input-small" filter="required|number" />
@@ -101,11 +106,7 @@
     </div>
 
 <script> 
-$(function(){
-    $('#join_form input').on('focus',function(){ 
-        $('#login_box').fadeOut(100); 
-    }); 
-
+$(function(){ 
     $('#join_form').submit(function(){ 
         var validation_check=true ; 
         $('#join_form input').each(function(i,obj){ 
@@ -124,6 +125,45 @@ $(function(){
         } 
 
         return true ; 
+    }); 
+
+    $('#login_form').submit(function(){
+        var validation_check=true ; 
+        $('#login_form input').each(function(i,obj){ 
+            $obj = $(obj) ; 
+            var filter = $obj.attr('filter') ; 
+
+            filter = filter||'' ; 
+
+            if(!Common.Util.checkValidation($obj,filter)){ 
+                validation_check = false ; 
+            } 
+        }); 
+
+        if(!validation_check){
+            return false ; 
+        } 
+
+        var url = $('#login_form').attr('action') ; 
+        var $login_form = $('#login_form') ; 
+        $.ajax({
+            url : url , 
+            type: 'post', 
+            dataType : 'json' , 
+            data : { 
+                login_id : $login_form.find('[name=login_id]').val(), 
+                password : $login_form.find('[name=password]').val() 
+            }, 
+            success:function(response){
+                if(response.success==true){
+                    location.href= response.redirect ; 
+                }else{
+                    alert("비밀번호를 확인하세요.") ;
+                }
+            }
+        }); 
+
+        return false  ;
     }); 
 
     $('#shop_join_form').submit(function(){

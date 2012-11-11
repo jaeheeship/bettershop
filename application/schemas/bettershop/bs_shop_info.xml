@@ -3,4 +3,6 @@
     <column name="document_srl" type="int" size="11"  />
     <column name="shop_name" type="varchar" size="64"  />
     <column name="user_id" type="int" size="11"  />
+    <column name="qna_srl" type="int" size="11"  />
+    <column name="notice_srl" type="int" size="11"  />
 </table>
