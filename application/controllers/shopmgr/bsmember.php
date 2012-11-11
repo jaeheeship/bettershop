@@ -79,8 +79,9 @@ class Bsmember extends CI_Controller {
 
     public function do_login(){ 
         $login_id = $this->security->xss_clean($this->input->post('login_id'));
+        $password = $this->input->post('password');
 
-        $is_success = $this->_do_login($login_id) ;
+        $is_success = $this->_do_login($login_id,$password) ;
 
         if($is_success){ 
             $obj = new stdClass ; 
@@ -197,7 +198,22 @@ class Bsmember extends CI_Controller {
             $oMemberController = &getController('member') ; 
             $oMemberController->insertMember($args) ; 
 
-            redirect('shopmgr/bsmember/welcome') ; 
+            $login_id = $this->security->xss_clean($this->input->post('email'));
+            $password = $this->input->post('password');
+            
+            $is_success = $this->_do_login($login_id,$password) ;
+            
+            if($is_success)
+            	redirect('shopmgr/bsmember/welcome') ; 
+
+//             if($is_success){
+//             	$obj = new stdClass ;
+//             	$obj->redirect = base_url().'shopmgr/bsmember/welcome' ;
+//             	$response = array() ;
+//             	$response['redirect'] = base_url().'shopmgr/bsmember/welcome' ;
+//             	$response['success'] = true ;
+//             	echo json_encode($response) ;
+            
         }
 
         if (is_null($data)) { 
@@ -251,8 +267,7 @@ class Bsmember extends CI_Controller {
 
         $oDocumentController = &getController('document') ; 
 
-        $output = $oDocumentController->insertDocument($obj,false ) ; 
-
+        $output = $oDocumentController->insertDocument($obj) ; 
         $document_srl = $output->variables['document_srl'] ; 
 
         $oDocumentModel = &getModel('document') ; 
@@ -272,6 +287,8 @@ class Bsmember extends CI_Controller {
         $args->user_id = $logged_info['bs_user_id'] ; 
 
         $this->shop_model->insertShop($args) ; 
+        
+        redirect('shopmgr/statistics/info') ;
 
     }
 
@@ -343,11 +360,11 @@ class Bsmember extends CI_Controller {
 		return TRUE;
 	}
 
-    function _do_login(){
+    function _do_login($userid, $userpw){
         $login_by_username = ($this->config->item('login_by_username', 'tank_auth') AND $this->config->item('use_username', 'tank_auth')); 
         $login_by_email = $this->config->item('login_by_email', 'tank_auth');; 
 
-        $is_success = $this->bsxe->login($this->input->post('login_id'),$this->input->post('password'),FALSE ) ; 
+        $is_success = $this->bsxe->login($userid,$userpw,FALSE ) ; 
 
         return $is_success ; 
     }

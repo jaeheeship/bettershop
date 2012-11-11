@@ -58,7 +58,7 @@
                         <a href="<?=base_url()?>admin/filebox/uploadForm">점주 게시판</a>
                     </li> 
                     <li>
-                        <a href="<?=base_url()?>shopmgr/bsmember/logoff"><i
+                        <a href="<?=base_url()?>shopmgr/bsmember/logout"><i
 										class="icon-off"></i> Logout</a>
                     </li>
                 </ul> 
